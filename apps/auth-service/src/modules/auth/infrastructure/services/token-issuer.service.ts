@@ -61,7 +61,10 @@ export class TokenIssuerService {
       subject: String(userId),
       expiresIn: this.refreshTokenExpires,
     };
-    const token = await this.jwtService.signAsync({ rid: roleId, rty: roleType, lng: language, tv: tokenVersion }, opts);
+    const token = await this.jwtService.signAsync(
+      { rid: roleId, rty: roleType, lng: language, tv: tokenVersion },
+      opts,
+    );
     const expiresAt = new Date(Date.now() + ms(this.refreshTokenExpires ?? '7days'));
 
     return { token, expiresAt };

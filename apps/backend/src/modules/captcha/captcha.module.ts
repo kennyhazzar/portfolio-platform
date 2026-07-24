@@ -18,6 +18,7 @@ import { RedisCaptchaPool } from './infrastructure/redis/redis-captcha-pool';
 import { S3CaptchaAssetStorage } from './infrastructure/storage/s3-captcha-asset-storage';
 import { SvgTextCaptchaGenerator } from './infrastructure/generators/svg-text-captcha.generator';
 import { CaptchaGenerationProcessor } from './infrastructure/processors/captcha-generation.processor';
+import { CaptchaPoolReplenishmentService } from './infrastructure/services/captcha-pool-replenishment.service';
 import { CaptchaController } from './presentation/controllers/captcha.controller';
 import { AdminCaptchaController } from './presentation/controllers/admin-captcha.controller';
 
@@ -29,6 +30,7 @@ import { AdminCaptchaController } from './presentation/controllers/admin-captcha
     ...CaptchaQueryHandlers,
     CaptchaAnswerNormalizer,
     CaptchaGenerationProcessor,
+    CaptchaPoolReplenishmentService,
     { provide: CaptchaRepository, useClass: CaptchaRepositoryDrizzle },
     { provide: CaptchaHashingPort, useClass: HmacCaptchaHashingService },
     { provide: CaptchaPoolPort, useClass: RedisCaptchaPool },

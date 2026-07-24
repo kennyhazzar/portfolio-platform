@@ -10,3 +10,7 @@ export * from './file-type.enum';
 export * from './file-from.enum';
 export * from './notification-type.enum';
 export * from './password-hash-type.enum';
+export * from './technology-category.enum';
+export * from './content-status.enum';
+export * from './contact-platform.enum';
+export * from './comment-status.enum';

@@ -19,6 +19,7 @@ import { SystemSettingUpdateCommand } from '../../application/commands/admin.com
 import { AccessLogsQuery, DashboardQuery, SystemSettingsQuery } from '../../application/queries/admin.queries';
 import {
   AccessLogDto,
+  AccessLogsDto,
   AccessLogsQuery as AccessLogsQueryDto,
   DashboardDto,
   SystemSettingDto,
@@ -47,14 +48,7 @@ export class AdminController {
   @Get('access-logs')
   @Policy(Actions.READ, Subjects.ADMIN_ACCESS_LOG)
   @ApiOperation({ summary: 'Get paginated access audit log' })
-  @ApiOkResponse({
-    schema: {
-      properties: {
-        data: { type: 'array', items: { $ref: '#/components/schemas/AccessLogDto' } },
-        meta: { $ref: '#/components/schemas/PaginatedMetaDto' },
-      },
-    },
-  })
+  @ApiOkResponse({ type: AccessLogsDto })
   @ApiForbiddenResponse({ description: 'Admin access required.' })
   accessLogs(@Query() filter: AccessLogsQueryDto): Promise<PaginatedResult<AccessLogDto>> {
     return this.queryBus.execute(new AccessLogsQuery(filter));

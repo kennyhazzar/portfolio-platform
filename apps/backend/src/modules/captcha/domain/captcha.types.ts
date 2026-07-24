@@ -1,3 +1,6 @@
+/** Template used when a challenge request doesn't specify one (e.g. the public comment form). */
+export const DEFAULT_CAPTCHA_TEMPLATE_CODE = 'svg-text-ru-v1';
+
 export enum CaptchaDifficulty {
   EASY = 'easy',
   MEDIUM = 'medium',
@@ -29,6 +32,7 @@ export enum CaptchaChallengeContext {
   REGISTER = 'register',
   PASSWORD_RESET = 'password_reset',
   API_SENSITIVE_ACTION = 'api_sensitive_action',
+  COMMENT_SUBMIT = 'comment_submit',
 }
 
 export enum CaptchaChallengeStatus {

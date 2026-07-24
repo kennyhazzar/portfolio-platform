@@ -2,6 +2,7 @@ import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
 import { IsInt, IsOptional, IsString, Max, Min } from 'class-validator';
 
+import { Paginated } from '@/common/Paginated';
 import { IdType } from '@/interfaces/id.type';
 
 export class DashboardDto {
@@ -54,6 +55,8 @@ export class AccessLogDto {
   @ApiProperty({ description: 'When the access event was recorded' })
   createdAt!: Date;
 }
+
+export class AccessLogsDto extends Paginated(AccessLogDto) {}
 
 export class AccessLogsQuery {
   @ApiPropertyOptional({ description: 'Filter by action name (partial match)', example: 'user.login' })

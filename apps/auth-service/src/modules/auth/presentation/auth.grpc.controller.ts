@@ -60,8 +60,6 @@ export class AuthGrpcController {
 
   @GrpcMethod(AUTH_SERVICE_NAME, 'ChangePassword')
   changePassword(data: ChangePasswordRequest): Promise<ChangePasswordResponse> {
-    return this.commandBus.execute(
-      new ChangePasswordCommand(data.userId, data.currentPassword, data.newPassword),
-    );
+    return this.commandBus.execute(new ChangePasswordCommand(data.userId, data.currentPassword, data.newPassword));
   }
 }

@@ -34,7 +34,12 @@ export class MailProducerService {
     const [template] = await this.db
       .select()
       .from(mailTemplate)
-      .where(and(eq(mailTemplate.name, payload.template as (typeof mailTemplate.name.enumValues)[number]), isNull(mailTemplate.deletedAt)))
+      .where(
+        and(
+          eq(mailTemplate.name, payload.template as (typeof mailTemplate.name.enumValues)[number]),
+          isNull(mailTemplate.deletedAt),
+        ),
+      )
       .limit(1);
 
     if (!template) {

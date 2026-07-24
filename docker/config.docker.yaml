@@ -86,6 +86,11 @@ cors:
   enabled: true
   credentials: true
 
+comments:
+  # Local/dev convenience: skip moderation and land comments as APPROVED immediately.
+  # Never enable this in production — it removes the moderation gate entirely.
+  autoApprove: ${COMMENTS_AUTO_APPROVE:-false}
+
 mailer:
   host: mailpit
   port: 1025

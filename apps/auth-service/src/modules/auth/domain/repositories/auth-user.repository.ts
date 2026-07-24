@@ -6,10 +6,7 @@ export interface AuthUserFindOptions {
 }
 
 export type AuthUserUpdatePayload = Partial<
-  Pick<
-    AuthUser,
-    'password' | 'failedLoginAttempts' | 'failedLoginWindowStartedAt' | 'lockedUntil' | 'tokenVersion'
-  >
+  Pick<AuthUser, 'password' | 'failedLoginAttempts' | 'failedLoginWindowStartedAt' | 'lockedUntil' | 'tokenVersion'>
 >;
 
 export abstract class AuthUserRepository {

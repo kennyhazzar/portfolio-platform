@@ -18,6 +18,15 @@ import { HealthModule } from './modules/health/health.module';
 import { MailModule } from './modules/mail/mail.module';
 import { AdminModule } from './modules/admin/admin.module';
 import { CaptchaModule } from './modules/captcha/captcha.module';
+import { HeroModule } from './modules/hero/hero.module';
+import { AboutModule } from './modules/about/about.module';
+import { SiteSettingModule } from './modules/site-setting/site-setting.module';
+import { TechnologyModule } from './modules/technology/technology.module';
+import { NavigationModule } from './modules/navigation/navigation.module';
+import { CaseModule } from './modules/case/case.module';
+import { PostModule } from './modules/post/post.module';
+import { ContactModule } from './modules/contact/contact.module';
+import { CommentModule } from './modules/comment/comment.module';
 import { I18nModule } from './i18n';
 import { loadConfiguration } from './config/configuration';
 import { CsrfGuard } from './guards/csrf.guard';
@@ -58,6 +67,24 @@ import { CsrfGuard } from './guards/csrf.guard';
     AdminModule,
 
     CaptchaModule,
+
+    HeroModule,
+
+    AboutModule,
+
+    SiteSettingModule,
+
+    TechnologyModule,
+
+    NavigationModule,
+
+    CaseModule,
+
+    PostModule,
+
+    ContactModule,
+
+    CommentModule,
   ],
   providers: [
     {

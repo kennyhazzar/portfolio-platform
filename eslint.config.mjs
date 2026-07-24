@@ -6,7 +6,10 @@ import tseslint from 'typescript-eslint';
 
 export default tseslint.config(
   {
-    ignores: ['eslint.config.mjs'],
+    // apps/frontend is a separate Next.js/React workspace package with its own
+    // eslint.config.mjs (eslint-config-next) and its own `lint` script — this
+    // Nest-flavored config (commonjs sourceType, no React/JSX rules) never applies to it.
+    ignores: ['eslint.config.mjs', 'apps/frontend/**'],
   },
   eslint.configs.recommended,
   ...tseslint.configs.recommendedTypeChecked,

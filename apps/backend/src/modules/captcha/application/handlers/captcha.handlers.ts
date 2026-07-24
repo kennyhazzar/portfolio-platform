@@ -15,6 +15,7 @@ import {
   CaptchaConfigStatus,
   CaptchaDifficulty,
   CaptchaTemplateStatus,
+  DEFAULT_CAPTCHA_TEMPLATE_CODE,
 } from '../../domain/captcha.types';
 import { CaptchaAnswerNormalizer } from '../../domain/services/captcha-answer-normalizer.service';
 import { CaptchaRepository } from '../../domain/repositories/captcha.repository';
@@ -40,8 +41,6 @@ import {
   GetCaptchaPoolsQuery,
   GetCaptchaTemplatesQuery,
 } from '../queries/captcha.queries';
-
-const DEFAULT_TEMPLATE_CODE = 'svg-text-ru-v1';
 
 @CommandHandler(CreateCaptchaTemplateCommand)
 export class CreateCaptchaTemplateHandler implements ICommandHandler<CreateCaptchaTemplateCommand> {
@@ -141,7 +140,7 @@ export class CreateCaptchaChallengeHandler implements ICommandHandler<CreateCapt
   ) {}
 
   async execute({ input }: CreateCaptchaChallengeCommand) {
-    const templateCode = input.templateCode ?? DEFAULT_TEMPLATE_CODE;
+    const templateCode = input.templateCode ?? DEFAULT_CAPTCHA_TEMPLATE_CODE;
     const template = await this.repo.findTemplateByCode(templateCode);
     if (!template || template.status !== CaptchaTemplateStatus.ACTIVE) {
       throw new NotFoundException('captcha.template.notFound');

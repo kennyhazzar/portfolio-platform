@@ -6,5 +6,9 @@
 coverage
 dist
 node_modules
+**/node_modules
+**/.next
 *.log
 config.yaml
+.env.local
+.env.*.local
