@@ -114,8 +114,9 @@ services:
     # Caps this service's own CPU quota so an Argon2 surge here can't starve sibling
     # containers for host CPU time (relevant on a single shared Docker host/VM; in a real
     # multi-node cluster this is naturally enforced by scheduling auth-service on its own
-    # nodes). Tune to the host's actual core count.
-    cpus: 4.0
+    # nodes). Must be <= the host's actual core count, or Docker refuses to start the
+    # container at all — override via AUTH_SERVICE_CPU_LIMIT in docker/.env per host.
+    cpus: ${AUTH_SERVICE_CPU_LIMIT:-4.0}
     depends_on:
       postgres:
         condition: service_healthy
