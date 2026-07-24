@@ -8,6 +8,12 @@ COPY apps/frontend/package.json ./apps/frontend/package.json
 RUN pnpm install --frozen-lockfile
 
 COPY apps/frontend ./apps/frontend
+
+# NEXT_PUBLIC_* vars are inlined into the build output at build time, not read at container
+# runtime — must be a build arg, not just an environment: entry in docker-compose.yaml.
+ARG NEXT_PUBLIC_SITE_URL
+ENV NEXT_PUBLIC_SITE_URL=$NEXT_PUBLIC_SITE_URL
+
 RUN pnpm --filter @portfolio/frontend build
 
 FROM node:22-alpine AS runtime
