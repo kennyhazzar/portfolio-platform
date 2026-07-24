@@ -1,0 +1,1 @@
+ALTER TABLE "site_setting_translation" ADD COLUMN "brandName" varchar(100);

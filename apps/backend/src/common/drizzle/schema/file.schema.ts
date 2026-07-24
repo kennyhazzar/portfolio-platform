@@ -1,4 +1,15 @@
-import { pgTable, uuid, varchar, integer, text, timestamp, index, uniqueIndex, pgEnum } from 'drizzle-orm/pg-core';
+import {
+  pgTable,
+  uuid,
+  varchar,
+  integer,
+  text,
+  timestamp,
+  boolean,
+  index,
+  uniqueIndex,
+  pgEnum,
+} from 'drizzle-orm/pg-core';
 import { user } from '@libs/database/users.schema';
 
 // Enums
@@ -47,6 +58,10 @@ export const file = pgTable(
     userId: uuid('userId')
       .notNull()
       .references(() => user.id),
+    // Ordering/cover marker for entities that attach more than one file via (module, externalId) —
+    // see docs/planning/02-content-model.md §1.
+    position: integer('position').notNull().default(0),
+    isCover: boolean('isCover').notNull().default(false),
   },
   (table) => [
     uniqueIndex('U_name_module_externalId').on(table.name, table.module, table.externalId),

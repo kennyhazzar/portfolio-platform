@@ -53,7 +53,9 @@ export class LoginUserHandler implements ICommandHandler<UserLoginCommand> {
           this.logger.warn(`User login failed: email=${email} reason=user_blocked`);
           throw new UnauthorizedException('user.auth.blocked');
         case LoginFailureReason.ACCOUNT_LOCKED:
-          this.logger.warn(`User login rejected: email=${email} reason=account_locked lockedUntil=${result.lockedUntil}`);
+          this.logger.warn(
+            `User login rejected: email=${email} reason=account_locked lockedUntil=${result.lockedUntil}`,
+          );
           throw new ForbiddenException({ message: 'user.auth.accountLocked', lockedUntil: result.lockedUntil });
         case LoginFailureReason.INVALID_CREDENTIALS:
           this.logger.warn(`User login failed: email=${email} reason=invalid_credentials`);

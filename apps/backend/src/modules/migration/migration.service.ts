@@ -3,6 +3,10 @@ import { Injectable, Logger } from '@nestjs/common';
 import { PoliciesService } from '@/modules/users/infrastructure/services/policies.service';
 import { UserSeedService } from './user-seed.service';
 import { NotificationTemplateSeedService } from './notification-template-seed.service';
+import { HeroSeedService } from './hero-seed.service';
+import { AboutSeedService } from './about-seed.service';
+import { SiteSettingSeedService } from './site-setting-seed.service';
+import { CaptchaTemplateSeedService } from './captcha-template-seed.service';
 
 @Injectable()
 export class MigrationService {
@@ -11,6 +15,10 @@ export class MigrationService {
   constructor(
     private readonly userSeedService: UserSeedService,
     private readonly notificationTemplateSeedService: NotificationTemplateSeedService,
+    private readonly heroSeedService: HeroSeedService,
+    private readonly aboutSeedService: AboutSeedService,
+    private readonly siteSettingSeedService: SiteSettingSeedService,
+    private readonly captchaTemplateSeedService: CaptchaTemplateSeedService,
     private readonly policiesService: PoliciesService,
   ) {}
 
@@ -23,6 +31,14 @@ export class MigrationService {
 
     // Seed notification templates
     await this.seedNotificationTemplates();
+
+    // Seed singleton content rows
+    await this.heroSeedService.seedIfEmpty();
+    await this.aboutSeedService.seedIfEmpty();
+    await this.siteSettingSeedService.seedIfEmpty();
+
+    // Seed the default captcha template so the public comment form works out of the box
+    await this.captchaTemplateSeedService.seedIfEmpty();
 
     this.logger.log('Migration and seeding completed successfully');
   }

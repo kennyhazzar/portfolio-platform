@@ -1,3 +1,6 @@
+packages:
+  - 'apps/*'
+
 overrides:
   '@elastic/elasticsearch': '>=9.1.1'
   '@fastify/cors': '>=11.1.0'
@@ -17,3 +20,4 @@ allowBuilds:
   msgpackr-extract: true
   protobufjs: true
   unrs-resolver: true
+  sharp: true

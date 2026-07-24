@@ -1,5 +1,5 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import { IsUUID, IsEnum, IsNotEmpty, IsOptional, IsString } from 'class-validator';
+import { IsBoolean, IsUUID, IsEnum, IsInt, IsNotEmpty, IsOptional, IsString } from 'class-validator';
 
 import type { IdType } from '@/interfaces/id.type';
 import { FileFrom } from '@/enums/file-from.enum';
@@ -32,6 +32,15 @@ export class FileDto {
 
   @ApiProperty({ description: 'UUID of the user who owns / uploaded the file', format: 'uuid' })
   userId!: IdType;
+
+  @ApiProperty({ description: 'Semantic type of the file', enum: FileType })
+  type!: FileType;
+
+  @ApiProperty({ description: 'Ordering within its (module, externalId) group — used for gallery ordering' })
+  position!: number;
+
+  @ApiProperty({ description: 'Whether this is the cover/thumbnail file for its (module, externalId) group' })
+  isCover!: boolean;
 
   @ApiPropertyOptional({ description: 'When the file record was created' })
   createdAt?: Date;
@@ -72,7 +81,27 @@ export class UploadFileBody implements IFileExtra {
   @IsEnum(FileType)
   type!: FileType;
 
+  @ApiPropertyOptional({ description: 'Marks this file as the cover/thumbnail for its (module, externalId) group' })
+  @IsBoolean()
+  @IsOptional()
+  isCover?: boolean;
+
+  @ApiPropertyOptional({ description: 'Ordering within its (module, externalId) group' })
+  @IsInt()
+  @IsOptional()
+  position?: number;
+
   file?: any;
+}
+
+export class FilesByExternalIdQuery {
+  @ApiProperty({ description: 'Module/context to look up files for', enum: FileFrom })
+  @IsEnum(FileFrom)
+  module!: FileFrom;
+
+  @ApiProperty({ description: 'UUID of the entity to look up files for', format: 'uuid' })
+  @IsUUID('all')
+  externalId!: IdType;
 }
 
 export class UpdateFileBody implements IFileExtra {

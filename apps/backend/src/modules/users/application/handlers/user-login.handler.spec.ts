@@ -52,7 +52,9 @@ describe('LoginUserHandler', () => {
   });
 
   function login(): Promise<unknown> {
-    return handler.execute(new UserLoginCommand({ email: 'admin@example.com', password: 'WrongPassword123!' }, request, reply));
+    return handler.execute(
+      new UserLoginCommand({ email: 'admin@example.com', password: 'WrongPassword123!' }, request, reply),
+    );
   }
 
   function mockLoginResult(overrides: Partial<LoginResponse>): void {

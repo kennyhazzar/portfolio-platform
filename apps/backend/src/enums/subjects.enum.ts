@@ -12,4 +12,14 @@ export enum Subjects {
   ADMIN_ACCESS_LOG = 'AdminAccessLog',
   ADMIN_SETTINGS = 'AdminSettings',
   CAPTCHA_ADMIN = 'CaptchaAdmin',
+
+  HERO = 'Hero',
+  ABOUT = 'About',
+  SITE_SETTING = 'SiteSetting',
+  CONTACT = 'Contact',
+  TECHNOLOGY = 'Technology',
+  NAVIGATION = 'Navigation',
+  CASE = 'Case',
+  POST = 'Post',
+  COMMENT = 'Comment',
 }

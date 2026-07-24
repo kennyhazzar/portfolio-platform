@@ -1,7 +1,7 @@
 import { FastifyReply } from 'fastify';
 import { BadRequestException, ForbiddenException, Inject, Injectable, Logger } from '@nestjs/common';
 import type { GetObjectCommandOutput } from '@aws-sdk/client-s3';
-import { and, count, desc, eq, isNull } from 'drizzle-orm';
+import { and, asc, count, desc, eq, isNull, sql } from 'drizzle-orm';
 import { NodePgDatabase } from 'drizzle-orm/node-postgres';
 
 import { DRIZZLE_CONNECTION } from '@/common/drizzle/drizzle.provider';
@@ -11,6 +11,7 @@ import type { IdType } from '@/interfaces/id.type';
 import { RoleType } from '@/enums/role-type.enum';
 import { FileFrom } from '@/enums/file-from.enum';
 import { FileType } from '@/enums/file-type.enum';
+import { ReorderItemBody } from '@/common/Reorder';
 import { File, FileVersion } from '../../domain/entities';
 import { FileRepository, Files, FileFindOptions, UpdateAffected } from '../../domain/repositories';
 import { UpdateFileBody, UploadFileBody } from '../../presentation';
@@ -70,6 +71,16 @@ export class FileRepositoryDrizzle extends FileRepository {
       .where(and(...conditions))
       .limit(1);
     return row ? this.toDomain(row.file, row.lastVersion) : null;
+  }
+
+  async findByModuleAndExternalId(module: FileFrom, externalId: IdType): Promise<File[]> {
+    const rows = await this.db
+      .select({ file: fileTable, lastVersion: versionTable })
+      .from(fileTable)
+      .leftJoin(versionTable, eq(fileTable.lastVersionId, versionTable.id))
+      .where(and(eq(fileTable.module, module), eq(fileTable.externalId, externalId), isNull(fileTable.deletedAt)))
+      .orderBy(asc(fileTable.position));
+    return rows.map((row) => this.toDomain(row.file, row.lastVersion));
   }
 
   async findVersion(fileId: IdType): Promise<FileVersion[]> {
@@ -152,11 +163,23 @@ export class FileRepositoryDrizzle extends FileRepository {
             module: upload.module,
             externalId: upload.externalId,
             type: upload.type,
+            position: upload.position ?? 0,
+            isCover: upload.isCover ?? false,
             userId,
           })
           .onConflictDoUpdate({
             target: [fileTable.name, fileTable.module, fileTable.externalId],
-            set: { description: upload.description, type: upload.type, updatedAt: new Date() },
+            set: {
+              description: upload.description,
+              type: upload.type,
+              position: upload.position ?? 0,
+              isCover: upload.isCover ?? false,
+              // Re-uploading to the same (name, module, externalId) slot must resurrect a
+              // previously deleted row — otherwise a delete-then-reupload leaves the file
+              // permanently invisible even though the upload itself reports success.
+              deletedAt: null,
+              updatedAt: new Date(),
+            },
           })
           .returning();
         const uploaded = await this.uploadVersion(userId, saved.id, fullPath, upload);
@@ -232,6 +255,48 @@ export class FileRepositoryDrizzle extends FileRepository {
     return { affected: rows.length };
   }
 
+  async deleteByExternalId(externalId: IdType): Promise<void> {
+    await this.db
+      .update(fileTable)
+      .set({ deletedAt: new Date(), updatedAt: new Date() })
+      .where(and(eq(fileTable.externalId, externalId), isNull(fileTable.deletedAt)));
+  }
+
+  async reorder(items: ReorderItemBody[]): Promise<void> {
+    if (!items.length) return;
+
+    // Single statement instead of N sequential UPDATEs — see case.repository.drizzle.ts's reorder for the same pattern.
+    const rows = sql.join(
+      items.map((item) => sql`(${item.id}::uuid, ${item.position}::int)`),
+      sql`, `,
+    );
+    await this.db.execute(sql`
+      UPDATE ${fileTable} AS t
+      SET position = v.position
+      FROM (VALUES ${rows}) AS v(id, position)
+      WHERE t.id = v.id
+    `);
+  }
+
+  async setCover(id: IdType): Promise<void> {
+    const existing = await this.findById(id);
+    if (!existing) throw new BadRequestException({ message: 'file.notFoundWithId', args: { fileId: id } });
+
+    await this.db.transaction(async (tx) => {
+      await tx
+        .update(fileTable)
+        .set({ isCover: false, updatedAt: new Date() })
+        .where(
+          and(
+            eq(fileTable.module, existing.module),
+            eq(fileTable.externalId, existing.externalId),
+            isNull(fileTable.deletedAt),
+          ),
+        );
+      await tx.update(fileTable).set({ isCover: true, updatedAt: new Date() }).where(eq(fileTable.id, id));
+    });
+  }
+
   private async uploadVersion(userId: IdType, fileId: IdType, fullPath: string, upload: UploadFileBody) {
     const source = await upload.file;
     const result = await this.fileAdapter.upload(userId, source, fullPath, upload);
@@ -263,6 +328,8 @@ export class FileRepositoryDrizzle extends FileRepository {
       module: row.module as FileFrom,
       type: (row.type ?? FileType.OTHER) as FileType,
       description: row.description ?? undefined,
+      position: row.position,
+      isCover: row.isCover,
       lastVersionId: row.lastVersionId ?? undefined,
       lastVersion: version ? this.toVersion(version) : undefined,
     });

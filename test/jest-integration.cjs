@@ -18,4 +18,5 @@ module.exports = {
     '<rootDir>/node_modules/',
     '<rootDir>/dist/',
   ],
+  modulePathIgnorePatterns: ['<rootDir>/apps/frontend/'],
 };

@@ -29,6 +29,10 @@ export const captchaChallengeContextEnum = pgEnum('captcha_challenge_context', [
   'register',
   'password_reset',
   'api_sensitive_action',
+  // Public comment submission — see docs/planning/02-content-model.md §7 (anti-spam) and
+  // docs/planning/03-backend-build-order.md §9. Reuses this existing subsystem rather than
+  // building new spam infrastructure.
+  'comment_submit',
 ]);
 export const captchaChallengeStatusEnum = pgEnum('captcha_challenge_status', [
   'pending',

@@ -1,6 +1,6 @@
 import { createHash } from 'node:crypto';
 import { readFileSync } from 'node:fs';
-import path from 'node:path';
+import * as path from 'node:path';
 import { Client, Pool } from 'pg';
 import { drizzle, NodePgDatabase } from 'drizzle-orm/node-postgres';
 import { sql } from 'drizzle-orm';
@@ -103,6 +103,22 @@ const TRUNCATE_SQL = `
     magic_link_token,
     password_reset_token,
     refresh,
+    hero_translation,
+    hero,
+    about_translation,
+    about,
+    site_setting_translation,
+    site_setting,
+    technology,
+    navigation_item_translation,
+    navigation_item,
+    case_technology,
+    case_translation,
+    "case",
+    post_translation,
+    post,
+    contact,
+    comment,
     "user"
   RESTART IDENTITY CASCADE
 `;

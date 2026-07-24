@@ -1,0 +1,1 @@
+ALTER TYPE "public"."captcha_challenge_context" ADD VALUE 'comment_submit';

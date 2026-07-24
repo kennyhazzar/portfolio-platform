@@ -15,6 +15,10 @@ export class File {
   lastVersionId?: IdType;
   versions?: FileVersion[];
   userId!: IdType;
+  /** Ordering for galleries of more than one file per (module, externalId) — docs/planning/02-content-model.md §1. */
+  position!: number;
+  /** Marks the cover/thumbnail file for its (module, externalId) — docs/planning/02-content-model.md §1. */
+  isCover!: boolean;
   createdAt?: Date;
   updatedAt?: Date;
   deletedAt?: Date | null;

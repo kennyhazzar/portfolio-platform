@@ -1,9 +1,9 @@
 import { Readable } from 'node:stream';
 import { BadRequestException, Controller, Get, Param, Post, Req, Response, UseGuards } from '@nestjs/common';
-import { ApiBody, ApiConsumes, ApiCookieAuth, ApiTags } from '@nestjs/swagger';
+import { ApiBody, ApiConsumes, ApiCookieAuth, ApiOkResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { FastifyReply, FastifyRequest } from 'fastify';
 import { isUUID } from 'class-validator';
-import { CommandBus } from '@nestjs/cqrs';
+import { CommandBus, QueryBus } from '@nestjs/cqrs';
 
 import type { IdType } from '@/interfaces/id.type';
 import { FileFrom, FileType } from '@/enums';
@@ -13,7 +13,9 @@ import { CurrentRoleType } from '@/decorators/current-role-type.decorator';
 import { CurrentUserId } from '@/decorators/current-user-id.decorator';
 import { JwtAuthGuard } from '@/guards/jwt-auth.guard';
 import { FileDownloadCommand, FilesUploadCommand } from '../../application/commands';
-import { FilesDto, UploadFileBody } from '../dtos/file.dto';
+import { FilesGetByExternalIdQuery } from '../../application/queries';
+import { FileDto, FilesDto, UploadFileBody } from '../dtos/file.dto';
+import { FileMapper } from '../mappers/file.mapper';
 
 type MultipartField = {
   type: 'field';
@@ -32,7 +34,27 @@ type MultipartFile = {
 @Controller('file')
 @ApiTags('files')
 export class FileController {
-  constructor(private readonly commandBus: CommandBus) {}
+  constructor(
+    private readonly commandBus: CommandBus,
+    private readonly queryBus: QueryBus,
+  ) {}
+
+  /**
+   * Public, unauthenticated lookup of the PUBLIC-module files attached to one entity instance
+   * (Hero photo, Case/Post cover+gallery, ...) — backs rendering covers/avatars on the public
+   * site (docs/planning/04-frontend-architecture.md §6). Deliberately hardcodes `FileFrom.PUBLIC`
+   * so this can never be used to enumerate another user's private (`FileFrom.USER`) uploads.
+   */
+  @Get('external/:externalId')
+  @ApiOperation({ summary: 'Get PUBLIC-module files attached to one entity instance' })
+  @ApiOkResponse({ type: [FileDto] })
+  async getPublicFilesByExternalId(@Param('externalId') externalId: IdType): Promise<FileDto[]> {
+    if (!isUUID(externalId)) {
+      throw new BadRequestException({ message: 'file.invalidId', args: { externalId } });
+    }
+    const files = await this.queryBus.execute(new FilesGetByExternalIdQuery(FileFrom.PUBLIC, externalId));
+    return files.map(FileMapper.toDto);
+  }
 
   @Post('users/me')
   @UseGuards(JwtAuthGuard)

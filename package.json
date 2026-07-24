@@ -35,7 +35,10 @@
     "drizzle:migrate": "node apps/backend/scripts/migrate.cjs",
     "drizzle:migrate:test": "cross-env CONFIG_FILE=config.test.yaml node apps/backend/scripts/migrate.cjs",
     "docker": "docker compose --env-file docker/.env -f docker/docker-compose.yaml up --remove-orphans -d",
-    "docker:down": "docker compose --env-file docker/.env -f docker/docker-compose.yaml down --rmi all -v"
+    "docker:down": "docker compose --env-file docker/.env -f docker/docker-compose.yaml down --rmi all -v",
+    "dev:frontend": "pnpm --filter @portfolio/frontend dev",
+    "build:frontend": "pnpm --filter @portfolio/frontend build",
+    "start:frontend": "pnpm --filter @portfolio/frontend start"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.896.0",

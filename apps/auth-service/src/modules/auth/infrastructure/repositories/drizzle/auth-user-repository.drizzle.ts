@@ -64,7 +64,7 @@ export class AuthUserRepositoryDrizzle extends AuthUserRepository {
       .innerJoin(userRoleTable, eq(userTable.roleId, userRoleTable.id))
       .where(where)
       .limit(1);
-    return row ? this.toAuthUser(row.user as UserRow, row.role) : null;
+    return row ? this.toAuthUser(row.user, row.role) : null;
   }
 
   async findById(id: IdType, _options?: AuthUserFindOptions): Promise<AuthUser | null> {

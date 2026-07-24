@@ -187,6 +187,7 @@ services:
       LOG_FILE_ENABLED: ${LOG_FILE_ENABLED:-true}
       BACKEND_LOG_FILE_PATH: ${BACKEND_LOG_FILE_PATH:-/app/logs/backend.log}
       ZABBIX_ENABLED: ${ZABBIX_ENABLED:-false}
+      COMMENTS_AUTO_APPROVE: ${COMMENTS_AUTO_APPROVE:-false}
       AUTH_SERVICE_GRPC_URL: auth-service:50051
     volumes:
       - ./config.docker.yaml:/app/config.yaml:ro
@@ -201,6 +202,28 @@ services:
           '-e',
           "fetch('http://localhost:3000/api/v1/health/live').then(r=>{if(!r.ok)process.exit(1)}).catch(()=>process.exit(1))",
         ]
+      interval: 5s
+      timeout: 5s
+      retries: 30
+      start_period: 10s
+    networks: [backend]
+
+  frontend:
+    build:
+      context: ..
+      dockerfile: docker/frontend.Dockerfile
+    restart: unless-stopped
+    depends_on:
+      backend:
+        condition: service_healthy
+    environment:
+      # Server-to-server only — the browser never calls the backend directly,
+      # see docs/planning/04-frontend-architecture.md §3.
+      INTERNAL_API_BASE_URL: http://backend:3000
+    ports:
+      - '127.0.0.1:${FRONTEND_PORT:-3001}:3001'
+    healthcheck:
+      test: ['CMD', 'node', '-e', "fetch('http://localhost:3001').then(r=>{if(!r.ok)process.exit(1)}).catch(()=>process.exit(1))"]
       interval: 5s
       timeout: 5s
       retries: 30

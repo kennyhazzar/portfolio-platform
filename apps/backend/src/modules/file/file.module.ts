@@ -8,19 +8,30 @@ import { S3ModuleFuncOptions } from '@/options/s3.module.options';
 import {
   FileGetByIdHandler,
   FilesGetHandler,
+  FilesGetByExternalIdHandler,
   FilesUploadHandler,
   FileDownloadHandler,
   FileUpdateHandler,
   FileDeleteHandler,
+  FileReorderHandler,
+  FileSetCoverHandler,
 } from './application';
 import { FileRepository } from './domain/repositories';
 import { FileAdapter } from './infrastructure/adapters/s3.adapter';
 import { FileRepositoryDrizzle } from './infrastructure/repositories/file.repository.drizzle';
 import { FileController } from './presentation/controllers/file.controller';
+import { FileAdminController } from './presentation/controllers/file-admin.controller';
 import { UsersModule } from '../users/users.module';
 
-const CommandHandlers = [FilesUploadHandler, FileDownloadHandler, FileUpdateHandler, FileDeleteHandler];
-const QueryHandlers = [FilesGetHandler, FileGetByIdHandler];
+const CommandHandlers = [
+  FilesUploadHandler,
+  FileDownloadHandler,
+  FileUpdateHandler,
+  FileDeleteHandler,
+  FileReorderHandler,
+  FileSetCoverHandler,
+];
+const QueryHandlers = [FilesGetHandler, FileGetByIdHandler, FilesGetByExternalIdHandler];
 
 @Global()
 @Module({
@@ -29,7 +40,7 @@ const QueryHandlers = [FilesGetHandler, FileGetByIdHandler];
     CqrsModule,
     UsersModule,
   ],
-  controllers: [FileController],
+  controllers: [FileController, FileAdminController],
   providers: [
     FileAdapter,
     ...CommandHandlers,

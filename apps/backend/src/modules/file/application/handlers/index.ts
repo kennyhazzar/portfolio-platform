@@ -4,3 +4,6 @@ export * from './file-update.handler';
 export * from './file-delete.handler';
 export * from './file-get-by-id.handler';
 export * from './files-get.handler';
+export * from './files-get-by-external-id.handler';
+export * from './file-reorder.handler';
+export * from './file-set-cover.handler';

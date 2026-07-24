@@ -26,6 +26,15 @@ export const subjectsEnum = pgEnum('Subjects', [
   'AdminAccessLog',
   'AdminSettings',
   'CaptchaAdmin',
+  'Hero',
+  'About',
+  'SiteSetting',
+  'Contact',
+  'Technology',
+  'Navigation',
+  'Case',
+  'Post',
+  'Comment',
 ]);
 export const genderEnum = pgEnum('Gender', ['male', 'female']);
 export const themeEnum = pgEnum('Theme', ['light', 'dark', 'auto', 'system']);

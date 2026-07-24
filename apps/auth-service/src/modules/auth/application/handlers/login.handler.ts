@@ -43,17 +43,35 @@ export class LoginHandler implements ICommandHandler<LoginCommand> {
 
     if (!user) {
       this.logger.warn(`Login failed: email=${email} reason=user_not_found`);
-      return { ...NO_TOKENS, success: false, failureReason: LoginFailureReason.USER_NOT_FOUND, lockedUntil: '', requiresCaptcha: false };
+      return {
+        ...NO_TOKENS,
+        success: false,
+        failureReason: LoginFailureReason.USER_NOT_FOUND,
+        lockedUntil: '',
+        requiresCaptcha: false,
+      };
     }
 
     if (!user.verified) {
       this.logger.warn(`Login failed: userId=${user.id} email=${email} reason=user_not_verified`);
-      return { ...NO_TOKENS, success: false, failureReason: LoginFailureReason.NOT_VERIFIED, lockedUntil: '', requiresCaptcha: false };
+      return {
+        ...NO_TOKENS,
+        success: false,
+        failureReason: LoginFailureReason.NOT_VERIFIED,
+        lockedUntil: '',
+        requiresCaptcha: false,
+      };
     }
 
     if (user.blocked) {
       this.logger.warn(`Login failed: userId=${user.id} email=${email} reason=user_blocked`);
-      return { ...NO_TOKENS, success: false, failureReason: LoginFailureReason.BLOCKED, lockedUntil: '', requiresCaptcha: false };
+      return {
+        ...NO_TOKENS,
+        success: false,
+        failureReason: LoginFailureReason.BLOCKED,
+        lockedUntil: '',
+        requiresCaptcha: false,
+      };
     }
 
     if (user.lockedUntil && user.lockedUntil.getTime() > Date.now()) {

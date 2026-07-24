@@ -14,6 +14,9 @@ export class FileMapper {
       ? entity.versions.map((version) => FileVersionMapper.toDto(version))
       : ([] as FileVersionDto[]),
     userId: entity.userId,
+    type: entity.type,
+    position: entity.position,
+    isCover: entity.isCover,
     createdAt: entity.createdAt,
     updatedAt: entity.updatedAt,
   });
