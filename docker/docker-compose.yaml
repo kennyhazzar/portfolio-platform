@@ -186,8 +186,15 @@ services:
       S3_BUCKET: ${S3_BUCKET:-app-files}
       LOG_FILE_ENABLED: ${LOG_FILE_ENABLED:-true}
       BACKEND_LOG_FILE_PATH: ${BACKEND_LOG_FILE_PATH:-/app/logs/backend.log}
+      LOG_LEVEL: ${LOG_LEVEL:-debug}
       ZABBIX_ENABLED: ${ZABBIX_ENABLED:-false}
       COMMENTS_AUTO_APPROVE: ${COMMENTS_AUTO_APPROVE:-false}
+      APP_ORIGIN: ${APP_ORIGIN:-http://localhost:3000}
+      APP_ENV: ${APP_ENV:-development}
+      COOKIE_SECURE: ${COOKIE_SECURE:-false}
+      COOKIE_SAME_SITE: ${COOKIE_SAME_SITE:-lax}
+      CSRF_ENABLED: ${CSRF_ENABLED:-false}
+      SWAGGER_ENABLED: ${SWAGGER_ENABLED:-true}
       AUTH_SERVICE_GRPC_URL: auth-service:50051
     volumes:
       - ./config.docker.yaml:/app/config.yaml:ro

@@ -1,5 +1,5 @@
 log:
-  level: debug
+  level: ${LOG_LEVEL:-debug}
   colorize: false
   file:
     enabled: ${LOG_FILE_ENABLED:-true}
@@ -17,11 +17,13 @@ admin:
 host:
   hostname: 0.0.0.0
   port: 3000
-  origin: http://localhost:3000
-  environment: development
+  origin: ${APP_ORIGIN:-http://localhost:3000}
+  environment: ${APP_ENV:-development}
 
+# Disabled entirely in production (SWAGGER_ENABLED=false) — this is a personal blog/portfolio,
+# not a public API product, so there's no reason to expose the API surface at all.
 swagger:
-  enabled: true
+  enabled: ${SWAGGER_ENABLED:-true}
   path: api/docs
 
 database:
@@ -61,25 +63,25 @@ grpc:
 auth:
   mode: HYBRID
   csrf:
-    enabled: false
+    enabled: ${CSRF_ENABLED:-false}
   cookies:
     accessToken:
       name: accessToken
       httpOnly: true
-      secure: false
-      sameSite: lax
+      secure: ${COOKIE_SECURE:-false}
+      sameSite: ${COOKIE_SAME_SITE:-lax}
       maxAge: 900000
     refreshToken:
       name: refreshToken
       httpOnly: true
-      secure: false
-      sameSite: lax
+      secure: ${COOKIE_SECURE:-false}
+      sameSite: ${COOKIE_SAME_SITE:-lax}
       maxAge: 604800000
     csrf:
       name: csrf-token
       httpOnly: false
-      secure: false
-      sameSite: lax
+      secure: ${COOKIE_SECURE:-false}
+      sameSite: ${COOKIE_SAME_SITE:-lax}
       maxAge: 604800000
 
 cors:
