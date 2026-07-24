@@ -139,3 +139,17 @@
     text-wrap: balance;
   }
 }
+
+/*
+ * iOS Safari (and some Android browsers) auto-zoom the whole page on focusing a form field
+ * whose effective font-size is under 16px — most of our inputs use text-sm (14px). Left
+ * unlayered (not @layer base) so it beats Tailwind's utility classes regardless of layer order,
+ * without touching desktop sizing or every individual form component.
+ */
+@media (max-width: 640px) {
+  input,
+  textarea,
+  select {
+    font-size: 16px;
+  }
+}

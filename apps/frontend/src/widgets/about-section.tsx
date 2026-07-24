@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { excerptMarkdown } from "@/shared/lib/excerpt-markdown";
 import type { Dictionary } from "@/shared/i18n/dictionary";
 import type { SupportedLocale } from "@/middleware";
 
@@ -18,7 +19,7 @@ export function AboutSection({
       <div className="mx-auto grid max-w-[1120px] grid-cols-1 items-start gap-10 px-7 sm:grid-cols-[1fr_auto]">
         <div>
           <h2 className="mb-4 font-heading text-2xl font-bold tracking-tight">{dict.about.title}</h2>
-          <p className="max-w-[68ch] text-muted-foreground">{bio}</p>
+          <p className="max-w-[68ch] text-muted-foreground">{excerptMarkdown(bio)}</p>
         </div>
         <Link
           href={`/${locale}/about`}
