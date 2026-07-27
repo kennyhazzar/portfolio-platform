@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { SortableList, type DragHandleProps } from "@/shared/ui/sortable-list";
 import { deleteCaseAction, reorderCasesAction } from "@/entities/case/actions";
 import type { components } from "@/lib/api/generated/schema";
@@ -33,17 +34,31 @@ function DragHandle({ dragHandle }: { dragHandle: DragHandleProps }) {
 }
 
 export function CaseList({ initial }: { initial: CaseAdminDto[] }) {
+  const router = useRouter();
   const [items, setItems] = useState(initial);
+  const [busyId, setBusyId] = useState<string | null>(null);
 
   async function handleReorder(newItems: CaseAdminDto[]) {
+    setBusyId("reorder");
     setItems(newItems);
-    await reorderCasesAction(newItems.map((item, index) => ({ id: item.id, position: index })));
+    try {
+      await reorderCasesAction(newItems.map((item, index) => ({ id: item.id, position: index })));
+      router.refresh();
+    } finally {
+      setBusyId(null);
+    }
   }
 
   async function handleDelete(id: string) {
     if (!confirm("Удалить кейс без возможности восстановления?")) return;
-    setItems((prev) => prev.filter((i) => i.id !== id));
-    await deleteCaseAction(id);
+    setBusyId(id);
+    try {
+      setItems((prev) => prev.filter((i) => i.id !== id));
+      await deleteCaseAction(id);
+      router.refresh();
+    } finally {
+      setBusyId(null);
+    }
   }
 
   if (items.length === 0) return <p className="text-sm text-muted-foreground">Кейсов пока нет.</p>;
@@ -53,7 +68,7 @@ export function CaseList({ initial }: { initial: CaseAdminDto[] }) {
       items={items}
       onReorder={handleReorder}
       renderItem={(kase, dragHandle) => (
-        <div className="flex flex-wrap items-center gap-3 rounded-[10px] border border-border bg-card p-3">
+        <div className={`flex flex-wrap items-center gap-3 rounded-[10px] border border-border bg-card p-3 ${busyId === kase.id ? "opacity-60" : ""}`}>
           <DragHandle dragHandle={dragHandle} />
           <div className="flex min-w-0 flex-1 flex-wrap items-center gap-3">
             <span className="text-sm font-semibold">{titleOf(kase)}</span>
@@ -67,10 +82,11 @@ export function CaseList({ initial }: { initial: CaseAdminDto[] }) {
           </Link>
           <button
             type="button"
+            disabled={!!busyId}
             onClick={() => handleDelete(kase.id)}
-            className="text-xs text-destructive hover:opacity-80"
+            className="text-xs text-destructive hover:opacity-80 disabled:opacity-50"
           >
-            Удалить
+            {busyId === kase.id ? "..." : "Удалить"}
           </button>
         </div>
       )}

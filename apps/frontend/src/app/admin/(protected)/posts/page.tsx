@@ -1,6 +1,7 @@
-import Link from "next/link";
-import { getPostsAdmin } from "@/entities/post/admin-api";
-import { PostList } from "@/widgets/admin/post-list";
+import Link from 'next/link';
+import { getPostsAdmin } from '@/entities/post/admin-api';
+import { PostImporter } from '@/widgets/admin/post-importer';
+import { PostList } from '@/widgets/admin/post-list';
 
 export default async function AdminPostsPage() {
   const posts = await getPostsAdmin();
@@ -16,6 +17,7 @@ export default async function AdminPostsPage() {
           Новый пост
         </Link>
       </div>
+      <PostImporter />
       <PostList initial={posts} />
     </div>
   );

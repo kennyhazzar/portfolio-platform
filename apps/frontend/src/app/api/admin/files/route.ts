@@ -26,6 +26,11 @@ export async function POST(request: NextRequest) {
   if (upstream.ok) {
     revalidatePath("/ru");
     revalidatePath("/en");
+    revalidatePath("/admin/about");
+    revalidatePath("/admin/hero");
+    revalidatePath("/admin/site-settings");
+    revalidatePath("/admin/posts");
+    revalidatePath("/admin/cases");
   }
   return NextResponse.json(payload, { status: upstream.status });
 }

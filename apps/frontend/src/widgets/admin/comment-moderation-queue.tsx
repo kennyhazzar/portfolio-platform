@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { updateCommentStatusAction, deleteCommentAction } from "@/entities/comment/actions";
 import { formatDate } from "@/shared/lib/format-date";
 import type { components } from "@/lib/api/generated/schema";
@@ -15,17 +16,31 @@ export function CommentModerationQueue({
   initial: CommentAdminDto[];
   postsById: Record<string, { title: string; slug: string }>;
 }) {
+  const router = useRouter();
   const [items, setItems] = useState(initial);
+  const [busyId, setBusyId] = useState<string | null>(null);
 
   async function handleStatusChange(id: string, status: Status) {
-    setItems((prev) => prev.filter((i) => i.id !== id));
-    await updateCommentStatusAction(id, status);
+    setBusyId(id);
+    try {
+      setItems((prev) => prev.filter((i) => i.id !== id));
+      await updateCommentStatusAction(id, status);
+      router.refresh();
+    } finally {
+      setBusyId(null);
+    }
   }
 
   async function handleDelete(id: string) {
     if (!confirm("Удалить комментарий без возможности восстановления?")) return;
-    setItems((prev) => prev.filter((i) => i.id !== id));
-    await deleteCommentAction(id);
+    setBusyId(id);
+    try {
+      setItems((prev) => prev.filter((i) => i.id !== id));
+      await deleteCommentAction(id);
+      router.refresh();
+    } finally {
+      setBusyId(null);
+    }
   }
 
   if (items.length === 0) {
@@ -36,8 +51,9 @@ export function CommentModerationQueue({
     <div className="flex flex-col gap-3">
       {items.map((comment) => {
         const post = postsById[comment.postId];
+        const isBusy = busyId === comment.id;
         return (
-          <div key={comment.id} className="flex flex-col gap-3 rounded-[10px] border border-border bg-card p-4">
+          <div key={comment.id} className={`flex flex-col gap-3 rounded-[10px] border border-border bg-card p-4 ${isBusy ? "opacity-60" : ""}`}>
             <div className="flex flex-wrap items-baseline justify-between gap-2">
               <div className="flex flex-wrap items-baseline gap-2">
                 <span className="text-sm font-semibold">
@@ -78,17 +94,19 @@ export function CommentModerationQueue({
               {comment.status !== "APPROVED" && (
                 <button
                   type="button"
+                  disabled={!!busyId}
                   onClick={() => handleStatusChange(comment.id, "APPROVED")}
-                  className="rounded-full bg-primary px-3 py-1 text-xs font-semibold text-primary-foreground"
+                  className="rounded-full bg-primary px-3 py-1 text-xs font-semibold text-primary-foreground disabled:opacity-50"
                 >
-                  Одобрить
+                  {isBusy ? "..." : "Одобрить"}
                 </button>
               )}
               {comment.status !== "REJECTED" && (
                 <button
                   type="button"
+                  disabled={!!busyId}
                   onClick={() => handleStatusChange(comment.id, "REJECTED")}
-                  className="rounded-full border border-border px-3 py-1 text-xs text-muted-foreground hover:bg-accent"
+                  className="rounded-full border border-border px-3 py-1 text-xs text-muted-foreground hover:bg-accent disabled:opacity-50"
                 >
                   Отклонить
                 </button>
@@ -96,16 +114,18 @@ export function CommentModerationQueue({
               {comment.status !== "SPAM" && (
                 <button
                   type="button"
+                  disabled={!!busyId}
                   onClick={() => handleStatusChange(comment.id, "SPAM")}
-                  className="rounded-full border border-border px-3 py-1 text-xs text-muted-foreground hover:bg-accent"
+                  className="rounded-full border border-border px-3 py-1 text-xs text-muted-foreground hover:bg-accent disabled:opacity-50"
                 >
                   Спам
                 </button>
               )}
               <button
                 type="button"
+                disabled={!!busyId}
                 onClick={() => handleDelete(comment.id)}
-                className="rounded-full border border-border px-3 py-1 text-xs text-destructive hover:opacity-80"
+                className="rounded-full border border-border px-3 py-1 text-xs text-destructive hover:opacity-80 disabled:opacity-50"
               >
                 Удалить
               </button>

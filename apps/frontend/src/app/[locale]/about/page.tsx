@@ -39,7 +39,7 @@ export default async function AboutPage({
   const dict = getDictionary(locale);
   const about = await getAbout(locale);
   const files = about ? await getPublicFiles(about.id) : [];
-  const photo = files.find((f) => f.type === "IMAGE") ?? null;
+  const cover = files.find((f) => f.type === "IMAGE" && f.isCover) ?? files.find((f) => f.type === "IMAGE") ?? null;
   const resume = files.find((f) => f.type === "DOCUMENT") ?? null;
 
   return (
@@ -48,15 +48,17 @@ export default async function AboutPage({
       <main className="flex-1">
         <section className="py-16">
           <div className="mx-auto max-w-[840px] px-7">
-            <div className="mb-10 flex flex-wrap items-center gap-6">
-              {photo && (
-                // eslint-disable-next-line @next/next/no-img-element
+            {cover && (
+              <div className="mb-8 overflow-hidden rounded-[8px] border border-border bg-card">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
-                  src={`/api/files/${photo.id}`}
+                  src={`/api/files/${cover.id}`}
                   alt={dict.about.title}
-                  className="size-24 shrink-0 rounded-full border border-border object-cover"
+                  className="aspect-[16/7] w-full object-cover"
                 />
-              )}
+              </div>
+            )}
+            <div className="mb-10 flex flex-wrap items-center gap-6">
               <div className="flex flex-col gap-3">
                 <h1 className="font-heading text-3xl font-bold tracking-tight">{dict.about.title}</h1>
                 {resume && (

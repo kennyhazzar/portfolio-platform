@@ -20,11 +20,19 @@ import { ReorderBody } from '@/common/Reorder';
 import {
   TechnologyCreateCommand,
   TechnologyDeleteCommand,
+  TechnologiesImportCommand,
   TechnologyReorderCommand,
   TechnologyUpdateCommand,
 } from '../../application/commands/technology.commands';
 import { TechnologiesGetQuery, TechnologyGetByIdQuery } from '../../application/queries/technology.queries';
-import { CreateTechnologyBody, TechnologiesDto, TechnologyDto, UpdateTechnologyBody } from '../dtos/technology.dto';
+import {
+  CreateTechnologyBody,
+  ImportResultDto,
+  ImportTechnologiesBody,
+  TechnologiesDto,
+  TechnologyDto,
+  UpdateTechnologyBody,
+} from '../dtos/technology.dto';
 import { TechnologyMapper } from '../mappers/technology.mapper';
 
 @ApiTags('admin/technologies')
@@ -66,6 +74,15 @@ export class TechnologyAdminController {
   async createTechnology(@Body() body: CreateTechnologyBody): Promise<TechnologyDto> {
     const technology = await this.commandBus.execute(new TechnologyCreateCommand(body));
     return TechnologyMapper.toDto(technology);
+  }
+
+  @Post('import')
+  @Policy(Actions.CREATE, Subjects.TECHNOLOGY)
+  @ApiOperation({ summary: 'Bulk-import technologies by name (admin)' })
+  @ApiCreatedResponse({ type: ImportResultDto })
+  @ApiForbiddenResponse({ description: 'Admin access required.' })
+  importTechnologies(@Body() body: ImportTechnologiesBody): Promise<ImportResultDto> {
+    return this.commandBus.execute(new TechnologiesImportCommand(body.items));
   }
 
   @Patch('reorder')

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { TranslationTabs } from "@/shared/ui/translation-tabs";
 import { updateSiteSettingAction } from "@/entities/site-setting/actions";
 import { FileUploadField } from "./file-upload-field";
@@ -101,6 +102,7 @@ export function SiteSettingsForm({
   initial: SiteSettingAdminDto;
   initialFavicon?: FileDto | null;
 }) {
+  const router = useRouter();
   const findTranslation = (locale: "ru" | "en") =>
     initial.translations.find((t) => t.locale === locale) ?? emptyTranslation;
 
@@ -117,6 +119,7 @@ export function SiteSettingsForm({
     setStatus("saving");
     try {
       await updateSiteSettingAction({ ru, en });
+      router.refresh();
       setStatus("success");
     } catch {
       setStatus("error");

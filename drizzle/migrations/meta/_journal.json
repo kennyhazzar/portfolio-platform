@@ -99,6 +99,13 @@
       "when": 1784841464462,
       "tag": "0013_add_site_setting_brand_name",
       "breakpoints": true
+    },
+    {
+      "idx": 14,
+      "version": "7",
+      "when": 1785161200000,
+      "tag": "0014_expand_technology_category",
+      "breakpoints": true
     }
   ]
 }

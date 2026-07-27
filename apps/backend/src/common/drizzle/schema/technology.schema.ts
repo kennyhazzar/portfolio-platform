@@ -4,8 +4,14 @@ import { pgTable, uuid, varchar, integer, timestamp, pgEnum, index } from 'drizz
 export const technologyCategoryEnum = pgEnum('TechnologyCategory', [
   'LANGUAGE',
   'FRAMEWORK',
+  'LIBRARY',
   'DATABASE',
+  'STORAGE',
   'INFRA',
+  'PROTOCOL',
+  'ARCHITECTURE',
+  'AUTH',
+  'TESTING',
   'TOOL',
   'OTHER',
 ]);

@@ -29,7 +29,12 @@ import { Policy } from '@/decorators/policy.decorator';
 import { CurrentUserId } from '@/decorators/current-user-id.decorator';
 import { PaginationQuery } from '@/common/Paginated';
 import { IdType } from '@/interfaces/id.type';
-import { PostCreateCommand, PostDeleteCommand, PostUpdateCommand } from '../../application/commands/post.commands';
+import {
+  PostCreateCommand,
+  PostDeleteCommand,
+  PostsImportCommand,
+  PostUpdateCommand,
+} from '../../application/commands/post.commands';
 import {
   PostGetByIdQuery,
   PostGetBySlugAnyStatusQuery,
@@ -37,6 +42,8 @@ import {
 } from '../../application/queries/post.queries';
 import {
   CreatePostBody,
+  ImportPostsBody,
+  ImportResultDto,
   PostAdminDto,
   PostDto,
   PostLocaleQuery,
@@ -98,6 +105,15 @@ export class PostAdminController {
   async createPost(@CurrentUserId() currentUserId: IdType, @Body() body: CreatePostBody): Promise<PostAdminDto> {
     const created = await this.commandBus.execute(new PostCreateCommand(currentUserId, body));
     return PostMapper.toAdminDto(created);
+  }
+
+  @HttpPost('import')
+  @Policy(Actions.CREATE, Subjects.POST)
+  @ApiOperation({ summary: 'Bulk-import markdown posts as DRAFT/PUBLISHED (admin)' })
+  @ApiCreatedResponse({ type: ImportResultDto })
+  @ApiForbiddenResponse({ description: 'Admin access required.' })
+  importPosts(@CurrentUserId() currentUserId: IdType, @Body() body: ImportPostsBody): Promise<ImportResultDto> {
+    return this.commandBus.execute(new PostsImportCommand(currentUserId, body.items));
   }
 
   @Patch(':id')

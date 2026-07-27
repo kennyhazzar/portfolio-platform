@@ -88,30 +88,54 @@ export function ContactList({ initial }: { initial: ContactAdminDto[] }) {
   const [editingId, setEditingId] = useState<string | null>(null);
   const [newPlatform, setNewPlatform] = useState<Platform>("OTHER");
   const [newValue, setNewValue] = useState("");
+  const [busy, setBusy] = useState<string | null>(null);
 
   async function handleReorder(newItems: ContactAdminDto[]) {
+    setBusy("reorder");
     setItems(newItems);
-    await reorderContactsAction(newItems.map((item, index) => ({ id: item.id, position: index })));
+    try {
+      await reorderContactsAction(newItems.map((item, index) => ({ id: item.id, position: index })));
+      router.refresh();
+    } finally {
+      setBusy(null);
+    }
   }
 
   async function handleSave(id: string, body: components["schemas"]["UpdateContactBody"]) {
+    setBusy(id);
     setItems((prev) => prev.map((i) => (i.id === id ? { ...i, ...body } : i)));
     setEditingId(null);
-    await updateContactAction(id, body);
+    try {
+      await updateContactAction(id, body);
+      router.refresh();
+    } finally {
+      setBusy(null);
+    }
   }
 
   async function handleDelete(id: string) {
+    setBusy(id);
     setItems((prev) => prev.filter((i) => i.id !== id));
-    await deleteContactAction(id);
+    try {
+      await deleteContactAction(id);
+      router.refresh();
+    } finally {
+      setBusy(null);
+    }
   }
 
   async function handleCreate(e: React.FormEvent) {
     e.preventDefault();
     if (!newValue.trim()) return;
-    await createContactAction({ platform: newPlatform, value: newValue, isVisible: true });
-    setNewValue("");
-    setNewPlatform("OTHER");
-    router.refresh();
+    setBusy("create");
+    try {
+      await createContactAction({ platform: newPlatform, value: newValue, isVisible: true });
+      setNewValue("");
+      setNewPlatform("OTHER");
+      router.refresh();
+    } finally {
+      setBusy(null);
+    }
   }
 
   return (
@@ -137,17 +161,19 @@ export function ContactList({ initial }: { initial: ContactAdminDto[] }) {
                 </div>
                 <button
                   type="button"
+                  disabled={!!busy}
                   onClick={() => setEditingId(item.id)}
-                  className="text-xs text-muted-foreground hover:text-foreground"
+                  className="text-xs text-muted-foreground hover:text-foreground disabled:opacity-50"
                 >
                   Изменить
                 </button>
                 <button
                   type="button"
+                  disabled={!!busy}
                   onClick={() => handleDelete(item.id)}
-                  className="text-xs text-destructive hover:opacity-80"
+                  className="text-xs text-destructive hover:opacity-80 disabled:opacity-50"
                 >
-                  Удалить
+                  {busy === item.id ? "..." : "Удалить"}
                 </button>
               </>
             )}
@@ -173,8 +199,12 @@ export function ContactList({ initial }: { initial: ContactAdminDto[] }) {
           placeholder="URL / handle / email"
           className={`w-full sm:w-[260px] ${fieldClass()}`}
         />
-        <button type="submit" className="rounded-full bg-primary px-4 py-1.5 text-xs font-semibold text-primary-foreground">
-          Добавить
+        <button
+          type="submit"
+          disabled={!!busy}
+          className="rounded-full bg-primary px-4 py-1.5 text-xs font-semibold text-primary-foreground disabled:opacity-50"
+        >
+          {busy === "create" ? "..." : "Добавить"}
         </button>
       </form>
     </div>

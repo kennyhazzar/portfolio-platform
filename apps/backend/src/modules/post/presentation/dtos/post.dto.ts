@@ -1,5 +1,6 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import { IsEnum, IsIn, IsOptional, IsString } from 'class-validator';
+import { Type } from 'class-transformer';
+import { ArrayMaxSize, IsArray, IsEnum, IsIn, IsOptional, IsString, ValidateNested } from 'class-validator';
 
 import { ContentStatus } from '@/enums/content-status.enum';
 import { Locale } from '@/interfaces/locale.type';
@@ -148,6 +149,36 @@ export class UpdatePostBody {
   @IsOptional()
   @IsString()
   seoDescription?: string;
+}
+
+export class ImportPostItemBody extends CreatePostBody {
+  @ApiPropertyOptional({ enum: ContentStatus, default: ContentStatus.DRAFT })
+  @IsOptional()
+  @IsEnum(ContentStatus)
+  status?: ContentStatus;
+}
+
+export class ImportPostsBody {
+  @ApiProperty({ type: [ImportPostItemBody], maxItems: 200 })
+  @IsArray()
+  @ArrayMaxSize(200)
+  @ValidateNested({ each: true })
+  @Type(() => ImportPostItemBody)
+  items!: ImportPostItemBody[];
+}
+
+export class ImportResultDto {
+  @ApiProperty()
+  total!: number;
+
+  @ApiProperty()
+  created!: number;
+
+  @ApiProperty()
+  updated!: number;
+
+  @ApiProperty()
+  skipped!: number;
 }
 
 export class PostLocaleQuery {

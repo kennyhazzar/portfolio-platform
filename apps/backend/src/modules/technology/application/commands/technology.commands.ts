@@ -2,7 +2,12 @@ import { Command } from '@nestjs/cqrs';
 
 import { ReorderItemBody } from '@/common/Reorder';
 import { Technology } from '../../domain/entities/technology.entity';
-import { CreateTechnologyBody, UpdateTechnologyBody } from '../../presentation/dtos/technology.dto';
+import {
+  CreateTechnologyBody,
+  ImportResultDto,
+  ImportTechnologyItemBody,
+  UpdateTechnologyBody,
+} from '../../presentation/dtos/technology.dto';
 
 export class TechnologyCreateCommand extends Command<Technology> {
   constructor(public readonly payload: CreateTechnologyBody) {
@@ -27,6 +32,12 @@ export class TechnologyDeleteCommand extends Command<void> {
 
 export class TechnologyReorderCommand extends Command<void> {
   constructor(public readonly items: ReorderItemBody[]) {
+    super();
+  }
+}
+
+export class TechnologiesImportCommand extends Command<ImportResultDto> {
+  constructor(public readonly items: ImportTechnologyItemBody[]) {
     super();
   }
 }

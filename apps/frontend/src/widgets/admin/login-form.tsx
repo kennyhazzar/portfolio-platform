@@ -3,11 +3,31 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
-export function LoginForm() {
+function messageForReason(reason?: string) {
+  switch (reason) {
+    case "session-expired":
+      return "Сессия истекла. Войдите снова.";
+    case "session-invalid":
+      return "Сессия была отозвана защитой авторизации. Войдите снова.";
+    case "rate-limited":
+      return "Слишком много попыток входа. Подождите минуту и попробуйте снова.";
+    case "forbidden":
+      return "Вход временно заблокирован или аккаунт недоступен.";
+    case "captcha-required":
+      return "Сработала защита от частых попыток входа. Нужно добавить captcha-flow для админского входа.";
+    case "login-failed":
+      return "Не удалось войти. Проверьте доступность backend и попробуйте снова.";
+    case "invalid-credentials":
+    default:
+      return reason ? "Неверный email или пароль." : null;
+  }
+}
+
+export function LoginForm({ reason }: { reason?: string }) {
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(messageForReason(reason));
   const [submitting, setSubmitting] = useState(false);
 
   async function handleSubmit(e: React.FormEvent) {
@@ -22,8 +42,9 @@ export function LoginForm() {
     });
 
     if (!res.ok) {
+      const payload = await res.json().catch(() => null);
       setSubmitting(false);
-      setError("Неверный email или пароль.");
+      setError(messageForReason(payload?.error) ?? "Неверный email или пароль.");
       return;
     }
 

@@ -1,5 +1,6 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import { IsEnum, IsInt, IsOptional, IsString, Min } from 'class-validator';
+import { Type } from 'class-transformer';
+import { ArrayMaxSize, IsArray, IsEnum, IsInt, IsOptional, IsString, Min, ValidateNested } from 'class-validator';
 
 import { TechnologyCategory } from '@/enums/technology-category.enum';
 import { Paginated } from '@/common/Paginated';
@@ -60,4 +61,29 @@ export class UpdateTechnologyBody {
   @IsOptional()
   @IsString()
   iconSlug?: string;
+}
+
+export class ImportTechnologyItemBody extends CreateTechnologyBody {}
+
+export class ImportTechnologiesBody {
+  @ApiProperty({ type: [ImportTechnologyItemBody], maxItems: 1000 })
+  @IsArray()
+  @ArrayMaxSize(1000)
+  @ValidateNested({ each: true })
+  @Type(() => ImportTechnologyItemBody)
+  items!: ImportTechnologyItemBody[];
+}
+
+export class ImportResultDto {
+  @ApiProperty()
+  total!: number;
+
+  @ApiProperty()
+  created!: number;
+
+  @ApiProperty()
+  updated!: number;
+
+  @ApiProperty()
+  skipped!: number;
 }

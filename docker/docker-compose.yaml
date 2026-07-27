@@ -230,6 +230,8 @@ services:
       # Server-to-server only — the browser never calls the backend directly,
       # see docs/planning/04-frontend-architecture.md §3.
       INTERNAL_API_BASE_URL: http://backend:3000
+      COOKIE_SECURE: ${COOKIE_SECURE:-false}
+      COOKIE_SAME_SITE: ${COOKIE_SAME_SITE:-lax}
     ports:
       - '127.0.0.1:${FRONTEND_PORT:-3001}:3001'
     healthcheck:

@@ -11,6 +11,7 @@ function revalidatePublic() {
   revalidatePath("/en");
   revalidatePath("/ru/cases");
   revalidatePath("/en/cases");
+  revalidatePath("/admin/cases");
 }
 
 /**

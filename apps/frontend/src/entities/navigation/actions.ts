@@ -8,6 +8,7 @@ import type { components } from "@/lib/api/generated/schema";
 function revalidatePublic() {
   revalidatePath("/ru");
   revalidatePath("/en");
+  revalidatePath("/admin/navigation");
 }
 
 export async function createNavigationItemAction(body: components["schemas"]["CreateNavigationItemBody"]) {

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { TypewriterText } from "@/shared/ui/typewriter-text";
 import type { SupportedLocale } from "@/middleware";
 
 interface HeroData {
@@ -26,6 +27,10 @@ export function HeroSection({
     .slice(0, 2)
     .join("")
     .toUpperCase();
+  const headlinePhrases = (hero.headline ?? "")
+    .split(/\r?\n|\|/)
+    .map((phrase) => phrase.trim())
+    .filter(Boolean);
 
   return (
     <section className="relative overflow-hidden border-b border-border py-14 sm:py-[88px]">
@@ -47,9 +52,9 @@ export function HeroSection({
             {initials}
           </div>
         )}
-        {hero.headline && (
-          <div className="mb-3.5 font-mono text-xs uppercase tracking-[0.09em] text-[var(--brand-text-faint)]">
-            {hero.headline}
+        {headlinePhrases.length > 0 && (
+          <div className="mb-4 min-h-[1.55rem] max-w-full font-mono text-base leading-none font-semibold text-primary sm:min-h-[1.85rem] sm:text-lg">
+            <TypewriterText phrases={headlinePhrases} />
           </div>
         )}
         <h1 className="mb-4 max-w-[16ch] font-heading text-5xl leading-[1.08] font-bold tracking-tight sm:text-6xl">

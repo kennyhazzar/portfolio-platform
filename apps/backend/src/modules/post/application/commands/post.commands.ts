@@ -3,7 +3,7 @@ import { Command } from '@nestjs/cqrs';
 import { IdType } from '@/interfaces/id.type';
 import { Locale } from '@/interfaces/locale.type';
 import { Post } from '../../domain/entities/post.entity';
-import { CreatePostBody, UpdatePostBody } from '../../presentation/dtos/post.dto';
+import { CreatePostBody, ImportPostItemBody, ImportResultDto, UpdatePostBody } from '../../presentation/dtos/post.dto';
 
 export interface ViewMeta {
   ip?: string;
@@ -39,6 +39,15 @@ export class PostRecordViewCommand extends Command<void> {
     public readonly locale: Locale,
     public readonly slug: string,
     public readonly meta: ViewMeta,
+  ) {
+    super();
+  }
+}
+
+export class PostsImportCommand extends Command<ImportResultDto> {
+  constructor(
+    public readonly authorUserId: IdType,
+    public readonly items: ImportPostItemBody[],
   ) {
     super();
   }

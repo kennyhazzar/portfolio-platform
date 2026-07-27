@@ -47,6 +47,10 @@ lerna-debug.log*
 # Claude Code local state
 .claude/
 
+# Local content sources and generated drafts
+/exp
+/docs/content-drafts/
+
 # dotenv environment variable files
 .env
 .env.development.local

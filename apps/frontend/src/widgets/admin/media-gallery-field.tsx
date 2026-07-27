@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, useState } from "react";
+import { useRouter } from "next/navigation";
 import { SortableList, type DragHandleProps } from "@/shared/ui/sortable-list";
 import { deleteFileAction, reorderFilesAction, setFileCoverAction } from "@/entities/file/actions";
 import { uploadFile } from "@/entities/file/upload-client";
@@ -14,6 +15,7 @@ type FileDto = components["schemas"]["FileDto"];
  * same SortableList used by Technology/Navigation/Contact.
  */
 export function MediaGalleryField({ module, externalId, initial }: { module: "PUBLIC" | "USER"; externalId: string; initial: FileDto[] }) {
+  const router = useRouter();
   const [items, setItems] = useState<FileDto[]>([...initial].sort((a, b) => a.position - b.position));
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -39,6 +41,7 @@ export function MediaGalleryField({ module, externalId, initial }: { module: "PU
       if (items.length > 0) {
         await reorderFilesAction([...items, withPosition].map((item, index) => ({ id: item.id, position: index })));
       }
+      router.refresh();
     } catch {
       setError("Не удалось загрузить изображение.");
     } finally {
@@ -47,18 +50,36 @@ export function MediaGalleryField({ module, externalId, initial }: { module: "PU
   }
 
   async function handleReorder(newItems: FileDto[]) {
+    setBusy(true);
     setItems(newItems);
-    await reorderFilesAction(newItems.map((item, index) => ({ id: item.id, position: index })));
+    try {
+      await reorderFilesAction(newItems.map((item, index) => ({ id: item.id, position: index })));
+      router.refresh();
+    } finally {
+      setBusy(false);
+    }
   }
 
   async function handleSetCover(id: string) {
+    setBusy(true);
     setItems((prev) => prev.map((item) => ({ ...item, isCover: item.id === id })));
-    await setFileCoverAction(id);
+    try {
+      await setFileCoverAction(id);
+      router.refresh();
+    } finally {
+      setBusy(false);
+    }
   }
 
   async function handleRemove(id: string) {
+    setBusy(true);
     setItems((prev) => prev.filter((item) => item.id !== id));
-    await deleteFileAction(id);
+    try {
+      await deleteFileAction(id);
+      router.refresh();
+    } finally {
+      setBusy(false);
+    }
   }
 
   return (
@@ -79,6 +100,7 @@ export function MediaGalleryField({ module, externalId, initial }: { module: "PU
                 <input
                   type="radio"
                   name={`cover-${externalId}`}
+                  disabled={busy}
                   checked={item.isCover}
                   onChange={() => handleSetCover(item.id)}
                 />
@@ -86,8 +108,9 @@ export function MediaGalleryField({ module, externalId, initial }: { module: "PU
               </label>
               <button
                 type="button"
+                disabled={busy}
                 onClick={() => handleRemove(item.id)}
-                className="text-xs text-destructive hover:opacity-80"
+                className="text-xs text-destructive hover:opacity-80 disabled:opacity-50"
               >
                 Удалить
               </button>

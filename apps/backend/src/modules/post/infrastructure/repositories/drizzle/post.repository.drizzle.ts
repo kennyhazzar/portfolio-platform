@@ -11,7 +11,12 @@ import { IdType } from '@/interfaces/id.type';
 import { Locale } from '@/interfaces/locale.type';
 import { Post } from '../../../domain/entities/post.entity';
 import { PostRepository } from '../../../domain/repositories/post.repository';
-import { CreatePostBody, UpdatePostBody } from '../../../presentation/dtos/post.dto';
+import {
+  CreatePostBody,
+  ImportPostItemBody,
+  ImportResultDto,
+  UpdatePostBody,
+} from '../../../presentation/dtos/post.dto';
 
 type PostRow = typeof postTable.$inferSelect;
 
@@ -153,6 +158,77 @@ export class PostRepositoryDrizzle extends PostRepository {
       .update(postTable)
       .set({ viewCount: sql`${postTable.viewCount} + 1` })
       .where(and(eq(postTable.id, id), isNull(postTable.deletedAt)));
+  }
+
+  async importMany(authorUserId: IdType, items: ImportPostItemBody[]): Promise<ImportResultDto> {
+    const uniqueItems = new Map<string, ImportPostItemBody>();
+    for (const item of items) {
+      const key = `${item.locale}:${item.slug.trim()}`;
+      if (!item.slug.trim()) continue;
+      uniqueItems.set(key, {
+        ...item,
+        title: item.title.trim(),
+        slug: item.slug.trim(),
+        excerpt: item.excerpt.trim(),
+        seoTitle: item.seoTitle?.trim() || undefined,
+        seoDescription: item.seoDescription?.trim() || undefined,
+      });
+    }
+
+    if (!uniqueItems.size) {
+      return { total: items.length, created: 0, updated: 0, skipped: items.length };
+    }
+
+    const pairs = [...uniqueItems.values()].map((item) => sql`(${item.locale}, ${item.slug})`);
+    const existingRows = await this.db
+      .select({ locale: postTable.locale, slug: postTable.slug })
+      .from(postTable)
+      .where(sql`(${postTable.locale}, ${postTable.slug}) IN (${sql.join(pairs, sql`, `)})`);
+    const existingKeys = new Set(existingRows.map((row) => `${row.locale}:${row.slug}`));
+
+    const now = new Date();
+    const values = [...uniqueItems.values()].map((item) => {
+      const status = item.status ?? ContentStatus.DRAFT;
+      return {
+        authorUserId,
+        locale: item.locale,
+        title: item.title,
+        slug: item.slug,
+        excerpt: item.excerpt,
+        body: item.body,
+        seoTitle: item.seoTitle,
+        seoDescription: item.seoDescription,
+        status,
+        publishedAt: status === ContentStatus.PUBLISHED ? now : null,
+        deletedAt: null,
+      };
+    });
+
+    await this.db
+      .insert(postTable)
+      .values(values)
+      .onConflictDoUpdate({
+        target: [postTable.locale, postTable.slug],
+        set: {
+          authorUserId: sql`excluded."authorUserId"`,
+          title: sql`excluded.title`,
+          excerpt: sql`excluded.excerpt`,
+          body: sql`excluded.body`,
+          seoTitle: sql`excluded."seoTitle"`,
+          seoDescription: sql`excluded."seoDescription"`,
+          status: sql`excluded.status`,
+          publishedAt: sql`excluded."publishedAt"`,
+          deletedAt: null,
+          updatedAt: now,
+        },
+      });
+
+    return {
+      total: items.length,
+      created: values.length - existingKeys.size,
+      updated: existingKeys.size,
+      skipped: items.length - uniqueItems.size,
+    };
   }
 
   private toDomain(row: PostRow): Post {

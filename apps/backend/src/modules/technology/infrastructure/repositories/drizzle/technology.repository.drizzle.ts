@@ -10,7 +10,12 @@ import { ReorderItemBody } from '@/common/Reorder';
 import { TechnologyCategory } from '@/enums/technology-category.enum';
 import { Technology } from '../../../domain/entities/technology.entity';
 import { TechnologyRepository } from '../../../domain/repositories/technology.repository';
-import { CreateTechnologyBody, UpdateTechnologyBody } from '../../../presentation/dtos/technology.dto';
+import {
+  CreateTechnologyBody,
+  ImportResultDto,
+  ImportTechnologyItemBody,
+  UpdateTechnologyBody,
+} from '../../../presentation/dtos/technology.dto';
 
 type TechnologyRow = typeof technologyTable.$inferSelect;
 
@@ -88,6 +93,90 @@ export class TechnologyRepositoryDrizzle extends TechnologyRepository {
       FROM (VALUES ${rows}) AS v(id, position)
       WHERE t.id = v.id
     `);
+  }
+
+  async importMany(items: ImportTechnologyItemBody[]): Promise<ImportResultDto> {
+    const uniqueItems = new Map<string, ImportTechnologyItemBody>();
+    for (const item of items) {
+      const key = this.normalizeName(item.name);
+      if (!key) continue;
+      uniqueItems.set(key, {
+        name: item.name.trim(),
+        category: item.category ?? TechnologyCategory.OTHER,
+        iconSlug: item.iconSlug?.trim() || undefined,
+        position: item.position ?? 0,
+      });
+    }
+
+    if (!uniqueItems.size) {
+      return { total: items.length, created: 0, updated: 0, skipped: items.length };
+    }
+
+    const keys = [...uniqueItems.keys()];
+    const keySql = sql.join(
+      keys.map((key) => sql`${key}`),
+      sql`, `,
+    );
+    const existingRows = await this.db
+      .select({ key: sql<string>`lower(${technologyTable.name})` })
+      .from(technologyTable)
+      .where(sql`lower(${technologyTable.name}) IN (${keySql})`);
+    const existingKeys = new Set(existingRows.map((row) => row.key));
+
+    const updates: ImportTechnologyItemBody[] = [];
+    const inserts: ImportTechnologyItemBody[] = [];
+    for (const [key, item] of uniqueItems) {
+      if (existingKeys.has(key)) updates.push(item);
+      else inserts.push(item);
+    }
+
+    if (updates.length) {
+      const rows = sql.join(
+        updates.map(
+          (item) => sql`(
+            ${this.normalizeName(item.name)},
+            ${item.name},
+            ${item.category ?? TechnologyCategory.OTHER}::"TechnologyCategory",
+            ${item.iconSlug ?? null},
+            ${item.position ?? 0}::int
+          )`,
+        ),
+        sql`, `,
+      );
+      await this.db.execute(sql`
+        UPDATE ${technologyTable} AS t
+        SET
+          name = v.name,
+          category = v.category,
+          "iconSlug" = v."iconSlug",
+          position = v.position,
+          "updatedAt" = now()
+        FROM (VALUES ${rows}) AS v(key, name, category, "iconSlug", position)
+        WHERE lower(t.name) = v.key
+      `);
+    }
+
+    if (inserts.length) {
+      await this.db.insert(technologyTable).values(
+        inserts.map((item) => ({
+          name: item.name,
+          category: item.category ?? TechnologyCategory.OTHER,
+          iconSlug: item.iconSlug,
+          position: item.position ?? 0,
+        })),
+      );
+    }
+
+    return {
+      total: items.length,
+      created: inserts.length,
+      updated: updates.length,
+      skipped: items.length - uniqueItems.size,
+    };
+  }
+
+  private normalizeName(name: string): string {
+    return name.trim().toLocaleLowerCase();
   }
 
   private toDomain(row: TechnologyRow): Technology {

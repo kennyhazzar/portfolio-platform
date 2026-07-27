@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { TranslationTabs } from "@/shared/ui/translation-tabs";
 import { updateHeroAction } from "@/entities/hero/actions";
 import { FileUploadField } from "./file-upload-field";
@@ -35,11 +36,12 @@ function LocaleFields({
         />
       </label>
       <label className="flex flex-col gap-1.5">
-        <span className="text-xs font-semibold text-muted-foreground">Заголовок</span>
-        <input
+        <span className="text-xs font-semibold text-muted-foreground">Фразы в hero (каждая с новой строки)</span>
+        <textarea
+          rows={4}
           value={value.headline ?? ""}
           onChange={(e) => onChange({ ...value, headline: e.target.value })}
-          className={fieldClass()}
+          className={`resize-none ${fieldClass()}`}
         />
       </label>
       <label className="flex flex-col gap-1.5">
@@ -64,6 +66,7 @@ function LocaleFields({
 }
 
 export function HeroForm({ initial, initialPhoto }: { initial: HeroAdminDto; initialPhoto?: FileDto | null }) {
+  const router = useRouter();
   const findTranslation = (locale: "ru" | "en") =>
     initial.translations.find((t) => t.locale === locale) ?? emptyTranslation;
 
@@ -81,6 +84,7 @@ export function HeroForm({ initial, initialPhoto }: { initial: HeroAdminDto; ini
     setStatus("saving");
     try {
       await updateHeroAction({ ctaUrl: ctaUrl || undefined, ru, en });
+      router.refresh();
       setStatus("success");
     } catch {
       setStatus("error");

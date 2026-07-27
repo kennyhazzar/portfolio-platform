@@ -4,5852 +4,5900 @@
  */
 
 export interface paths {
-    "/api/v1/auth/me": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** Get current authenticated user */
-        get: operations["AuthController_me"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/v1/auth/login": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /** Login with email and password */
-        post: operations["AuthController_login"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/v1/auth/refresh": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /** Refresh access token */
-        post: operations["AuthController_refreshTokens"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/v1/auth/logout": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /** Logout and invalidate refresh token */
-        post: operations["AuthController_logout"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/v1/auth/forgot-password": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /** Request password reset link via email */
-        post: operations["AuthController_forgotPassword"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/v1/auth/reset-password": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /** Reset password using token from email */
-        post: operations["AuthController_resetPassword"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/v1/auth/change-password": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /** Change password (requires current password) */
-        post: operations["AuthController_changePassword"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/v1/users": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** Get all users (admin) */
-        get: operations["UserController_users"];
-        put?: never;
-        /** Create user (admin) */
-        post: operations["UserController_userCreate"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/v1/users/{id}": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** Get user by ID (own profile always allowed; others require admin/manager role) */
-        get: operations["UserController_userGetById"];
-        put?: never;
-        post?: never;
-        /** Delete user (admin) */
-        delete: operations["UserController_userDelete"];
-        options?: never;
-        head?: never;
-        /** Update user (admin) */
-        patch: operations["UserController_userUpdate"];
-        trace?: never;
-    };
-    "/api/v1/users/me/theme": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        /** Update current user theme preference */
-        patch: operations["UserController_userUpdateTheme"];
-        trace?: never;
-    };
-    "/api/v1/users/{id}/unlock": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /** Unlock user account (admin) */
-        post: operations["UserController_userUnlock"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/v1/users/{id}/reset-password": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /** Admin-initiated password reset — sends reset link to user email */
-        post: operations["UserController_adminResetPassword"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/v1/users/me/notification-preferences": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** Get current user notification channel preferences */
-        get: operations["UserController_getNotificationPreferences"];
-        /** Update current user notification channel preferences */
-        put: operations["UserController_updateNotificationPreferences"];
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/v1/user-roles": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** Get all roles */
-        get: operations["UserRoleController_userRoles"];
-        put?: never;
-        /** Create role */
-        post: operations["UserRoleController_userRoleCreate"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/v1/user-roles/{id}": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** Get role by ID */
-        get: operations["UserRoleController_userRoleGetById"];
-        put?: never;
-        post?: never;
-        /** Delete role */
-        delete: operations["UserRoleController_userRoleDelete"];
-        options?: never;
-        head?: never;
-        /** Update role */
-        patch: operations["UserRoleController_userRoleUpdate"];
-        trace?: never;
-    };
-    "/api/v1/file/external/{externalId}": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** Get PUBLIC-module files attached to one entity instance */
-        get: operations["FileController_getPublicFilesByExternalId"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/v1/file/users/me": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        post: operations["FileController_uploadCurrentUserFiles"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/v1/file/public/{fileId}": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get: operations["FileController_downloadPublic"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/v1/file/public/{fileId}/{versionId}": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get: operations["FileController_downloadPublicVersion"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/v1/file/{fileId}": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get: operations["FileController_download"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/v1/file/{fileId}/{versionId}": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get: operations["FileController_downloadVersion"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/v1/admin/files": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** Get files attached to one entity instance (admin) — backs FileUploadField/MediaGalleryField */
-        get: operations["FileAdminController_getFiles"];
-        put?: never;
-        /** Upload a file attached to an entity instance (admin) — cover/gallery images, résumé, favicon */
-        post: operations["FileAdminController_uploadFile"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/v1/admin/files/reorder": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        /** Bulk-reorder gallery files for drag-and-drop (admin) */
-        patch: operations["FileAdminController_reorderFiles"];
-        trace?: never;
-    };
-    "/api/v1/admin/files/{id}/cover": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        /** Mark a gallery file as the cover, unsetting any previous cover (admin) */
-        patch: operations["FileAdminController_setCover"];
-        trace?: never;
-    };
-    "/api/v1/admin/files/{id}": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        post?: never;
-        /** Delete a file (admin) */
-        delete: operations["FileAdminController_deleteFile"];
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/v1/notifications": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** List notifications for current user */
-        get: operations["NotificationController_list"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/v1/notifications/unread-count": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** Get unread notification count for current user */
-        get: operations["NotificationController_unreadCount"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/v1/notifications/{id}/read": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        /** Mark a notification as read */
-        patch: operations["NotificationController_markRead"];
-        trace?: never;
-    };
-    "/api/v1/notifications/read-all": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        /** Mark all notifications as read */
-        patch: operations["NotificationController_markAllRead"];
-        trace?: never;
-    };
-    "/api/v1/notifications/{id}": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        post?: never;
-        /** Delete a notification */
-        delete: operations["NotificationController_delete"];
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/v1/health": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get: operations["HealthController_check"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/v1/health/ready": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get: operations["HealthController_ready"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/v1/health/live": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get: operations["HealthController_alive"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/v1/admin/dashboard": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** Get system-wide dashboard statistics */
-        get: operations["AdminController_dashboard"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/v1/admin/access-logs": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** Get paginated access audit log */
-        get: operations["AdminController_accessLogs"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/v1/admin/system-settings": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** Get all system settings */
-        get: operations["AdminController_getSettings"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        /** Create or update a system setting (upsert by key) */
-        patch: operations["AdminController_updateSetting"];
-        trace?: never;
-    };
-    "/api/v1/captcha/challenges": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /** Create a captcha challenge from a pre-generated pool asset */
-        post: operations["CaptchaController_create"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/v1/captcha/challenges/{id}/image": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** Stream captcha challenge image through backend proxy */
-        get: operations["CaptchaController_image"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/v1/captcha/challenges/{id}/verify": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /** Verify captcha challenge answer */
-        post: operations["CaptchaController_verify"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/v1/admin/captcha/templates": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** List captcha templates */
-        get: operations["AdminCaptchaController_templates"];
-        put?: never;
-        /** Create captcha template */
-        post: operations["AdminCaptchaController_createTemplate"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/v1/admin/captcha/templates/{id}/configs": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** Get template config history */
-        get: operations["AdminCaptchaController_configs"];
-        put?: never;
-        /** Create captcha config draft */
-        post: operations["AdminCaptchaController_createConfig"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/v1/admin/captcha/configs/{id}/activate": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /** Activate captcha config and archive previous active config */
-        post: operations["AdminCaptchaController_activate"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/v1/admin/captcha/configs/{id}/preview": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /** Generate non-persistent captcha preview images */
-        post: operations["AdminCaptchaController_preview"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/v1/admin/captcha/configs/{id}/generate-batch": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /** Enqueue pre-generation batch for captcha pool */
-        post: operations["AdminCaptchaController_generateBatch"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/v1/admin/captcha/pools": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** Get Redis captcha pool state */
-        get: operations["AdminCaptchaController_pools"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/v1/admin/captcha/metrics": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** Get captcha metrics snapshot */
-        get: operations["AdminCaptchaController_metrics"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/v1/hero": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** Get public hero content for the requested locale */
-        get: operations["HeroController_getHero"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/v1/admin/hero": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** Get hero content with all translations (admin) */
-        get: operations["HeroAdminController_getHero"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        /** Update hero content (admin) — no create/delete, this is a singleton */
-        patch: operations["HeroAdminController_updateHero"];
-        trace?: never;
-    };
-    "/api/v1/about": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** Get public about content for the requested locale */
-        get: operations["AboutController_getAbout"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/v1/admin/about": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** Get about content with all translations (admin) */
-        get: operations["AboutAdminController_getAbout"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        /** Update about content (admin) — no create/delete, this is a singleton */
-        patch: operations["AboutAdminController_updateAbout"];
-        trace?: never;
-    };
-    "/api/v1/site-settings": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** Get public site settings for the requested locale */
-        get: operations["SiteSettingController_getSiteSetting"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/v1/admin/site-settings": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** Get site settings with all translations (admin) */
-        get: operations["SiteSettingAdminController_getSiteSetting"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        /** Update site settings (admin) — no create/delete, this is a singleton */
-        patch: operations["SiteSettingAdminController_updateSiteSetting"];
-        trace?: never;
-    };
-    "/api/v1/technologies": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** Get the public technology stack list, ordered by position */
-        get: operations["TechnologyController_getTechnologies"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/v1/admin/technologies": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** Get all technologies (admin) */
-        get: operations["TechnologyAdminController_getTechnologies"];
-        put?: never;
-        /** Create technology (admin) */
-        post: operations["TechnologyAdminController_createTechnology"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/v1/admin/technologies/{id}": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** Get technology by ID (admin) */
-        get: operations["TechnologyAdminController_getTechnology"];
-        put?: never;
-        post?: never;
-        /** Delete technology (admin) */
-        delete: operations["TechnologyAdminController_deleteTechnology"];
-        options?: never;
-        head?: never;
-        /** Update technology (admin) */
-        patch: operations["TechnologyAdminController_updateTechnology"];
-        trace?: never;
-    };
-    "/api/v1/admin/technologies/reorder": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        /** Bulk-reorder technologies for drag-and-drop (admin) */
-        patch: operations["TechnologyAdminController_reorderTechnologies"];
-        trace?: never;
-    };
-    "/api/v1/navigation": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** Get the public site menu (visible items only), ordered by position */
-        get: operations["NavigationItemController_getNavigation"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/v1/admin/navigation": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** Get all navigation items, including hidden ones (admin) */
-        get: operations["NavigationItemAdminController_getNavigationItems"];
-        put?: never;
-        /** Create navigation item (admin) */
-        post: operations["NavigationItemAdminController_createNavigationItem"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/v1/admin/navigation/{id}": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** Get navigation item by ID (admin) */
-        get: operations["NavigationItemAdminController_getNavigationItem"];
-        put?: never;
-        post?: never;
-        /** Delete navigation item (admin) */
-        delete: operations["NavigationItemAdminController_deleteNavigationItem"];
-        options?: never;
-        head?: never;
-        /** Update navigation item (admin) */
-        patch: operations["NavigationItemAdminController_updateNavigationItem"];
-        trace?: never;
-    };
-    "/api/v1/admin/navigation/reorder": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        /** Bulk-reorder navigation items for drag-and-drop (admin) */
-        patch: operations["NavigationItemAdminController_reorderNavigationItems"];
-        trace?: never;
-    };
-    "/api/v1/cases": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** Get published cases, ordered by position */
-        get: operations["CaseController_getCases"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/v1/cases/{slug}": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** Get a published case by its locale-specific slug */
-        get: operations["CaseController_getCase"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/v1/cases/{slug}/view": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /** Record a view for a published case (deduped per visitor) */
-        post: operations["CaseController_recordView"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/v1/admin/cases": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** Get all cases regardless of status (admin) */
-        get: operations["CaseAdminController_getCases"];
-        put?: never;
-        /** Create case as DRAFT (admin) */
-        post: operations["CaseAdminController_createCase"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/v1/admin/cases/preview/{slug}": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** Get a case by slug regardless of status (admin) — backs Draft Mode preview (docs/planning/05-admin-panel.md §3) */
-        get: operations["CaseAdminController_previewCase"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/v1/admin/cases/{id}": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** Get case by ID with all translations (admin) */
-        get: operations["CaseAdminController_getCase"];
-        put?: never;
-        post?: never;
-        /** Soft-delete a case (admin) */
-        delete: operations["CaseAdminController_deleteCase"];
-        options?: never;
-        head?: never;
-        /** Update case, including publish/unpublish via status (admin) */
-        patch: operations["CaseAdminController_updateCase"];
-        trace?: never;
-    };
-    "/api/v1/admin/cases/reorder": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        /** Bulk-reorder cases for drag-and-drop (admin) */
-        patch: operations["CaseAdminController_reorderCases"];
-        trace?: never;
-    };
-    "/api/v1/posts": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** Get published posts, newest first */
-        get: operations["PostController_getPosts"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/v1/posts/{slug}": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** Get a published post by its locale-specific slug */
-        get: operations["PostController_getPost"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/v1/posts/{slug}/view": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /** Record a view for a published post (deduped per visitor) */
-        post: operations["PostController_recordView"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/v1/admin/posts": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** Get all posts regardless of status (admin) */
-        get: operations["PostAdminController_getPosts"];
-        put?: never;
-        /** Create post as DRAFT, authored by the current admin (admin) */
-        post: operations["PostAdminController_createPost"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/v1/admin/posts/preview/{slug}": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** Get a post by slug regardless of status (admin) — backs Draft Mode preview (docs/planning/05-admin-panel.md §3) */
-        get: operations["PostAdminController_previewPost"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/v1/admin/posts/{id}": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** Get post by ID with all translations (admin) */
-        get: operations["PostAdminController_getPost"];
-        put?: never;
-        post?: never;
-        /** Soft-delete a post (admin) */
-        delete: operations["PostAdminController_deletePost"];
-        options?: never;
-        head?: never;
-        /** Update post, including publish/unpublish via status (admin) */
-        patch: operations["PostAdminController_updatePost"];
-        trace?: never;
-    };
-    "/api/v1/contacts": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** Get visible contacts, ordered by position */
-        get: operations["ContactController_getContacts"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/v1/admin/contacts": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** Get all contacts, including hidden ones (admin) */
-        get: operations["ContactAdminController_getContacts"];
-        put?: never;
-        /** Create contact (admin) */
-        post: operations["ContactAdminController_createContact"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/v1/admin/contacts/{id}": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** Get contact by ID (admin) */
-        get: operations["ContactAdminController_getContact"];
-        put?: never;
-        post?: never;
-        /** Delete contact (admin) */
-        delete: operations["ContactAdminController_deleteContact"];
-        options?: never;
-        head?: never;
-        /** Update contact (admin) */
-        patch: operations["ContactAdminController_updateContact"];
-        trace?: never;
-    };
-    "/api/v1/admin/contacts/reorder": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        /** Bulk-reorder contacts for drag-and-drop (admin) */
-        patch: operations["ContactAdminController_reorderContacts"];
-        trace?: never;
-    };
-    "/api/v1/posts/{slug}/comments": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** Get approved comments for a post, newest first */
-        get: operations["CommentController_getComments"];
-        put?: never;
-        /** Submit a comment (public, unauthenticated) — lands as PENDING, requires a solved captcha */
-        post: operations["CommentController_createComment"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/v1/admin/comments": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** Moderation queue — defaults to PENDING comments (admin) */
-        get: operations["CommentAdminController_getComments"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/v1/admin/comments/{id}": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** Get comment by ID (admin) */
-        get: operations["CommentAdminController_getComment"];
-        put?: never;
-        post?: never;
-        /** Delete comment (admin) */
-        delete: operations["CommentAdminController_deleteComment"];
-        options?: never;
-        head?: never;
-        /** Approve, reject, or mark spam by changing status (admin) */
-        patch: operations["CommentAdminController_updateStatus"];
-        trace?: never;
-    };
+  '/api/v1/auth/me': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /** Get current authenticated user */
+    get: operations['AuthController_me'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/v1/auth/login': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /** Login with email and password */
+    post: operations['AuthController_login'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/v1/auth/refresh': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /** Refresh access token */
+    post: operations['AuthController_refreshTokens'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/v1/auth/logout': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /** Logout and invalidate refresh token */
+    post: operations['AuthController_logout'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/v1/auth/forgot-password': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /** Request password reset link via email */
+    post: operations['AuthController_forgotPassword'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/v1/auth/reset-password': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /** Reset password using token from email */
+    post: operations['AuthController_resetPassword'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/v1/auth/change-password': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /** Change password (requires current password) */
+    post: operations['AuthController_changePassword'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/v1/users': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /** Get all users (admin) */
+    get: operations['UserController_users'];
+    put?: never;
+    /** Create user (admin) */
+    post: operations['UserController_userCreate'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/v1/users/{id}': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /** Get user by ID (own profile always allowed; others require admin/manager role) */
+    get: operations['UserController_userGetById'];
+    put?: never;
+    post?: never;
+    /** Delete user (admin) */
+    delete: operations['UserController_userDelete'];
+    options?: never;
+    head?: never;
+    /** Update user (admin) */
+    patch: operations['UserController_userUpdate'];
+    trace?: never;
+  };
+  '/api/v1/users/me/theme': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    /** Update current user theme preference */
+    patch: operations['UserController_userUpdateTheme'];
+    trace?: never;
+  };
+  '/api/v1/users/{id}/unlock': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /** Unlock user account (admin) */
+    post: operations['UserController_userUnlock'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/v1/users/{id}/reset-password': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /** Admin-initiated password reset — sends reset link to user email */
+    post: operations['UserController_adminResetPassword'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/v1/users/me/notification-preferences': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /** Get current user notification channel preferences */
+    get: operations['UserController_getNotificationPreferences'];
+    /** Update current user notification channel preferences */
+    put: operations['UserController_updateNotificationPreferences'];
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/v1/user-roles': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /** Get all roles */
+    get: operations['UserRoleController_userRoles'];
+    put?: never;
+    /** Create role */
+    post: operations['UserRoleController_userRoleCreate'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/v1/user-roles/{id}': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /** Get role by ID */
+    get: operations['UserRoleController_userRoleGetById'];
+    put?: never;
+    post?: never;
+    /** Delete role */
+    delete: operations['UserRoleController_userRoleDelete'];
+    options?: never;
+    head?: never;
+    /** Update role */
+    patch: operations['UserRoleController_userRoleUpdate'];
+    trace?: never;
+  };
+  '/api/v1/file/external/{externalId}': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /** Get PUBLIC-module files attached to one entity instance */
+    get: operations['FileController_getPublicFilesByExternalId'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/v1/file/users/me': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    post: operations['FileController_uploadCurrentUserFiles'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/v1/file/public/{fileId}': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get: operations['FileController_downloadPublic'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/v1/file/public/{fileId}/{versionId}': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get: operations['FileController_downloadPublicVersion'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/v1/file/{fileId}': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get: operations['FileController_download'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/v1/file/{fileId}/{versionId}': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get: operations['FileController_downloadVersion'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/v1/admin/files': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /** Get files attached to one entity instance (admin) — backs FileUploadField/MediaGalleryField */
+    get: operations['FileAdminController_getFiles'];
+    put?: never;
+    /** Upload a file attached to an entity instance (admin) — cover/gallery images, résumé, favicon */
+    post: operations['FileAdminController_uploadFile'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/v1/admin/files/reorder': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    /** Bulk-reorder gallery files for drag-and-drop (admin) */
+    patch: operations['FileAdminController_reorderFiles'];
+    trace?: never;
+  };
+  '/api/v1/admin/files/{id}/cover': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    /** Mark a gallery file as the cover, unsetting any previous cover (admin) */
+    patch: operations['FileAdminController_setCover'];
+    trace?: never;
+  };
+  '/api/v1/admin/files/{id}': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    post?: never;
+    /** Delete a file (admin) */
+    delete: operations['FileAdminController_deleteFile'];
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/v1/notifications': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /** List notifications for current user */
+    get: operations['NotificationController_list'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/v1/notifications/unread-count': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /** Get unread notification count for current user */
+    get: operations['NotificationController_unreadCount'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/v1/notifications/{id}/read': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    /** Mark a notification as read */
+    patch: operations['NotificationController_markRead'];
+    trace?: never;
+  };
+  '/api/v1/notifications/read-all': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    /** Mark all notifications as read */
+    patch: operations['NotificationController_markAllRead'];
+    trace?: never;
+  };
+  '/api/v1/notifications/{id}': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    post?: never;
+    /** Delete a notification */
+    delete: operations['NotificationController_delete'];
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/v1/health': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get: operations['HealthController_check'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/v1/health/ready': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get: operations['HealthController_ready'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/v1/health/live': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get: operations['HealthController_alive'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/v1/admin/dashboard': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /** Get system-wide dashboard statistics */
+    get: operations['AdminController_dashboard'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/v1/admin/access-logs': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /** Get paginated access audit log */
+    get: operations['AdminController_accessLogs'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/v1/admin/system-settings': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /** Get all system settings */
+    get: operations['AdminController_getSettings'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    /** Create or update a system setting (upsert by key) */
+    patch: operations['AdminController_updateSetting'];
+    trace?: never;
+  };
+  '/api/v1/captcha/challenges': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /** Create a captcha challenge from a pre-generated pool asset */
+    post: operations['CaptchaController_create'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/v1/captcha/challenges/{id}/image': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /** Stream captcha challenge image through backend proxy */
+    get: operations['CaptchaController_image'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/v1/captcha/challenges/{id}/verify': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /** Verify captcha challenge answer */
+    post: operations['CaptchaController_verify'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/v1/admin/captcha/templates': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /** List captcha templates */
+    get: operations['AdminCaptchaController_templates'];
+    put?: never;
+    /** Create captcha template */
+    post: operations['AdminCaptchaController_createTemplate'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/v1/admin/captcha/templates/{id}/configs': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /** Get template config history */
+    get: operations['AdminCaptchaController_configs'];
+    put?: never;
+    /** Create captcha config draft */
+    post: operations['AdminCaptchaController_createConfig'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/v1/admin/captcha/configs/{id}/activate': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /** Activate captcha config and archive previous active config */
+    post: operations['AdminCaptchaController_activate'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/v1/admin/captcha/configs/{id}/preview': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /** Generate non-persistent captcha preview images */
+    post: operations['AdminCaptchaController_preview'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/v1/admin/captcha/configs/{id}/generate-batch': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /** Enqueue pre-generation batch for captcha pool */
+    post: operations['AdminCaptchaController_generateBatch'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/v1/admin/captcha/pools': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /** Get Redis captcha pool state */
+    get: operations['AdminCaptchaController_pools'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/v1/admin/captcha/metrics': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /** Get captcha metrics snapshot */
+    get: operations['AdminCaptchaController_metrics'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/v1/hero': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /** Get public hero content for the requested locale */
+    get: operations['HeroController_getHero'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/v1/admin/hero': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /** Get hero content with all translations (admin) */
+    get: operations['HeroAdminController_getHero'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    /** Update hero content (admin) — no create/delete, this is a singleton */
+    patch: operations['HeroAdminController_updateHero'];
+    trace?: never;
+  };
+  '/api/v1/about': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /** Get public about content for the requested locale */
+    get: operations['AboutController_getAbout'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/v1/admin/about': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /** Get about content with all translations (admin) */
+    get: operations['AboutAdminController_getAbout'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    /** Update about content (admin) — no create/delete, this is a singleton */
+    patch: operations['AboutAdminController_updateAbout'];
+    trace?: never;
+  };
+  '/api/v1/site-settings': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /** Get public site settings for the requested locale */
+    get: operations['SiteSettingController_getSiteSetting'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/v1/admin/site-settings': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /** Get site settings with all translations (admin) */
+    get: operations['SiteSettingAdminController_getSiteSetting'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    /** Update site settings (admin) — no create/delete, this is a singleton */
+    patch: operations['SiteSettingAdminController_updateSiteSetting'];
+    trace?: never;
+  };
+  '/api/v1/technologies': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /** Get the public technology stack list, ordered by position */
+    get: operations['TechnologyController_getTechnologies'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/v1/admin/technologies': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /** Get all technologies (admin) */
+    get: operations['TechnologyAdminController_getTechnologies'];
+    put?: never;
+    /** Create technology (admin) */
+    post: operations['TechnologyAdminController_createTechnology'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/v1/admin/technologies/{id}': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /** Get technology by ID (admin) */
+    get: operations['TechnologyAdminController_getTechnology'];
+    put?: never;
+    post?: never;
+    /** Delete technology (admin) */
+    delete: operations['TechnologyAdminController_deleteTechnology'];
+    options?: never;
+    head?: never;
+    /** Update technology (admin) */
+    patch: operations['TechnologyAdminController_updateTechnology'];
+    trace?: never;
+  };
+  '/api/v1/admin/technologies/reorder': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    /** Bulk-reorder technologies for drag-and-drop (admin) */
+    patch: operations['TechnologyAdminController_reorderTechnologies'];
+    trace?: never;
+  };
+  '/api/v1/navigation': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /** Get the public site menu (visible items only), ordered by position */
+    get: operations['NavigationItemController_getNavigation'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/v1/admin/navigation': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /** Get all navigation items, including hidden ones (admin) */
+    get: operations['NavigationItemAdminController_getNavigationItems'];
+    put?: never;
+    /** Create navigation item (admin) */
+    post: operations['NavigationItemAdminController_createNavigationItem'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/v1/admin/navigation/{id}': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /** Get navigation item by ID (admin) */
+    get: operations['NavigationItemAdminController_getNavigationItem'];
+    put?: never;
+    post?: never;
+    /** Delete navigation item (admin) */
+    delete: operations['NavigationItemAdminController_deleteNavigationItem'];
+    options?: never;
+    head?: never;
+    /** Update navigation item (admin) */
+    patch: operations['NavigationItemAdminController_updateNavigationItem'];
+    trace?: never;
+  };
+  '/api/v1/admin/navigation/reorder': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    /** Bulk-reorder navigation items for drag-and-drop (admin) */
+    patch: operations['NavigationItemAdminController_reorderNavigationItems'];
+    trace?: never;
+  };
+  '/api/v1/cases': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /** Get published cases, ordered by position */
+    get: operations['CaseController_getCases'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/v1/cases/{slug}': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /** Get a published case by its locale-specific slug */
+    get: operations['CaseController_getCase'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/v1/cases/{slug}/view': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /** Record a view for a published case (deduped per visitor) */
+    post: operations['CaseController_recordView'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/v1/admin/cases': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /** Get all cases regardless of status (admin) */
+    get: operations['CaseAdminController_getCases'];
+    put?: never;
+    /** Create case as DRAFT (admin) */
+    post: operations['CaseAdminController_createCase'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/v1/admin/cases/preview/{slug}': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /** Get a case by slug regardless of status (admin) — backs Draft Mode preview (docs/planning/05-admin-panel.md §3) */
+    get: operations['CaseAdminController_previewCase'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/v1/admin/cases/{id}': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /** Get case by ID with all translations (admin) */
+    get: operations['CaseAdminController_getCase'];
+    put?: never;
+    post?: never;
+    /** Soft-delete a case (admin) */
+    delete: operations['CaseAdminController_deleteCase'];
+    options?: never;
+    head?: never;
+    /** Update case, including publish/unpublish via status (admin) */
+    patch: operations['CaseAdminController_updateCase'];
+    trace?: never;
+  };
+  '/api/v1/admin/cases/reorder': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    /** Bulk-reorder cases for drag-and-drop (admin) */
+    patch: operations['CaseAdminController_reorderCases'];
+    trace?: never;
+  };
+  '/api/v1/posts': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /** Get published posts, newest first */
+    get: operations['PostController_getPosts'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/v1/posts/{slug}': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /** Get a published post by its locale-specific slug */
+    get: operations['PostController_getPost'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/v1/posts/{slug}/view': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /** Record a view for a published post (deduped per visitor) */
+    post: operations['PostController_recordView'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/v1/admin/posts': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /** Get all posts regardless of status (admin) */
+    get: operations['PostAdminController_getPosts'];
+    put?: never;
+    /** Create post as DRAFT, authored by the current admin (admin) */
+    post: operations['PostAdminController_createPost'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/v1/admin/posts/preview/{slug}': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /** Get a post by slug regardless of status (admin) — backs Draft Mode preview (docs/planning/05-admin-panel.md §3) */
+    get: operations['PostAdminController_previewPost'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/v1/admin/posts/{id}': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /** Get post by ID with all translations (admin) */
+    get: operations['PostAdminController_getPost'];
+    put?: never;
+    post?: never;
+    /** Soft-delete a post (admin) */
+    delete: operations['PostAdminController_deletePost'];
+    options?: never;
+    head?: never;
+    /** Update post, including publish/unpublish via status (admin) */
+    patch: operations['PostAdminController_updatePost'];
+    trace?: never;
+  };
+  '/api/v1/contacts': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /** Get visible contacts, ordered by position */
+    get: operations['ContactController_getContacts'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/v1/admin/contacts': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /** Get all contacts, including hidden ones (admin) */
+    get: operations['ContactAdminController_getContacts'];
+    put?: never;
+    /** Create contact (admin) */
+    post: operations['ContactAdminController_createContact'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/v1/admin/contacts/{id}': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /** Get contact by ID (admin) */
+    get: operations['ContactAdminController_getContact'];
+    put?: never;
+    post?: never;
+    /** Delete contact (admin) */
+    delete: operations['ContactAdminController_deleteContact'];
+    options?: never;
+    head?: never;
+    /** Update contact (admin) */
+    patch: operations['ContactAdminController_updateContact'];
+    trace?: never;
+  };
+  '/api/v1/admin/contacts/reorder': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    /** Bulk-reorder contacts for drag-and-drop (admin) */
+    patch: operations['ContactAdminController_reorderContacts'];
+    trace?: never;
+  };
+  '/api/v1/posts/{slug}/comments': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /** Get approved comments for a post, newest first */
+    get: operations['CommentController_getComments'];
+    put?: never;
+    /** Submit a comment (public, unauthenticated) — lands as PENDING, requires a solved captcha */
+    post: operations['CommentController_createComment'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/v1/admin/comments': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /** Moderation queue — defaults to PENDING comments (admin) */
+    get: operations['CommentAdminController_getComments'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/v1/admin/comments/{id}': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /** Get comment by ID (admin) */
+    get: operations['CommentAdminController_getComment'];
+    put?: never;
+    post?: never;
+    /** Delete comment (admin) */
+    delete: operations['CommentAdminController_deleteComment'];
+    options?: never;
+    head?: never;
+    /** Approve, reject, or mark spam by changing status (admin) */
+    patch: operations['CommentAdminController_updateStatus'];
+    trace?: never;
+  };
 }
 export type webhooks = Record<string, never>;
 export interface components {
-    schemas: {
-        UserRoleDto: {
-            /**
-             * Format: uuid
-             * @description Unique role identifier
-             * @example 550e8400-e29b-41d4-a716-446655440001
-             */
-            id: string;
-            /**
-             * @description Display name of the role
-             * @example Content Manager
-             */
-            name: string;
-            /**
-             * @description Human-readable description of the role
-             * @example Operational content access
-             */
-            description?: string;
-            /**
-             * @description System role type that controls base permission set
-             * @enum {string}
-             */
-            type: "admin" | "manager" | "user" | "public";
-            /**
-             * Format: date-time
-             * @description When the role was created
-             */
-            createdAt?: string;
-            /**
-             * Format: date-time
-             * @description When the role was last updated
-             */
-            updatedAt?: string;
-        };
-        UserDto: {
-            /**
-             * Format: uuid
-             * @description Unique user identifier
-             * @example 550e8400-e29b-41d4-a716-446655440000
-             */
-            id: string;
-            /**
-             * @description Email address (used for login)
-             * @example john.doe@example.com
-             */
-            email: string;
-            /**
-             * @description First name
-             * @example John
-             */
-            name: string;
-            /**
-             * @description Last name
-             * @example Doe
-             */
-            surname: string;
-            /**
-             * @description Middle name / patronymic
-             * @example Michael
-             */
-            middleName?: string;
-            /**
-             * @description Phone number in E.164 format
-             * @example +79001234567
-             */
-            phone?: string;
-            /**
-             * @description Biological sex
-             * @enum {string}
-             */
-            gender: "male" | "female";
-            /**
-             * Format: date-time
-             * @description Date of birth
-             * @example 1990-01-15T00:00:00.000Z
-             */
-            birthday?: string;
-            /** @description Whether the email address has been verified */
-            verified: boolean;
-            /** @description Whether the account is blocked from logging in */
-            blocked: boolean;
-            /**
-             * @description ISO 3166-1 alpha-2 country code derived from sign-up
-             * @example RU
-             */
-            country: string;
-            /**
-             * @description IETF language tag
-             * @example ru
-             */
-            language: string;
-            /**
-             * @description Locale string for date/number formatting
-             * @example ru-RU
-             */
-            locale: string;
-            /**
-             * @description UI colour theme
-             * @enum {string}
-             */
-            theme: "light" | "dark" | "auto" | "system";
-            /** @description Enabled notification delivery channels */
-            notificationChannels?: ("in_app" | "email" | "telegram" | "sms")[] | null;
-            /** @description Assigned system role */
-            role?: components["schemas"]["UserRoleDto"];
-            /**
-             * Format: date-time
-             * @description When the user account was created
-             */
-            createdAt?: string;
-            /**
-             * Format: date-time
-             * @description When the user account was last updated
-             */
-            updatedAt?: string;
-        };
-        LoginBody: {
-            /**
-             * @description User email address
-             * @example admin@example.com
-             */
-            email: string;
-            /**
-             * @description Account password
-             * @example Str0ng!Pass
-             */
-            password: string;
-        };
-        AuthResponseDto: {
-            /**
-             * @description JWT access token. Present in HYBRID and RESPONSE_ONLY auth modes.
-             * @example eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
-             */
-            accessToken?: string;
-            /**
-             * @description JWT refresh token. Present in HYBRID and RESPONSE_ONLY auth modes.
-             * @example eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
-             */
-            refreshToken?: string;
-            /**
-             * @description CSRF protection token. Present when CSRF is enabled and mode is not COOKIES_ONLY.
-             * @example a1b2c3d4e5f6...
-             */
-            csrfToken?: string;
-            /** @description Authenticated user profile */
-            user: components["schemas"]["UserDto"];
-        };
-        RefreshTokenBody: {
-            /**
-             * @description Refresh token string. Can be omitted when the token is sent as an httpOnly cookie.
-             * @example eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
-             */
-            refreshToken?: string;
-        };
-        AccessTokenResponseDto: {
-            /**
-             * @description New JWT access token.
-             * @example eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
-             */
-            accessToken?: string;
-            /**
-             * @description New JWT refresh token (rotated).
-             * @example eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
-             */
-            refreshToken?: string;
-            /**
-             * @description Updated CSRF token.
-             * @example a1b2c3d4e5f6...
-             */
-            csrfToken?: string;
-        };
-        LogoutResponseDto: {
-            /** @description Whether the logout was successful */
-            success: boolean;
-            /**
-             * @description Localized human-readable status message
-             * @example Выход выполнен успешно
-             */
-            message?: string;
-            /**
-             * @description Stable i18n key for frontend logic
-             * @example user.auth.logout.success
-             */
-            messageKey?: string;
-        };
-        ForgotPasswordBody: {
-            /**
-             * @description Email address of the account to recover
-             * @example user@example.com
-             */
-            email: string;
-        };
-        SuccessResponseDto: {
-            /** @description Whether the operation succeeded */
-            success: boolean;
-        };
-        ResetPasswordBody: {
-            /**
-             * @description One-time reset token received via email
-             * @example a1b2c3d4e5f6789...
-             */
-            token: string;
-            /**
-             * @description New password — minimum 12 characters
-             * @example NewStr0ng!Pass
-             */
-            newPassword: string;
-        };
-        ChangePasswordBody: {
-            /**
-             * @description Current account password (for verification)
-             * @example OldStr0ng!Pass
-             */
-            currentPassword: string;
-            /**
-             * @description New password — minimum 12 characters
-             * @example NewStr0ng!Pass
-             */
-            newPassword: string;
-        };
-        PaginatedMetaDto: {
-            /**
-             * @description Total number of matching records
-             * @example 142
-             */
-            total: number;
-            /**
-             * @description Current page number (1-based)
-             * @example 1
-             */
-            page: number;
-            /**
-             * @description Number of items per page
-             * @example 20
-             */
-            per_page: number;
-            /**
-             * @description Total number of pages
-             * @example 8
-             */
-            pages: number;
-        };
-        UsersDto: {
-            data: components["schemas"]["UserDto"][];
-            meta: components["schemas"]["PaginatedMetaDto"];
-        };
-        CreateUserBody: {
-            /**
-             * @description User email address
-             * @example john.doe@example.com
-             */
-            email: string;
-            /**
-             * @description Password — 12–32 chars, must include uppercase, lowercase, digit and special character (@$!%*?&._-)
-             * @example Str0ng!Pass
-             */
-            password: string;
-            /**
-             * @description First name
-             * @example John
-             */
-            name: string;
-            /**
-             * @description Last name
-             * @example Doe
-             */
-            surname: string;
-            /**
-             * @description Middle name (patronymic)
-             * @example Michael
-             */
-            middleName?: string;
-            /**
-             * @description Phone number in E.164 format
-             * @example +79001234567
-             */
-            phone?: string;
-            /**
-             * @description Biological sex
-             * @enum {string}
-             */
-            gender?: "male" | "female";
-            /**
-             * Format: date-time
-             * @description Date of birth (ISO 8601)
-             * @example 1990-01-15T00:00:00.000Z
-             */
-            birthday?: string;
-            /**
-             * Format: uuid
-             * @description UUID of the role to assign
-             */
-            roleId: string;
-        };
-        UpdateUserBody: {
-            /**
-             * @description New email address
-             * @example newemail@example.com
-             */
-            email?: string;
-            /**
-             * @description First name
-             * @example John
-             */
-            name?: string;
-            /**
-             * @description Last name
-             * @example Doe
-             */
-            surname?: string;
-            /**
-             * @description Middle name (patronymic)
-             * @example Michael
-             */
-            middleName?: string;
-            /**
-             * @description Phone number in E.164 format
-             * @example +79001234567
-             */
-            phone?: string;
-            /**
-             * @description Biological sex
-             * @enum {string}
-             */
-            gender?: "male" | "female";
-            /**
-             * Format: date-time
-             * @description Date of birth (ISO 8601)
-             * @example 1990-01-15T00:00:00.000Z
-             */
-            birthday?: string;
-            /**
-             * Format: uuid
-             * @description New role UUID
-             */
-            roleId?: string;
-            /** @description Block (true) or unblock (false) the user account */
-            blocked?: boolean;
-        };
-        UpdateThemeBody: {
-            /**
-             * @description UI colour theme preference
-             * @enum {string}
-             */
-            theme: "light" | "dark" | "auto" | "system";
-        };
-        NotificationPreferencesDto: {
-            /**
-             * @description List of notification delivery channels enabled for the user
-             * @example [
-             *       "email",
-             *       "push"
-             *     ]
-             */
-            channels: ("in_app" | "email" | "telegram" | "sms")[];
-        };
-        UpdateNotificationPreferencesBody: {
-            /**
-             * @description Desired notification channels. Replaces the current setting entirely.
-             * @example [
-             *       "email"
-             *     ]
-             */
-            channels: ("in_app" | "email" | "telegram" | "sms")[];
-        };
-        UserRolesDto: {
-            data: components["schemas"]["UserRoleDto"][];
-            meta: components["schemas"]["PaginatedMetaDto"];
-        };
-        CreateUserRoleBody: {
-            /**
-             * @description Display name of the role
-             * @example Content Manager
-             */
-            name: string;
-            /**
-             * @description Human-readable description of what this role can do
-             * @example Can manage operational content and user-owned files
-             */
-            description?: string;
-            /**
-             * @description System role type that controls base permission set
-             * @enum {string}
-             */
-            type: "admin" | "manager" | "user" | "public";
-        };
-        UpdateUserRoleBody: {
-            /**
-             * @description New display name for the role
-             * @example Lead Manager
-             */
-            name?: string;
-            /**
-             * @description Updated description
-             * @example Read-only access to operational resources
-             */
-            description?: string;
-            /**
-             * @description System role type
-             * @enum {string}
-             */
-            type?: "admin" | "manager" | "user" | "public";
-        };
-        FileVersionDto: {
-            id: string;
-            mimetype: string;
-            size: number;
-            versionId?: Record<string, never>;
-            user?: components["schemas"]["UserDto"];
-            userId?: string;
-            /** Format: date-time */
-            createdAt?: string;
-            /** Format: date-time */
-            updatedAt?: string;
-        };
-        FileDto: {
-            /**
-             * Format: uuid
-             * @description Unique file identifier
-             */
-            id: string;
-            /**
-             * @description Display name of the file
-             * @example avatar.jpg
-             */
-            name: string;
-            /** @description Optional description or notes about the file */
-            description?: string;
-            /** @description Most recent version of the file */
-            lastVersion?: components["schemas"]["FileVersionDto"];
-            /**
-             * Format: uuid
-             * @description UUID of the most recent file version
-             */
-            lastVersionId?: string;
-            /** @description All versions of the file */
-            versions?: components["schemas"]["FileVersionDto"][];
-            /** @description User who uploaded the file */
-            user?: components["schemas"]["UserDto"];
-            /**
-             * Format: uuid
-             * @description UUID of the user who owns / uploaded the file
-             */
-            userId: string;
-            /**
-             * @description Semantic type of the file
-             * @enum {string}
-             */
-            type: "USER_FILE" | "IMAGE" | "VIDEO" | "DOCUMENT" | "OTHER";
-            /** @description Ordering within its (module, externalId) group — used for gallery ordering */
-            position: number;
-            /** @description Whether this is the cover/thumbnail file for its (module, externalId) group */
-            isCover: boolean;
-            /**
-             * Format: date-time
-             * @description When the file record was created
-             */
-            createdAt?: string;
-            /**
-             * Format: date-time
-             * @description When the file record was last updated
-             */
-            updatedAt?: string;
-        };
-        ReorderItemBody: {
-            /** Format: uuid */
-            id: string;
-            position: number;
-        };
-        ReorderBody: {
-            items: components["schemas"]["ReorderItemBody"][];
-        };
-        NotificationDto: {
-            /**
-             * Format: uuid
-             * @description Unique notification identifier
-             */
-            id: string;
-            /**
-             * Format: uuid
-             * @description UUID of the user who owns this notification
-             */
-            userId: string;
-            /**
-             * @description Notification title
-             * @example Disk space low
-             */
-            title: string;
-            /**
-             * @description Full notification message body
-             * @example Disk usage on "server-1" exceeded 90% for 5 minutes.
-             */
-            content: string;
-            /**
-             * @description Notification category
-             * @enum {string}
-             */
-            type: "SYSTEM" | "INFO" | "WARNING" | "SUCCESS" | "ERROR";
-            /** @description Whether the user has already read this notification */
-            isRead: boolean;
-            /** @description JSON-encoded context data attached to the notification */
-            metadata?: string | null;
-            /**
-             * Format: date-time
-             * @description When the notification was created
-             */
-            createdAt: string;
-        };
-        NotificationsDto: {
-            data: components["schemas"]["NotificationDto"][];
-            meta: components["schemas"]["PaginatedMetaDto"];
-            /** @description Total number of unread notifications for the current user */
-            unreadCount: number;
-        };
-        DashboardDto: {
-            /** @description Total number of registered users */
-            totalUsers: number;
-            /** @description Number of non-blocked users */
-            activeUsers: number;
-            /** @description Total number of configured roles */
-            totalRoles: number;
-            /** @description Unread in-app notifications */
-            unreadNotifications: number;
-            /** @description Pending emails waiting for dispatch */
-            queuedMails: number;
-        };
-        AccessLogDto: {
-            /**
-             * Format: uuid
-             * @description Unique access log entry identifier
-             */
-            id: string;
-            /**
-             * Format: uuid
-             * @description UUID of the authenticated user who performed the action
-             */
-            userId?: Record<string, never> | null;
-            /**
-             * @description Email of the user at the time of the action
-             * @example admin@example.com
-             */
-            email?: Record<string, never> | null;
-            /**
-             * @description Action that was performed
-             * @example user.login
-             */
-            action: string;
-            /**
-             * @description IP address of the client
-             * @example 192.168.1.10
-             */
-            ipAddress?: Record<string, never> | null;
-            /** @description User-Agent header from the client request */
-            userAgent?: Record<string, never> | null;
-            /** @description Additional JSON-encoded details about the action */
-            details?: Record<string, never> | null;
-            /**
-             * Format: date-time
-             * @description When the access event was recorded
-             */
-            createdAt: string;
-        };
-        AccessLogsDto: {
-            data: components["schemas"]["AccessLogDto"][];
-            meta: components["schemas"]["PaginatedMetaDto"];
-        };
-        SystemSettingDto: {
-            /**
-             * @description Setting key (unique identifier)
-             * @example feature.registration.enabled
-             */
-            key: string;
-            /**
-             * @description Setting value; JSON-encoded for complex types
-             * @example true
-             */
-            value: string;
-            /**
-             * Format: date-time
-             * @description When the setting was last updated
-             */
-            updatedAt: string;
-        };
-        UpdateSystemSettingBody: {
-            /**
-             * @description Setting key to create or update
-             * @example feature.registration.enabled
-             */
-            key: string;
-            /**
-             * @description New setting value (JSON-encode complex types)
-             * @example false
-             */
-            value: string;
-        };
-        CreateCaptchaChallengeBody: {
-            /**
-             * @example login
-             * @enum {string}
-             */
-            context: "login" | "register" | "password_reset" | "api_sensitive_action" | "comment_submit";
-            /** @default 0 */
-            riskScore: number;
-            /** @enum {string} */
-            difficulty?: "easy" | "medium" | "hard";
-            /** @example svg-text-ru-v1 */
-            templateCode?: string;
-            /** @description Opaque subject key supplied by AbuseProtectionContext */
-            subject?: string;
-        };
-        CaptchaChallengeDto: {
-            /** Format: uuid */
-            challengeId: string;
-            /** @example /api/v1/captcha/challenges/uuid/image */
-            imageUrl: string;
-            /** @example 180 */
-            expiresIn: number;
-        };
-        VerifyCaptchaChallengeBody: {
-            /** @example A7K9PQ */
-            answer: string;
-        };
-        CaptchaVerifyDto: {
-            success: boolean;
-            attemptsLeft: number;
-        };
-        CreateCaptchaTemplateBody: {
-            /** @example svg-text-ru-v1 */
-            code: string;
-            /** @example SVG Text Russian */
-            name: string;
-            /**
-             * @default image_text
-             * @enum {string}
-             */
-            type: "image_text" | "math_expression";
-            /**
-             * @default active
-             * @enum {string}
-             */
-            status: "draft" | "active" | "archived";
-            /**
-             * @default medium
-             * @enum {string}
-             */
-            defaultDifficulty: "easy" | "medium" | "hard";
-            /** @example svg_text */
-            generator?: string;
-        };
-        CreateCaptchaConfigBody: {
-            /**
-             * @example {
-             *       "width": 320,
-             *       "height": 100,
-             *       "length": 6
-             *     }
-             */
-            configJson: Record<string, never>;
-        };
-        GenerateCaptchaPreviewBody: {
-            /** @default 3 */
-            count: number;
-            /** @enum {string} */
-            difficulty?: "easy" | "medium" | "hard";
-        };
-        EnqueueCaptchaGenerationBatchBody: {
-            /** @default 20 */
-            count: number;
-            /**
-             * @default medium
-             * @enum {string}
-             */
-            difficulty: "easy" | "medium" | "hard";
-        };
-        HeroDto: {
-            /** Format: uuid */
-            id: string;
-            ctaUrl?: string;
-            /** @enum {string} */
-            locale: "ru" | "en";
-            name: string;
-            headline?: string;
-            description?: string;
-            ctaLabel?: string;
-        };
-        HeroTranslationDto: {
-            /** @enum {string} */
-            locale: "ru" | "en";
-            name: string;
-            headline?: string;
-            description?: string;
-            ctaLabel?: string;
-        };
-        HeroAdminDto: {
-            /** Format: uuid */
-            id: string;
-            ctaUrl?: string;
-            translations: components["schemas"]["HeroTranslationDto"][];
-        };
-        HeroTranslationBody: {
-            name: string;
-            headline?: string;
-            description?: string;
-            ctaLabel?: string;
-        };
-        UpdateHeroBody: {
-            /** @description Locale-agnostic CTA link target (internal path or external URL) */
-            ctaUrl?: string;
-            ru: components["schemas"]["HeroTranslationBody"];
-            en: components["schemas"]["HeroTranslationBody"];
-        };
-        AboutDto: {
-            /** Format: uuid */
-            id: string;
-            /** @enum {string} */
-            locale: "ru" | "en";
-            bio: string;
-        };
-        AboutTranslationDto: {
-            /** @enum {string} */
-            locale: "ru" | "en";
-            bio: string;
-        };
-        AboutAdminDto: {
-            /** Format: uuid */
-            id: string;
-            translations: components["schemas"]["AboutTranslationDto"][];
-        };
-        AboutTranslationBody: {
-            bio: string;
-        };
-        UpdateAboutBody: {
-            ru: components["schemas"]["AboutTranslationBody"];
-            en: components["schemas"]["AboutTranslationBody"];
-        };
-        SiteSettingDto: {
-            /** Format: uuid */
-            id: string;
-            /** @enum {string} */
-            locale: "ru" | "en";
-            title: string;
-            brandName?: string;
-            description: string;
-            footerText?: string;
-            copyrightText?: string;
-            defaultSeoTitle?: string;
-            defaultSeoDescription?: string;
-        };
-        SiteSettingTranslationDto: {
-            /** @enum {string} */
-            locale: "ru" | "en";
-            title: string;
-            brandName?: string;
-            description: string;
-            footerText?: string;
-            copyrightText?: string;
-            defaultSeoTitle?: string;
-            defaultSeoDescription?: string;
-        };
-        SiteSettingAdminDto: {
-            /** Format: uuid */
-            id: string;
-            translations: components["schemas"]["SiteSettingTranslationDto"][];
-        };
-        SiteSettingTranslationBody: {
-            title: string;
-            brandName?: string;
-            description: string;
-            footerText?: string;
-            copyrightText?: string;
-            defaultSeoTitle?: string;
-            defaultSeoDescription?: string;
-        };
-        UpdateSiteSettingBody: {
-            ru: components["schemas"]["SiteSettingTranslationBody"];
-            en: components["schemas"]["SiteSettingTranslationBody"];
-        };
-        TechnologyDto: {
-            /** Format: uuid */
-            id: string;
-            name: string;
-            /** @enum {string} */
-            category: "LANGUAGE" | "FRAMEWORK" | "DATABASE" | "INFRA" | "TOOL" | "OTHER";
-            iconSlug?: string;
-            position: number;
-        };
-        TechnologiesDto: {
-            data: components["schemas"]["TechnologyDto"][];
-            meta: components["schemas"]["PaginatedMetaDto"];
-        };
-        CreateTechnologyBody: {
-            name: string;
-            /**
-             * @default OTHER
-             * @enum {string}
-             */
-            category: "LANGUAGE" | "FRAMEWORK" | "DATABASE" | "INFRA" | "TOOL" | "OTHER";
-            iconSlug?: string;
-            position?: number;
-        };
-        UpdateTechnologyBody: {
-            name?: string;
-            /** @enum {string} */
-            category?: "LANGUAGE" | "FRAMEWORK" | "DATABASE" | "INFRA" | "TOOL" | "OTHER";
-            iconSlug?: string;
-        };
-        NavigationItemDto: {
-            /** Format: uuid */
-            id: string;
-            /** Format: uuid */
-            parentId?: string;
-            url: string;
-            position: number;
-            label: string;
-        };
-        NavigationItemTranslationDto: {
-            /** @enum {string} */
-            locale: "ru" | "en";
-            label: string;
-        };
-        NavigationItemAdminDto: {
-            /** Format: uuid */
-            id: string;
-            /** Format: uuid */
-            parentId?: string;
-            url: string;
-            position: number;
-            isVisible: boolean;
-            translations: components["schemas"]["NavigationItemTranslationDto"][];
-        };
-        NavigationItemTranslationBody: {
-            label: string;
-        };
-        CreateNavigationItemBody: {
-            /** Format: uuid */
-            parentId?: string;
-            url: string;
-            position?: number;
-            /** @default true */
-            isVisible: boolean;
-            ru: components["schemas"]["NavigationItemTranslationBody"];
-            en: components["schemas"]["NavigationItemTranslationBody"];
-        };
-        UpdateNavigationItemBody: {
-            /** Format: uuid */
-            parentId?: string;
-            url?: string;
-            isVisible?: boolean;
-            ru?: components["schemas"]["NavigationItemTranslationBody"];
-            en?: components["schemas"]["NavigationItemTranslationBody"];
-        };
-        CaseTechnologyRefDto: {
-            /** Format: uuid */
-            id: string;
-            name: string;
-            /** @enum {string} */
-            category: "LANGUAGE" | "FRAMEWORK" | "DATABASE" | "INFRA" | "TOOL" | "OTHER";
-            iconSlug?: string;
-        };
-        CaseDto: {
-            /** Format: uuid */
-            id: string;
-            /** @enum {string} */
-            locale: "ru" | "en";
-            slug: string;
-            title: string;
-            summary: string;
-            body: string;
-            seoTitle?: string;
-            seoDescription?: string;
-            repoUrl?: string;
-            liveUrl?: string;
-            /** Format: date-time */
-            publishedAt?: string;
-            viewCount: number;
-            technologies: components["schemas"]["CaseTechnologyRefDto"][];
-            /** @description Sibling-locale slugs, for hreflang / locale switcher */
-            alternates: {
-                [key: string]: string;
-            };
-        };
-        CasesDto: {
-            data: components["schemas"]["CaseDto"][];
-            meta: components["schemas"]["PaginatedMetaDto"];
-        };
-        CaseTranslationDto: {
-            /** @enum {string} */
-            locale: "ru" | "en";
-            title: string;
-            slug: string;
-            summary: string;
-            body: string;
-            seoTitle?: string;
-            seoDescription?: string;
-        };
-        CaseAdminDto: {
-            /** Format: uuid */
-            id: string;
-            /** @enum {string} */
-            status: "DRAFT" | "PUBLISHED" | "ARCHIVED";
-            /** Format: date-time */
-            publishedAt?: string;
-            position: number;
-            repoUrl?: string;
-            liveUrl?: string;
-            viewCount: number;
-            technologyIds: string[];
-            translations: components["schemas"]["CaseTranslationDto"][];
-        };
-        CasesAdminDto: {
-            data: components["schemas"]["CaseAdminDto"][];
-            meta: components["schemas"]["PaginatedMetaDto"];
-        };
-        CaseTranslationBody: {
-            title: string;
-            slug: string;
-            summary: string;
-            body: string;
-            seoTitle?: string;
-            seoDescription?: string;
-        };
-        CreateCaseBody: {
-            repoUrl?: string;
-            liveUrl?: string;
-            position?: number;
-            technologyIds?: string[];
-            ru: components["schemas"]["CaseTranslationBody"];
-            en: components["schemas"]["CaseTranslationBody"];
-        };
-        UpdateCaseBody: {
-            /**
-             * @description Publish/unpublish is just changing this field
-             * @enum {string}
-             */
-            status?: "DRAFT" | "PUBLISHED" | "ARCHIVED";
-            repoUrl?: string;
-            liveUrl?: string;
-            technologyIds?: string[];
-            ru?: components["schemas"]["CaseTranslationBody"];
-            en?: components["schemas"]["CaseTranslationBody"];
-        };
-        PostDto: {
-            /** Format: uuid */
-            id: string;
-            /** @enum {string} */
-            locale: "ru" | "en";
-            slug: string;
-            title: string;
-            excerpt: string;
-            body: string;
-            seoTitle?: string;
-            seoDescription?: string;
-            /** Format: date-time */
-            publishedAt?: string;
-            viewCount: number;
-        };
-        PostsDto: {
-            data: components["schemas"]["PostDto"][];
-            meta: components["schemas"]["PaginatedMetaDto"];
-        };
-        PostAdminDto: {
-            /** Format: uuid */
-            id: string;
-            /** Format: uuid */
-            authorUserId: string;
-            /** @enum {string} */
-            status: "DRAFT" | "PUBLISHED" | "ARCHIVED";
-            /** Format: date-time */
-            publishedAt?: string;
-            viewCount: number;
-            /** @enum {string} */
-            locale: "ru" | "en";
-            slug: string;
-            title: string;
-            excerpt: string;
-            body: string;
-            seoTitle?: string;
-            seoDescription?: string;
-        };
-        PostsAdminDto: {
-            data: components["schemas"]["PostAdminDto"][];
-            meta: components["schemas"]["PaginatedMetaDto"];
-        };
-        CreatePostBody: {
-            /**
-             * @description Fixed at creation — the one language this post is written in
-             * @enum {string}
-             */
-            locale: "ru" | "en";
-            title: string;
-            slug: string;
-            excerpt: string;
-            body: string;
-            seoTitle?: string;
-            seoDescription?: string;
-        };
-        UpdatePostBody: {
-            /**
-             * @description Publish/unpublish is just changing this field
-             * @enum {string}
-             */
-            status?: "DRAFT" | "PUBLISHED" | "ARCHIVED";
-            title?: string;
-            slug?: string;
-            excerpt?: string;
-            body?: string;
-            seoTitle?: string;
-            seoDescription?: string;
-        };
-        ContactDto: {
-            /** Format: uuid */
-            id: string;
-            /** @enum {string} */
-            platform: "GITHUB" | "TELEGRAM" | "HABR_CAREER" | "EMAIL" | "LINKEDIN" | "OTHER";
-            value: string;
-            position: number;
-        };
-        ContactAdminDto: {
-            /** Format: uuid */
-            id: string;
-            /** @enum {string} */
-            platform: "GITHUB" | "TELEGRAM" | "HABR_CAREER" | "EMAIL" | "LINKEDIN" | "OTHER";
-            value: string;
-            position: number;
-            isVisible: boolean;
-        };
-        CreateContactBody: {
-            /** @enum {string} */
-            platform: "GITHUB" | "TELEGRAM" | "HABR_CAREER" | "EMAIL" | "LINKEDIN" | "OTHER";
-            /** @description URL, handle, or email address */
-            value: string;
-            position?: number;
-            /** @default true */
-            isVisible: boolean;
-        };
-        UpdateContactBody: {
-            /** @enum {string} */
-            platform?: "GITHUB" | "TELEGRAM" | "HABR_CAREER" | "EMAIL" | "LINKEDIN" | "OTHER";
-            value?: string;
-            isVisible?: boolean;
-        };
-        CommentDto: {
-            /** Format: uuid */
-            id: string;
-            /**
-             * Format: uuid
-             * @description Parent comment for threaded replies
-             */
-            parentCommentId?: string;
-            authorName: string;
-            authorUrl?: string;
-            body: string;
-            /** @enum {string} */
-            locale: "ru" | "en";
-            /** Format: date-time */
-            createdAt: string;
-        };
-        CommentsDto: {
-            data: components["schemas"]["CommentDto"][];
-            meta: components["schemas"]["PaginatedMetaDto"];
-        };
-        CreateCommentBody: {
-            authorName: string;
-            authorEmail?: string;
-            authorUrl?: string;
-            body: string;
-            /**
-             * Format: uuid
-             * @description Parent comment for threaded replies
-             */
-            parentCommentId?: string;
-            /** @description Id of a captcha challenge already solved by the client */
-            captchaChallengeId: string;
-            /** @description The visitor's answer to the captcha challenge */
-            captchaAnswer: string;
-            /** @description Honeypot — must stay empty. A real visitor never sees or fills this field. */
-            website?: string;
-        };
-        CommentAdminDto: {
-            /** Format: uuid */
-            id: string;
-            /**
-             * Format: uuid
-             * @description Parent comment for threaded replies
-             */
-            parentCommentId?: string;
-            authorName: string;
-            authorUrl?: string;
-            body: string;
-            /** @enum {string} */
-            locale: "ru" | "en";
-            /** Format: date-time */
-            createdAt: string;
-            authorEmail?: string;
-            /** @enum {string} */
-            status: "PENDING" | "APPROVED" | "REJECTED" | "SPAM";
-            /** Format: uuid */
-            postId: string;
-        };
-        CommentsAdminDto: {
-            data: components["schemas"]["CommentAdminDto"][];
-            meta: components["schemas"]["PaginatedMetaDto"];
-        };
-        UpdateCommentStatusBody: {
-            /** @enum {string} */
-            status: "PENDING" | "APPROVED" | "REJECTED" | "SPAM";
-        };
+  schemas: {
+    UserRoleDto: {
+      /**
+       * Format: uuid
+       * @description Unique role identifier
+       * @example 550e8400-e29b-41d4-a716-446655440001
+       */
+      id: string;
+      /**
+       * @description Display name of the role
+       * @example Content Manager
+       */
+      name: string;
+      /**
+       * @description Human-readable description of the role
+       * @example Operational content access
+       */
+      description?: string;
+      /**
+       * @description System role type that controls base permission set
+       * @enum {string}
+       */
+      type: 'admin' | 'manager' | 'user' | 'public';
+      /**
+       * Format: date-time
+       * @description When the role was created
+       */
+      createdAt?: string;
+      /**
+       * Format: date-time
+       * @description When the role was last updated
+       */
+      updatedAt?: string;
     };
-    responses: never;
-    parameters: never;
-    requestBodies: never;
-    headers: never;
-    pathItems: never;
+    UserDto: {
+      /**
+       * Format: uuid
+       * @description Unique user identifier
+       * @example 550e8400-e29b-41d4-a716-446655440000
+       */
+      id: string;
+      /**
+       * @description Email address (used for login)
+       * @example john.doe@example.com
+       */
+      email: string;
+      /**
+       * @description First name
+       * @example John
+       */
+      name: string;
+      /**
+       * @description Last name
+       * @example Doe
+       */
+      surname: string;
+      /**
+       * @description Middle name / patronymic
+       * @example Michael
+       */
+      middleName?: string;
+      /**
+       * @description Phone number in E.164 format
+       * @example +79001234567
+       */
+      phone?: string;
+      /**
+       * @description Biological sex
+       * @enum {string}
+       */
+      gender: 'male' | 'female';
+      /**
+       * Format: date-time
+       * @description Date of birth
+       * @example 1990-01-15T00:00:00.000Z
+       */
+      birthday?: string;
+      /** @description Whether the email address has been verified */
+      verified: boolean;
+      /** @description Whether the account is blocked from logging in */
+      blocked: boolean;
+      /**
+       * @description ISO 3166-1 alpha-2 country code derived from sign-up
+       * @example RU
+       */
+      country: string;
+      /**
+       * @description IETF language tag
+       * @example ru
+       */
+      language: string;
+      /**
+       * @description Locale string for date/number formatting
+       * @example ru-RU
+       */
+      locale: string;
+      /**
+       * @description UI colour theme
+       * @enum {string}
+       */
+      theme: 'light' | 'dark' | 'auto' | 'system';
+      /** @description Enabled notification delivery channels */
+      notificationChannels?: ('in_app' | 'email' | 'telegram' | 'sms')[] | null;
+      /** @description Assigned system role */
+      role?: components['schemas']['UserRoleDto'];
+      /**
+       * Format: date-time
+       * @description When the user account was created
+       */
+      createdAt?: string;
+      /**
+       * Format: date-time
+       * @description When the user account was last updated
+       */
+      updatedAt?: string;
+    };
+    LoginBody: {
+      /**
+       * @description User email address
+       * @example admin@example.com
+       */
+      email: string;
+      /**
+       * @description Account password
+       * @example Str0ng!Pass
+       */
+      password: string;
+    };
+    AuthResponseDto: {
+      /**
+       * @description JWT access token. Present in HYBRID and RESPONSE_ONLY auth modes.
+       * @example eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+       */
+      accessToken?: string;
+      /**
+       * @description JWT refresh token. Present in HYBRID and RESPONSE_ONLY auth modes.
+       * @example eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+       */
+      refreshToken?: string;
+      /**
+       * @description CSRF protection token. Present when CSRF is enabled and mode is not COOKIES_ONLY.
+       * @example a1b2c3d4e5f6...
+       */
+      csrfToken?: string;
+      /** @description Authenticated user profile */
+      user: components['schemas']['UserDto'];
+    };
+    RefreshTokenBody: {
+      /**
+       * @description Refresh token string. Can be omitted when the token is sent as an httpOnly cookie.
+       * @example eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+       */
+      refreshToken?: string;
+    };
+    AccessTokenResponseDto: {
+      /**
+       * @description New JWT access token.
+       * @example eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+       */
+      accessToken?: string;
+      /**
+       * @description New JWT refresh token (rotated).
+       * @example eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+       */
+      refreshToken?: string;
+      /**
+       * @description Updated CSRF token.
+       * @example a1b2c3d4e5f6...
+       */
+      csrfToken?: string;
+    };
+    LogoutResponseDto: {
+      /** @description Whether the logout was successful */
+      success: boolean;
+      /**
+       * @description Localized human-readable status message
+       * @example Выход выполнен успешно
+       */
+      message?: string;
+      /**
+       * @description Stable i18n key for frontend logic
+       * @example user.auth.logout.success
+       */
+      messageKey?: string;
+    };
+    ForgotPasswordBody: {
+      /**
+       * @description Email address of the account to recover
+       * @example user@example.com
+       */
+      email: string;
+    };
+    SuccessResponseDto: {
+      /** @description Whether the operation succeeded */
+      success: boolean;
+    };
+    ResetPasswordBody: {
+      /**
+       * @description One-time reset token received via email
+       * @example a1b2c3d4e5f6789...
+       */
+      token: string;
+      /**
+       * @description New password — minimum 12 characters
+       * @example NewStr0ng!Pass
+       */
+      newPassword: string;
+    };
+    ChangePasswordBody: {
+      /**
+       * @description Current account password (for verification)
+       * @example OldStr0ng!Pass
+       */
+      currentPassword: string;
+      /**
+       * @description New password — minimum 12 characters
+       * @example NewStr0ng!Pass
+       */
+      newPassword: string;
+    };
+    PaginatedMetaDto: {
+      /**
+       * @description Total number of matching records
+       * @example 142
+       */
+      total: number;
+      /**
+       * @description Current page number (1-based)
+       * @example 1
+       */
+      page: number;
+      /**
+       * @description Number of items per page
+       * @example 20
+       */
+      per_page: number;
+      /**
+       * @description Total number of pages
+       * @example 8
+       */
+      pages: number;
+    };
+    UsersDto: {
+      data: components['schemas']['UserDto'][];
+      meta: components['schemas']['PaginatedMetaDto'];
+    };
+    CreateUserBody: {
+      /**
+       * @description User email address
+       * @example john.doe@example.com
+       */
+      email: string;
+      /**
+       * @description Password — 12–32 chars, must include uppercase, lowercase, digit and special character (@$!%*?&._-)
+       * @example Str0ng!Pass
+       */
+      password: string;
+      /**
+       * @description First name
+       * @example John
+       */
+      name: string;
+      /**
+       * @description Last name
+       * @example Doe
+       */
+      surname: string;
+      /**
+       * @description Middle name (patronymic)
+       * @example Michael
+       */
+      middleName?: string;
+      /**
+       * @description Phone number in E.164 format
+       * @example +79001234567
+       */
+      phone?: string;
+      /**
+       * @description Biological sex
+       * @enum {string}
+       */
+      gender?: 'male' | 'female';
+      /**
+       * Format: date-time
+       * @description Date of birth (ISO 8601)
+       * @example 1990-01-15T00:00:00.000Z
+       */
+      birthday?: string;
+      /**
+       * Format: uuid
+       * @description UUID of the role to assign
+       */
+      roleId: string;
+    };
+    UpdateUserBody: {
+      /**
+       * @description New email address
+       * @example newemail@example.com
+       */
+      email?: string;
+      /**
+       * @description First name
+       * @example John
+       */
+      name?: string;
+      /**
+       * @description Last name
+       * @example Doe
+       */
+      surname?: string;
+      /**
+       * @description Middle name (patronymic)
+       * @example Michael
+       */
+      middleName?: string;
+      /**
+       * @description Phone number in E.164 format
+       * @example +79001234567
+       */
+      phone?: string;
+      /**
+       * @description Biological sex
+       * @enum {string}
+       */
+      gender?: 'male' | 'female';
+      /**
+       * Format: date-time
+       * @description Date of birth (ISO 8601)
+       * @example 1990-01-15T00:00:00.000Z
+       */
+      birthday?: string;
+      /**
+       * Format: uuid
+       * @description New role UUID
+       */
+      roleId?: string;
+      /** @description Block (true) or unblock (false) the user account */
+      blocked?: boolean;
+    };
+    UpdateThemeBody: {
+      /**
+       * @description UI colour theme preference
+       * @enum {string}
+       */
+      theme: 'light' | 'dark' | 'auto' | 'system';
+    };
+    NotificationPreferencesDto: {
+      /**
+       * @description List of notification delivery channels enabled for the user
+       * @example [
+       *       "email",
+       *       "push"
+       *     ]
+       */
+      channels: ('in_app' | 'email' | 'telegram' | 'sms')[];
+    };
+    UpdateNotificationPreferencesBody: {
+      /**
+       * @description Desired notification channels. Replaces the current setting entirely.
+       * @example [
+       *       "email"
+       *     ]
+       */
+      channels: ('in_app' | 'email' | 'telegram' | 'sms')[];
+    };
+    UserRolesDto: {
+      data: components['schemas']['UserRoleDto'][];
+      meta: components['schemas']['PaginatedMetaDto'];
+    };
+    CreateUserRoleBody: {
+      /**
+       * @description Display name of the role
+       * @example Content Manager
+       */
+      name: string;
+      /**
+       * @description Human-readable description of what this role can do
+       * @example Can manage operational content and user-owned files
+       */
+      description?: string;
+      /**
+       * @description System role type that controls base permission set
+       * @enum {string}
+       */
+      type: 'admin' | 'manager' | 'user' | 'public';
+    };
+    UpdateUserRoleBody: {
+      /**
+       * @description New display name for the role
+       * @example Lead Manager
+       */
+      name?: string;
+      /**
+       * @description Updated description
+       * @example Read-only access to operational resources
+       */
+      description?: string;
+      /**
+       * @description System role type
+       * @enum {string}
+       */
+      type?: 'admin' | 'manager' | 'user' | 'public';
+    };
+    FileVersionDto: {
+      id: string;
+      mimetype: string;
+      size: number;
+      versionId?: Record<string, never>;
+      user?: components['schemas']['UserDto'];
+      userId?: string;
+      /** Format: date-time */
+      createdAt?: string;
+      /** Format: date-time */
+      updatedAt?: string;
+    };
+    FileDto: {
+      /**
+       * Format: uuid
+       * @description Unique file identifier
+       */
+      id: string;
+      /**
+       * @description Display name of the file
+       * @example avatar.jpg
+       */
+      name: string;
+      /** @description Optional description or notes about the file */
+      description?: string;
+      /** @description Most recent version of the file */
+      lastVersion?: components['schemas']['FileVersionDto'];
+      /**
+       * Format: uuid
+       * @description UUID of the most recent file version
+       */
+      lastVersionId?: string;
+      /** @description All versions of the file */
+      versions?: components['schemas']['FileVersionDto'][];
+      /** @description User who uploaded the file */
+      user?: components['schemas']['UserDto'];
+      /**
+       * Format: uuid
+       * @description UUID of the user who owns / uploaded the file
+       */
+      userId: string;
+      /**
+       * @description Semantic type of the file
+       * @enum {string}
+       */
+      type: 'USER_FILE' | 'IMAGE' | 'VIDEO' | 'DOCUMENT' | 'OTHER';
+      /** @description Ordering within its (module, externalId) group — used for gallery ordering */
+      position: number;
+      /** @description Whether this is the cover/thumbnail file for its (module, externalId) group */
+      isCover: boolean;
+      /**
+       * Format: date-time
+       * @description When the file record was created
+       */
+      createdAt?: string;
+      /**
+       * Format: date-time
+       * @description When the file record was last updated
+       */
+      updatedAt?: string;
+    };
+    ReorderItemBody: {
+      /** Format: uuid */
+      id: string;
+      position: number;
+    };
+    ReorderBody: {
+      items: components['schemas']['ReorderItemBody'][];
+    };
+    NotificationDto: {
+      /**
+       * Format: uuid
+       * @description Unique notification identifier
+       */
+      id: string;
+      /**
+       * Format: uuid
+       * @description UUID of the user who owns this notification
+       */
+      userId: string;
+      /**
+       * @description Notification title
+       * @example Disk space low
+       */
+      title: string;
+      /**
+       * @description Full notification message body
+       * @example Disk usage on "server-1" exceeded 90% for 5 minutes.
+       */
+      content: string;
+      /**
+       * @description Notification category
+       * @enum {string}
+       */
+      type: 'SYSTEM' | 'INFO' | 'WARNING' | 'SUCCESS' | 'ERROR';
+      /** @description Whether the user has already read this notification */
+      isRead: boolean;
+      /** @description JSON-encoded context data attached to the notification */
+      metadata?: string | null;
+      /**
+       * Format: date-time
+       * @description When the notification was created
+       */
+      createdAt: string;
+    };
+    NotificationsDto: {
+      data: components['schemas']['NotificationDto'][];
+      meta: components['schemas']['PaginatedMetaDto'];
+      /** @description Total number of unread notifications for the current user */
+      unreadCount: number;
+    };
+    DashboardDto: {
+      /** @description Total number of registered users */
+      totalUsers: number;
+      /** @description Number of non-blocked users */
+      activeUsers: number;
+      /** @description Total number of configured roles */
+      totalRoles: number;
+      /** @description Unread in-app notifications */
+      unreadNotifications: number;
+      /** @description Pending emails waiting for dispatch */
+      queuedMails: number;
+    };
+    AccessLogDto: {
+      /**
+       * Format: uuid
+       * @description Unique access log entry identifier
+       */
+      id: string;
+      /**
+       * Format: uuid
+       * @description UUID of the authenticated user who performed the action
+       */
+      userId?: Record<string, never> | null;
+      /**
+       * @description Email of the user at the time of the action
+       * @example admin@example.com
+       */
+      email?: Record<string, never> | null;
+      /**
+       * @description Action that was performed
+       * @example user.login
+       */
+      action: string;
+      /**
+       * @description IP address of the client
+       * @example 192.168.1.10
+       */
+      ipAddress?: Record<string, never> | null;
+      /** @description User-Agent header from the client request */
+      userAgent?: Record<string, never> | null;
+      /** @description Additional JSON-encoded details about the action */
+      details?: Record<string, never> | null;
+      /**
+       * Format: date-time
+       * @description When the access event was recorded
+       */
+      createdAt: string;
+    };
+    AccessLogsDto: {
+      data: components['schemas']['AccessLogDto'][];
+      meta: components['schemas']['PaginatedMetaDto'];
+    };
+    SystemSettingDto: {
+      /**
+       * @description Setting key (unique identifier)
+       * @example feature.registration.enabled
+       */
+      key: string;
+      /**
+       * @description Setting value; JSON-encoded for complex types
+       * @example true
+       */
+      value: string;
+      /**
+       * Format: date-time
+       * @description When the setting was last updated
+       */
+      updatedAt: string;
+    };
+    UpdateSystemSettingBody: {
+      /**
+       * @description Setting key to create or update
+       * @example feature.registration.enabled
+       */
+      key: string;
+      /**
+       * @description New setting value (JSON-encode complex types)
+       * @example false
+       */
+      value: string;
+    };
+    CreateCaptchaChallengeBody: {
+      /**
+       * @example login
+       * @enum {string}
+       */
+      context: 'login' | 'register' | 'password_reset' | 'api_sensitive_action' | 'comment_submit';
+      /** @default 0 */
+      riskScore: number;
+      /** @enum {string} */
+      difficulty?: 'easy' | 'medium' | 'hard';
+      /** @example svg-text-ru-v1 */
+      templateCode?: string;
+      /** @description Opaque subject key supplied by AbuseProtectionContext */
+      subject?: string;
+    };
+    CaptchaChallengeDto: {
+      /** Format: uuid */
+      challengeId: string;
+      /** @example /api/v1/captcha/challenges/uuid/image */
+      imageUrl: string;
+      /** @example 180 */
+      expiresIn: number;
+    };
+    VerifyCaptchaChallengeBody: {
+      /** @example A7K9PQ */
+      answer: string;
+    };
+    CaptchaVerifyDto: {
+      success: boolean;
+      attemptsLeft: number;
+    };
+    CreateCaptchaTemplateBody: {
+      /** @example svg-text-ru-v1 */
+      code: string;
+      /** @example SVG Text Russian */
+      name: string;
+      /**
+       * @default image_text
+       * @enum {string}
+       */
+      type: 'image_text' | 'math_expression';
+      /**
+       * @default active
+       * @enum {string}
+       */
+      status: 'draft' | 'active' | 'archived';
+      /**
+       * @default medium
+       * @enum {string}
+       */
+      defaultDifficulty: 'easy' | 'medium' | 'hard';
+      /** @example svg_text */
+      generator?: string;
+    };
+    CreateCaptchaConfigBody: {
+      /**
+       * @example {
+       *       "width": 320,
+       *       "height": 100,
+       *       "length": 6
+       *     }
+       */
+      configJson: Record<string, never>;
+    };
+    GenerateCaptchaPreviewBody: {
+      /** @default 3 */
+      count: number;
+      /** @enum {string} */
+      difficulty?: 'easy' | 'medium' | 'hard';
+    };
+    EnqueueCaptchaGenerationBatchBody: {
+      /** @default 20 */
+      count: number;
+      /**
+       * @default medium
+       * @enum {string}
+       */
+      difficulty: 'easy' | 'medium' | 'hard';
+    };
+    HeroDto: {
+      /** Format: uuid */
+      id: string;
+      ctaUrl?: string;
+      /** @enum {string} */
+      locale: 'ru' | 'en';
+      name: string;
+      headline?: string;
+      description?: string;
+      ctaLabel?: string;
+    };
+    HeroTranslationDto: {
+      /** @enum {string} */
+      locale: 'ru' | 'en';
+      name: string;
+      headline?: string;
+      description?: string;
+      ctaLabel?: string;
+    };
+    HeroAdminDto: {
+      /** Format: uuid */
+      id: string;
+      ctaUrl?: string;
+      translations: components['schemas']['HeroTranslationDto'][];
+    };
+    HeroTranslationBody: {
+      name: string;
+      headline?: string;
+      description?: string;
+      ctaLabel?: string;
+    };
+    UpdateHeroBody: {
+      /** @description Locale-agnostic CTA link target (internal path or external URL) */
+      ctaUrl?: string;
+      ru: components['schemas']['HeroTranslationBody'];
+      en: components['schemas']['HeroTranslationBody'];
+    };
+    AboutDto: {
+      /** Format: uuid */
+      id: string;
+      /** @enum {string} */
+      locale: 'ru' | 'en';
+      bio: string;
+    };
+    AboutTranslationDto: {
+      /** @enum {string} */
+      locale: 'ru' | 'en';
+      bio: string;
+    };
+    AboutAdminDto: {
+      /** Format: uuid */
+      id: string;
+      translations: components['schemas']['AboutTranslationDto'][];
+    };
+    AboutTranslationBody: {
+      bio: string;
+    };
+    UpdateAboutBody: {
+      ru: components['schemas']['AboutTranslationBody'];
+      en: components['schemas']['AboutTranslationBody'];
+    };
+    SiteSettingDto: {
+      /** Format: uuid */
+      id: string;
+      /** @enum {string} */
+      locale: 'ru' | 'en';
+      title: string;
+      brandName?: string;
+      description: string;
+      footerText?: string;
+      copyrightText?: string;
+      defaultSeoTitle?: string;
+      defaultSeoDescription?: string;
+    };
+    SiteSettingTranslationDto: {
+      /** @enum {string} */
+      locale: 'ru' | 'en';
+      title: string;
+      brandName?: string;
+      description: string;
+      footerText?: string;
+      copyrightText?: string;
+      defaultSeoTitle?: string;
+      defaultSeoDescription?: string;
+    };
+    SiteSettingAdminDto: {
+      /** Format: uuid */
+      id: string;
+      translations: components['schemas']['SiteSettingTranslationDto'][];
+    };
+    SiteSettingTranslationBody: {
+      title: string;
+      brandName?: string;
+      description: string;
+      footerText?: string;
+      copyrightText?: string;
+      defaultSeoTitle?: string;
+      defaultSeoDescription?: string;
+    };
+    UpdateSiteSettingBody: {
+      ru: components['schemas']['SiteSettingTranslationBody'];
+      en: components['schemas']['SiteSettingTranslationBody'];
+    };
+    TechnologyDto: {
+      /** Format: uuid */
+      id: string;
+      name: string;
+      /** @enum {string} */
+      category:
+        | 'LANGUAGE'
+        | 'FRAMEWORK'
+        | 'LIBRARY'
+        | 'DATABASE'
+        | 'STORAGE'
+        | 'INFRA'
+        | 'PROTOCOL'
+        | 'ARCHITECTURE'
+        | 'AUTH'
+        | 'TESTING'
+        | 'TOOL'
+        | 'OTHER';
+      iconSlug?: string;
+      position: number;
+    };
+    TechnologiesDto: {
+      data: components['schemas']['TechnologyDto'][];
+      meta: components['schemas']['PaginatedMetaDto'];
+    };
+    CreateTechnologyBody: {
+      name: string;
+      /**
+       * @default OTHER
+       * @enum {string}
+       */
+      category:
+        | 'LANGUAGE'
+        | 'FRAMEWORK'
+        | 'LIBRARY'
+        | 'DATABASE'
+        | 'STORAGE'
+        | 'INFRA'
+        | 'PROTOCOL'
+        | 'ARCHITECTURE'
+        | 'AUTH'
+        | 'TESTING'
+        | 'TOOL'
+        | 'OTHER';
+      iconSlug?: string;
+      position?: number;
+    };
+    UpdateTechnologyBody: {
+      name?: string;
+      /** @enum {string} */
+      category?:
+        | 'LANGUAGE'
+        | 'FRAMEWORK'
+        | 'LIBRARY'
+        | 'DATABASE'
+        | 'STORAGE'
+        | 'INFRA'
+        | 'PROTOCOL'
+        | 'ARCHITECTURE'
+        | 'AUTH'
+        | 'TESTING'
+        | 'TOOL'
+        | 'OTHER';
+      iconSlug?: string;
+    };
+    NavigationItemDto: {
+      /** Format: uuid */
+      id: string;
+      /** Format: uuid */
+      parentId?: string;
+      url: string;
+      position: number;
+      label: string;
+    };
+    NavigationItemTranslationDto: {
+      /** @enum {string} */
+      locale: 'ru' | 'en';
+      label: string;
+    };
+    NavigationItemAdminDto: {
+      /** Format: uuid */
+      id: string;
+      /** Format: uuid */
+      parentId?: string;
+      url: string;
+      position: number;
+      isVisible: boolean;
+      translations: components['schemas']['NavigationItemTranslationDto'][];
+    };
+    NavigationItemTranslationBody: {
+      label: string;
+    };
+    CreateNavigationItemBody: {
+      /** Format: uuid */
+      parentId?: string;
+      url: string;
+      position?: number;
+      /** @default true */
+      isVisible: boolean;
+      ru: components['schemas']['NavigationItemTranslationBody'];
+      en: components['schemas']['NavigationItemTranslationBody'];
+    };
+    UpdateNavigationItemBody: {
+      /** Format: uuid */
+      parentId?: string;
+      url?: string;
+      isVisible?: boolean;
+      ru?: components['schemas']['NavigationItemTranslationBody'];
+      en?: components['schemas']['NavigationItemTranslationBody'];
+    };
+    CaseTechnologyRefDto: {
+      /** Format: uuid */
+      id: string;
+      name: string;
+      /** @enum {string} */
+      category:
+        | 'LANGUAGE'
+        | 'FRAMEWORK'
+        | 'LIBRARY'
+        | 'DATABASE'
+        | 'STORAGE'
+        | 'INFRA'
+        | 'PROTOCOL'
+        | 'ARCHITECTURE'
+        | 'AUTH'
+        | 'TESTING'
+        | 'TOOL'
+        | 'OTHER';
+      iconSlug?: string;
+    };
+    CaseDto: {
+      /** Format: uuid */
+      id: string;
+      /** @enum {string} */
+      locale: 'ru' | 'en';
+      slug: string;
+      title: string;
+      summary: string;
+      body: string;
+      seoTitle?: string;
+      seoDescription?: string;
+      repoUrl?: string;
+      liveUrl?: string;
+      /** Format: date-time */
+      publishedAt?: string;
+      viewCount: number;
+      technologies: components['schemas']['CaseTechnologyRefDto'][];
+      /** @description Sibling-locale slugs, for hreflang / locale switcher */
+      alternates: {
+        [key: string]: string;
+      };
+    };
+    CasesDto: {
+      data: components['schemas']['CaseDto'][];
+      meta: components['schemas']['PaginatedMetaDto'];
+    };
+    CaseTranslationDto: {
+      /** @enum {string} */
+      locale: 'ru' | 'en';
+      title: string;
+      slug: string;
+      summary: string;
+      body: string;
+      seoTitle?: string;
+      seoDescription?: string;
+    };
+    CaseAdminDto: {
+      /** Format: uuid */
+      id: string;
+      /** @enum {string} */
+      status: 'DRAFT' | 'PUBLISHED' | 'ARCHIVED';
+      /** Format: date-time */
+      publishedAt?: string;
+      position: number;
+      repoUrl?: string;
+      liveUrl?: string;
+      viewCount: number;
+      technologyIds: string[];
+      translations: components['schemas']['CaseTranslationDto'][];
+    };
+    CasesAdminDto: {
+      data: components['schemas']['CaseAdminDto'][];
+      meta: components['schemas']['PaginatedMetaDto'];
+    };
+    CaseTranslationBody: {
+      title: string;
+      slug: string;
+      summary: string;
+      body: string;
+      seoTitle?: string;
+      seoDescription?: string;
+    };
+    CreateCaseBody: {
+      repoUrl?: string;
+      liveUrl?: string;
+      position?: number;
+      technologyIds?: string[];
+      ru: components['schemas']['CaseTranslationBody'];
+      en: components['schemas']['CaseTranslationBody'];
+    };
+    UpdateCaseBody: {
+      /**
+       * @description Publish/unpublish is just changing this field
+       * @enum {string}
+       */
+      status?: 'DRAFT' | 'PUBLISHED' | 'ARCHIVED';
+      repoUrl?: string;
+      liveUrl?: string;
+      technologyIds?: string[];
+      ru?: components['schemas']['CaseTranslationBody'];
+      en?: components['schemas']['CaseTranslationBody'];
+    };
+    PostDto: {
+      /** Format: uuid */
+      id: string;
+      /** @enum {string} */
+      locale: 'ru' | 'en';
+      slug: string;
+      title: string;
+      excerpt: string;
+      body: string;
+      seoTitle?: string;
+      seoDescription?: string;
+      /** Format: date-time */
+      publishedAt?: string;
+      viewCount: number;
+    };
+    PostsDto: {
+      data: components['schemas']['PostDto'][];
+      meta: components['schemas']['PaginatedMetaDto'];
+    };
+    PostAdminDto: {
+      /** Format: uuid */
+      id: string;
+      /** Format: uuid */
+      authorUserId: string;
+      /** @enum {string} */
+      status: 'DRAFT' | 'PUBLISHED' | 'ARCHIVED';
+      /** Format: date-time */
+      publishedAt?: string;
+      viewCount: number;
+      /** @enum {string} */
+      locale: 'ru' | 'en';
+      slug: string;
+      title: string;
+      excerpt: string;
+      body: string;
+      seoTitle?: string;
+      seoDescription?: string;
+    };
+    PostsAdminDto: {
+      data: components['schemas']['PostAdminDto'][];
+      meta: components['schemas']['PaginatedMetaDto'];
+    };
+    CreatePostBody: {
+      /**
+       * @description Fixed at creation — the one language this post is written in
+       * @enum {string}
+       */
+      locale: 'ru' | 'en';
+      title: string;
+      slug: string;
+      excerpt: string;
+      body: string;
+      seoTitle?: string;
+      seoDescription?: string;
+    };
+    UpdatePostBody: {
+      /**
+       * @description Publish/unpublish is just changing this field
+       * @enum {string}
+       */
+      status?: 'DRAFT' | 'PUBLISHED' | 'ARCHIVED';
+      title?: string;
+      slug?: string;
+      excerpt?: string;
+      body?: string;
+      seoTitle?: string;
+      seoDescription?: string;
+    };
+    ContactDto: {
+      /** Format: uuid */
+      id: string;
+      /** @enum {string} */
+      platform: 'GITHUB' | 'TELEGRAM' | 'HABR_CAREER' | 'EMAIL' | 'LINKEDIN' | 'OTHER';
+      value: string;
+      position: number;
+    };
+    ContactAdminDto: {
+      /** Format: uuid */
+      id: string;
+      /** @enum {string} */
+      platform: 'GITHUB' | 'TELEGRAM' | 'HABR_CAREER' | 'EMAIL' | 'LINKEDIN' | 'OTHER';
+      value: string;
+      position: number;
+      isVisible: boolean;
+    };
+    CreateContactBody: {
+      /** @enum {string} */
+      platform: 'GITHUB' | 'TELEGRAM' | 'HABR_CAREER' | 'EMAIL' | 'LINKEDIN' | 'OTHER';
+      /** @description URL, handle, or email address */
+      value: string;
+      position?: number;
+      /** @default true */
+      isVisible: boolean;
+    };
+    UpdateContactBody: {
+      /** @enum {string} */
+      platform?: 'GITHUB' | 'TELEGRAM' | 'HABR_CAREER' | 'EMAIL' | 'LINKEDIN' | 'OTHER';
+      value?: string;
+      isVisible?: boolean;
+    };
+    CommentDto: {
+      /** Format: uuid */
+      id: string;
+      /**
+       * Format: uuid
+       * @description Parent comment for threaded replies
+       */
+      parentCommentId?: string;
+      authorName: string;
+      authorUrl?: string;
+      body: string;
+      /** @enum {string} */
+      locale: 'ru' | 'en';
+      /** Format: date-time */
+      createdAt: string;
+    };
+    CommentsDto: {
+      data: components['schemas']['CommentDto'][];
+      meta: components['schemas']['PaginatedMetaDto'];
+    };
+    CreateCommentBody: {
+      authorName: string;
+      authorEmail?: string;
+      authorUrl?: string;
+      body: string;
+      /**
+       * Format: uuid
+       * @description Parent comment for threaded replies
+       */
+      parentCommentId?: string;
+      /** @description Id of a captcha challenge already solved by the client */
+      captchaChallengeId: string;
+      /** @description The visitor's answer to the captcha challenge */
+      captchaAnswer: string;
+      /** @description Honeypot — must stay empty. A real visitor never sees or fills this field. */
+      website?: string;
+    };
+    CommentAdminDto: {
+      /** Format: uuid */
+      id: string;
+      /**
+       * Format: uuid
+       * @description Parent comment for threaded replies
+       */
+      parentCommentId?: string;
+      authorName: string;
+      authorUrl?: string;
+      body: string;
+      /** @enum {string} */
+      locale: 'ru' | 'en';
+      /** Format: date-time */
+      createdAt: string;
+      authorEmail?: string;
+      /** @enum {string} */
+      status: 'PENDING' | 'APPROVED' | 'REJECTED' | 'SPAM';
+      /** Format: uuid */
+      postId: string;
+    };
+    CommentsAdminDto: {
+      data: components['schemas']['CommentAdminDto'][];
+      meta: components['schemas']['PaginatedMetaDto'];
+    };
+    UpdateCommentStatusBody: {
+      /** @enum {string} */
+      status: 'PENDING' | 'APPROVED' | 'REJECTED' | 'SPAM';
+    };
+  };
+  responses: never;
+  parameters: never;
+  requestBodies: never;
+  headers: never;
+  pathItems: never;
 }
 export type $defs = Record<string, never>;
 export interface operations {
-    AuthController_me: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["UserDto"];
-                };
-            };
-            /** @description Not authenticated. */
-            401: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    AuthController_login: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["LoginBody"];
-            };
-        };
-        responses: {
-            /** @description Authenticated successfully. Tokens may also be set as httpOnly cookies depending on auth mode. */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["AuthResponseDto"];
-                };
-            };
-            /** @description Validation error in request body. */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Invalid credentials or account not verified. After repeated failures response may include requiresCaptcha=true. */
-            401: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Account is temporarily locked or blocked. */
-            403: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    AuthController_refreshTokens: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["RefreshTokenBody"];
-            };
-        };
-        responses: {
-            /** @description New token pair issued. */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["AccessTokenResponseDto"];
-                };
-            };
-            /** @description Refresh token missing, expired, or revoked. */
-            401: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    AuthController_logout: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["RefreshTokenBody"];
-            };
-        };
-        responses: {
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["LogoutResponseDto"];
-                };
-            };
-        };
-    };
-    AuthController_forgotPassword: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["ForgotPasswordBody"];
-            };
-        };
-        responses: {
-            /** @description Reset email sent if the account exists. */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["SuccessResponseDto"];
-                };
-            };
-            /** @description Invalid email format. */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    AuthController_resetPassword: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["ResetPasswordBody"];
-            };
-        };
-        responses: {
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["SuccessResponseDto"];
-                };
-            };
-            /** @description Token expired, already used, or password too weak. */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    AuthController_changePassword: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["ChangePasswordBody"];
-            };
-        };
-        responses: {
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["SuccessResponseDto"];
-                };
-            };
-            /** @description Current password incorrect or new password too weak. */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    UserController_users: {
-        parameters: {
-            query?: {
-                /** @description Page number (1-based) */
-                page?: number;
-                /** @description Items per page */
-                per_page?: number;
-            };
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["UsersDto"];
-                };
-            };
-            /** @description Insufficient permissions. */
-            403: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    UserController_userCreate: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["CreateUserBody"];
-            };
-        };
-        responses: {
-            201: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["UserDto"];
-                };
-            };
-            /** @description Validation error or email already in use. */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Insufficient permissions. */
-            403: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    UserController_userGetById: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                id: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["UserDto"];
-                };
-            };
-            /** @description Insufficient permissions. */
-            403: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description User not found. */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    UserController_userDelete: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                id: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        success?: boolean;
-                    };
-                };
-            };
-            /** @description Insufficient permissions. */
-            403: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description User not found. */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    UserController_userUpdate: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                id: string;
-            };
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["UpdateUserBody"];
-            };
-        };
-        responses: {
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["UserDto"];
-                };
-            };
-            /** @description Insufficient permissions. */
-            403: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description User not found. */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    UserController_userUpdateTheme: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["UpdateThemeBody"];
-            };
-        };
-        responses: {
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["UserDto"];
-                };
-            };
-        };
-    };
-    UserController_userUnlock: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                id: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["SuccessResponseDto"];
-                };
-            };
-            /** @description Insufficient permissions. */
-            403: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description User not found. */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    UserController_adminResetPassword: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                id: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["SuccessResponseDto"];
-                };
-            };
-            /** @description Insufficient permissions. */
-            403: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description User not found. */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    UserController_getNotificationPreferences: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["NotificationPreferencesDto"];
-                };
-            };
-        };
-    };
-    UserController_updateNotificationPreferences: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["UpdateNotificationPreferencesBody"];
-            };
-        };
-        responses: {
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["NotificationPreferencesDto"];
-                };
-            };
-        };
-    };
-    UserRoleController_userRoles: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["UserRolesDto"];
-                };
-            };
-        };
-    };
-    UserRoleController_userRoleCreate: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["CreateUserRoleBody"];
-            };
-        };
-        responses: {
-            201: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["UserRoleDto"];
-                };
-            };
-            /** @description Validation error or role name already exists. */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Insufficient permissions. */
-            403: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    UserRoleController_userRoleGetById: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                id: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["UserRoleDto"];
-                };
-            };
-            /** @description Role not found. */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    UserRoleController_userRoleDelete: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                id: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        success?: boolean;
-                    };
-                };
-            };
-            /** @description Insufficient permissions. */
-            403: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Role not found. */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    UserRoleController_userRoleUpdate: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                id: string;
-            };
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["UpdateUserRoleBody"];
-            };
-        };
-        responses: {
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["UserRoleDto"];
-                };
-            };
-            /** @description Insufficient permissions. */
-            403: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Role not found. */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    FileController_getPublicFilesByExternalId: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                externalId: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["FileDto"][];
-                };
-            };
-        };
-    };
-    FileController_uploadCurrentUserFiles: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "multipart/form-data": {
-                    /**
-                     * Format: binary
-                     * @description File to upload. Repeat the field to upload many files.
-                     */
-                    file: string;
-                    /** @description Optional display name. Defaults to original filename. */
-                    name?: string;
-                    /** @description Optional file description. */
-                    description?: string;
-                    /**
-                     * @default USER_FILE
-                     * @enum {string}
-                     */
-                    type?: "USER_FILE" | "IMAGE" | "VIDEO" | "DOCUMENT" | "OTHER";
-                };
-            };
-        };
-        responses: {
-            201: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    FileController_downloadPublic: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                fileId: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    FileController_downloadPublicVersion: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                fileId: string;
-                versionId: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    FileController_download: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                fileId: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    FileController_downloadVersion: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                fileId: string;
-                versionId: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    FileAdminController_getFiles: {
-        parameters: {
-            query: {
-                /** @description Module/context to look up files for */
-                module: "USER" | "PUBLIC";
-                /** @description UUID of the entity to look up files for */
-                externalId: string;
-            };
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["FileDto"][];
-                };
-            };
-        };
-    };
-    FileAdminController_uploadFile: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "multipart/form-data": {
-                    /** Format: binary */
-                    file: string;
-                    /** @enum {string} */
-                    module: "USER" | "PUBLIC";
-                    /** Format: uuid */
-                    externalId: string;
-                    /** @enum {string} */
-                    type: "USER_FILE" | "IMAGE" | "VIDEO" | "DOCUMENT" | "OTHER";
-                    /** @description Fixed slot name for single-file fields (e.g. "cover"); omit for gallery uploads. */
-                    name?: string;
-                    description?: string;
-                    isCover?: boolean;
-                };
-            };
-        };
-        responses: {
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["FileDto"];
-                };
-            };
-            /** @description Admin access required. */
-            403: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    FileAdminController_reorderFiles: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["ReorderBody"];
-            };
-        };
-        responses: {
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        success?: boolean;
-                    };
-                };
-            };
-        };
-    };
-    FileAdminController_setCover: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                id: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        success?: boolean;
-                    };
-                };
-            };
-        };
-    };
-    FileAdminController_deleteFile: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                id: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        success?: boolean;
-                    };
-                };
-            };
-        };
-    };
-    NotificationController_list: {
-        parameters: {
-            query?: {
-                /** @description Filter by read/unread status */
-                isRead?: boolean;
-                /** @description Filter by notification category */
-                type?: "SYSTEM" | "INFO" | "WARNING" | "SUCCESS" | "ERROR";
-                /** @description Page number (1-based) */
-                page?: number;
-                /** @description Items per page */
-                per_page?: number;
-            };
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["NotificationsDto"];
-                };
-            };
-            /** @description Insufficient permissions. */
-            403: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    NotificationController_unreadCount: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        /** @description Number of unread notifications */
-                        count?: number;
-                    };
-                };
-            };
-            /** @description Insufficient permissions. */
-            403: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    NotificationController_markRead: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                id: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        message?: boolean;
-                    };
-                };
-            };
-            /** @description Insufficient permissions. */
-            403: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Notification not found. */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    NotificationController_markAllRead: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        /** @description Number of notifications marked as read */
-                        count?: number;
-                    };
-                };
-            };
-            /** @description Insufficient permissions. */
-            403: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    NotificationController_delete: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                id: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        message?: boolean;
-                    };
-                };
-            };
-            /** @description Insufficient permissions. */
-            403: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Notification not found. */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    HealthController_check: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description The Health Check is successful */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        /** @example ok */
-                        status?: string;
-                        /**
-                         * @example {
-                         *       "database": {
-                         *         "status": "up"
-                         *       }
-                         *     }
-                         */
-                        info?: {
-                            [key: string]: {
-                                status: string;
-                            } & {
-                                [key: string]: unknown;
-                            };
-                        } | null;
-                        /** @example {} */
-                        error?: {
-                            [key: string]: {
-                                status: string;
-                            } & {
-                                [key: string]: unknown;
-                            };
-                        } | null;
-                        /**
-                         * @example {
-                         *       "database": {
-                         *         "status": "up"
-                         *       }
-                         *     }
-                         */
-                        details?: {
-                            [key: string]: {
-                                status: string;
-                            } & {
-                                [key: string]: unknown;
-                            };
-                        };
-                    };
-                };
-            };
-            /** @description The Health Check is not successful */
-            503: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        /** @example error */
-                        status?: string;
-                        /**
-                         * @example {
-                         *       "database": {
-                         *         "status": "up"
-                         *       }
-                         *     }
-                         */
-                        info?: {
-                            [key: string]: {
-                                status: string;
-                            } & {
-                                [key: string]: unknown;
-                            };
-                        } | null;
-                        /**
-                         * @example {
-                         *       "redis": {
-                         *         "status": "down",
-                         *         "message": "Could not connect"
-                         *       }
-                         *     }
-                         */
-                        error?: {
-                            [key: string]: {
-                                status: string;
-                            } & {
-                                [key: string]: unknown;
-                            };
-                        } | null;
-                        /**
-                         * @example {
-                         *       "database": {
-                         *         "status": "up"
-                         *       },
-                         *       "redis": {
-                         *         "status": "down",
-                         *         "message": "Could not connect"
-                         *       }
-                         *     }
-                         */
-                        details?: {
-                            [key: string]: {
-                                status: string;
-                            } & {
-                                [key: string]: unknown;
-                            };
-                        };
-                    };
-                };
-            };
-        };
-    };
-    HealthController_ready: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description The Health Check is successful */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        /** @example ok */
-                        status?: string;
-                        /**
-                         * @example {
-                         *       "database": {
-                         *         "status": "up"
-                         *       }
-                         *     }
-                         */
-                        info?: {
-                            [key: string]: {
-                                status: string;
-                            } & {
-                                [key: string]: unknown;
-                            };
-                        } | null;
-                        /** @example {} */
-                        error?: {
-                            [key: string]: {
-                                status: string;
-                            } & {
-                                [key: string]: unknown;
-                            };
-                        } | null;
-                        /**
-                         * @example {
-                         *       "database": {
-                         *         "status": "up"
-                         *       }
-                         *     }
-                         */
-                        details?: {
-                            [key: string]: {
-                                status: string;
-                            } & {
-                                [key: string]: unknown;
-                            };
-                        };
-                    };
-                };
-            };
-            /** @description The Health Check is not successful */
-            503: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        /** @example error */
-                        status?: string;
-                        /**
-                         * @example {
-                         *       "database": {
-                         *         "status": "up"
-                         *       }
-                         *     }
-                         */
-                        info?: {
-                            [key: string]: {
-                                status: string;
-                            } & {
-                                [key: string]: unknown;
-                            };
-                        } | null;
-                        /**
-                         * @example {
-                         *       "redis": {
-                         *         "status": "down",
-                         *         "message": "Could not connect"
-                         *       }
-                         *     }
-                         */
-                        error?: {
-                            [key: string]: {
-                                status: string;
-                            } & {
-                                [key: string]: unknown;
-                            };
-                        } | null;
-                        /**
-                         * @example {
-                         *       "database": {
-                         *         "status": "up"
-                         *       },
-                         *       "redis": {
-                         *         "status": "down",
-                         *         "message": "Could not connect"
-                         *       }
-                         *     }
-                         */
-                        details?: {
-                            [key: string]: {
-                                status: string;
-                            } & {
-                                [key: string]: unknown;
-                            };
-                        };
-                    };
-                };
-            };
-        };
-    };
-    HealthController_alive: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    AdminController_dashboard: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["DashboardDto"];
-                };
-            };
-            /** @description Admin access required. */
-            403: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    AdminController_accessLogs: {
-        parameters: {
-            query?: {
-                /** @description Filter by action name (partial match) */
-                action?: string;
-                /** @description Page number (1-based) */
-                page?: number;
-                /** @description Items per page */
-                per_page?: number;
-            };
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["AccessLogsDto"];
-                };
-            };
-            /** @description Admin access required. */
-            403: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    AdminController_getSettings: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["SystemSettingDto"][];
-                };
-            };
-            /** @description Admin access required. */
-            403: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    AdminController_updateSetting: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["UpdateSystemSettingBody"];
-            };
-        };
-        responses: {
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["SystemSettingDto"];
-                };
-            };
-            /** @description Validation error in request body. */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Admin access required. */
-            403: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    CaptchaController_create: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["CreateCaptchaChallengeBody"];
-            };
-        };
-        responses: {
-            201: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["CaptchaChallengeDto"];
-                };
-            };
-        };
-    };
-    CaptchaController_image: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                id: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    CaptchaController_verify: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                id: string;
-            };
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["VerifyCaptchaChallengeBody"];
-            };
-        };
-        responses: {
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["CaptchaVerifyDto"];
-                };
-            };
-        };
-    };
-    AdminCaptchaController_templates: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Captcha templates. */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Admin access required. */
-            403: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    AdminCaptchaController_createTemplate: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["CreateCaptchaTemplateBody"];
-            };
-        };
-        responses: {
-            /** @description Captcha template created. */
-            201: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    AdminCaptchaController_configs: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                id: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    AdminCaptchaController_createConfig: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                id: string;
-            };
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["CreateCaptchaConfigBody"];
-            };
-        };
-        responses: {
-            201: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    AdminCaptchaController_activate: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                id: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            201: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    AdminCaptchaController_preview: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                id: string;
-            };
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["GenerateCaptchaPreviewBody"];
-            };
-        };
-        responses: {
-            201: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    AdminCaptchaController_generateBatch: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                id: string;
-            };
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["EnqueueCaptchaGenerationBatchBody"];
-            };
-        };
-        responses: {
-            201: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    AdminCaptchaController_pools: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    AdminCaptchaController_metrics: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    HeroController_getHero: {
-        parameters: {
-            query?: {
-                locale?: "ru" | "en";
-            };
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["HeroDto"];
-                };
-            };
-        };
-    };
-    HeroAdminController_getHero: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["HeroAdminDto"];
-                };
-            };
-            /** @description Admin access required. */
-            403: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    HeroAdminController_updateHero: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["UpdateHeroBody"];
-            };
-        };
-        responses: {
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["HeroAdminDto"];
-                };
-            };
-            /** @description Admin access required. */
-            403: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    AboutController_getAbout: {
-        parameters: {
-            query?: {
-                locale?: "ru" | "en";
-            };
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["AboutDto"];
-                };
-            };
-        };
-    };
-    AboutAdminController_getAbout: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["AboutAdminDto"];
-                };
-            };
-            /** @description Admin access required. */
-            403: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    AboutAdminController_updateAbout: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["UpdateAboutBody"];
-            };
-        };
-        responses: {
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["AboutAdminDto"];
-                };
-            };
-            /** @description Admin access required. */
-            403: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    SiteSettingController_getSiteSetting: {
-        parameters: {
-            query?: {
-                locale?: "ru" | "en";
-            };
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["SiteSettingDto"];
-                };
-            };
-        };
-    };
-    SiteSettingAdminController_getSiteSetting: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["SiteSettingAdminDto"];
-                };
-            };
-            /** @description Admin access required. */
-            403: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    SiteSettingAdminController_updateSiteSetting: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["UpdateSiteSettingBody"];
-            };
-        };
-        responses: {
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["SiteSettingAdminDto"];
-                };
-            };
-            /** @description Admin access required. */
-            403: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    TechnologyController_getTechnologies: {
-        parameters: {
-            query?: {
-                /** @description Page number (1-based) */
-                page?: number;
-                /** @description Items per page */
-                per_page?: number;
-            };
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["TechnologiesDto"];
-                };
-            };
-        };
-    };
-    TechnologyAdminController_getTechnologies: {
-        parameters: {
-            query?: {
-                /** @description Page number (1-based) */
-                page?: number;
-                /** @description Items per page */
-                per_page?: number;
-            };
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["TechnologiesDto"];
-                };
-            };
-        };
-    };
-    TechnologyAdminController_createTechnology: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["CreateTechnologyBody"];
-            };
-        };
-        responses: {
-            201: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["TechnologyDto"];
-                };
-            };
-            /** @description Admin access required. */
-            403: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    TechnologyAdminController_getTechnology: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                id: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["TechnologyDto"];
-                };
-            };
-            /** @description Technology not found. */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    TechnologyAdminController_deleteTechnology: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                id: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        success?: boolean;
-                    };
-                };
-            };
-            /** @description Admin access required. */
-            403: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Technology not found. */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    TechnologyAdminController_updateTechnology: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                id: string;
-            };
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["UpdateTechnologyBody"];
-            };
-        };
-        responses: {
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["TechnologyDto"];
-                };
-            };
-            /** @description Admin access required. */
-            403: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Technology not found. */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    TechnologyAdminController_reorderTechnologies: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["ReorderBody"];
-            };
-        };
-        responses: {
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        success?: boolean;
-                    };
-                };
-            };
-            /** @description Admin access required. */
-            403: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    NavigationItemController_getNavigation: {
-        parameters: {
-            query?: {
-                locale?: "ru" | "en";
-            };
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["NavigationItemDto"][];
-                };
-            };
-        };
-    };
-    NavigationItemAdminController_getNavigationItems: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["NavigationItemAdminDto"][];
-                };
-            };
-        };
-    };
-    NavigationItemAdminController_createNavigationItem: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["CreateNavigationItemBody"];
-            };
-        };
-        responses: {
-            201: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["NavigationItemAdminDto"];
-                };
-            };
-            /** @description Admin access required. */
-            403: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    NavigationItemAdminController_getNavigationItem: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                id: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["NavigationItemAdminDto"];
-                };
-            };
-            /** @description Navigation item not found. */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    NavigationItemAdminController_deleteNavigationItem: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                id: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        success?: boolean;
-                    };
-                };
-            };
-            /** @description Admin access required. */
-            403: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Navigation item not found. */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    NavigationItemAdminController_updateNavigationItem: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                id: string;
-            };
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["UpdateNavigationItemBody"];
-            };
-        };
-        responses: {
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["NavigationItemAdminDto"];
-                };
-            };
-            /** @description Admin access required. */
-            403: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Navigation item not found. */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    NavigationItemAdminController_reorderNavigationItems: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["ReorderBody"];
-            };
-        };
-        responses: {
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        success?: boolean;
-                    };
-                };
-            };
-            /** @description Admin access required. */
-            403: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    CaseController_getCases: {
-        parameters: {
-            query?: {
-                /** @description Page number (1-based) */
-                page?: number;
-                /** @description Items per page */
-                per_page?: number;
-                locale?: "ru" | "en";
-            };
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["CasesDto"];
-                };
-            };
-        };
-    };
-    CaseController_getCase: {
-        parameters: {
-            query?: {
-                locale?: "ru" | "en";
-            };
-            header?: never;
-            path: {
-                slug: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["CaseDto"];
-                };
-            };
-        };
-    };
-    CaseController_recordView: {
-        parameters: {
-            query?: {
-                locale?: "ru" | "en";
-            };
-            header?: never;
-            path: {
-                slug: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            204: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    CaseAdminController_getCases: {
-        parameters: {
-            query?: {
-                /** @description Page number (1-based) */
-                page?: number;
-                /** @description Items per page */
-                per_page?: number;
-            };
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["CasesAdminDto"];
-                };
-            };
-        };
-    };
-    CaseAdminController_createCase: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["CreateCaseBody"];
-            };
-        };
-        responses: {
-            201: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["CaseAdminDto"];
-                };
-            };
-            /** @description Admin access required. */
-            403: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    CaseAdminController_previewCase: {
-        parameters: {
-            query?: {
-                locale?: "ru" | "en";
-            };
-            header?: never;
-            path: {
-                slug: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["CaseDto"];
-                };
-            };
-            /** @description Case not found. */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    CaseAdminController_getCase: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                id: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["CaseAdminDto"];
-                };
-            };
-            /** @description Case not found. */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    CaseAdminController_deleteCase: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                id: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        success?: boolean;
-                    };
-                };
-            };
-            /** @description Admin access required. */
-            403: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Case not found. */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    CaseAdminController_updateCase: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                id: string;
-            };
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["UpdateCaseBody"];
-            };
-        };
-        responses: {
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["CaseAdminDto"];
-                };
-            };
-            /** @description Admin access required. */
-            403: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Case not found. */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    CaseAdminController_reorderCases: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["ReorderBody"];
-            };
-        };
-        responses: {
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        success?: boolean;
-                    };
-                };
-            };
-            /** @description Admin access required. */
-            403: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    PostController_getPosts: {
-        parameters: {
-            query?: {
-                /** @description Page number (1-based) */
-                page?: number;
-                /** @description Items per page */
-                per_page?: number;
-                locale?: "ru" | "en";
-            };
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["PostsDto"];
-                };
-            };
-        };
-    };
-    PostController_getPost: {
-        parameters: {
-            query?: {
-                locale?: "ru" | "en";
-            };
-            header?: never;
-            path: {
-                slug: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["PostDto"];
-                };
-            };
-        };
-    };
-    PostController_recordView: {
-        parameters: {
-            query?: {
-                locale?: "ru" | "en";
-            };
-            header?: never;
-            path: {
-                slug: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            204: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    PostAdminController_getPosts: {
-        parameters: {
-            query?: {
-                /** @description Page number (1-based) */
-                page?: number;
-                /** @description Items per page */
-                per_page?: number;
-            };
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["PostsAdminDto"];
-                };
-            };
-        };
-    };
-    PostAdminController_createPost: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["CreatePostBody"];
-            };
-        };
-        responses: {
-            201: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["PostAdminDto"];
-                };
-            };
-            /** @description Admin access required. */
-            403: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    PostAdminController_previewPost: {
-        parameters: {
-            query?: {
-                locale?: "ru" | "en";
-            };
-            header?: never;
-            path: {
-                slug: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["PostDto"];
-                };
-            };
-            /** @description Post not found. */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    PostAdminController_getPost: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                id: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["PostAdminDto"];
-                };
-            };
-            /** @description Post not found. */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    PostAdminController_deletePost: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                id: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        success?: boolean;
-                    };
-                };
-            };
-            /** @description Admin access required. */
-            403: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Post not found. */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    PostAdminController_updatePost: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                id: string;
-            };
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["UpdatePostBody"];
-            };
-        };
-        responses: {
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["PostAdminDto"];
-                };
-            };
-            /** @description Admin access required. */
-            403: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Post not found. */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    ContactController_getContacts: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ContactDto"][];
-                };
-            };
-        };
-    };
-    ContactAdminController_getContacts: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ContactAdminDto"][];
-                };
-            };
-        };
-    };
-    ContactAdminController_createContact: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["CreateContactBody"];
-            };
-        };
-        responses: {
-            201: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ContactAdminDto"];
-                };
-            };
-            /** @description Admin access required. */
-            403: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    ContactAdminController_getContact: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                id: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ContactAdminDto"];
-                };
-            };
-            /** @description Contact not found. */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    ContactAdminController_deleteContact: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                id: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        success?: boolean;
-                    };
-                };
-            };
-            /** @description Admin access required. */
-            403: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Contact not found. */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    ContactAdminController_updateContact: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                id: string;
-            };
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["UpdateContactBody"];
-            };
-        };
-        responses: {
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ContactAdminDto"];
-                };
-            };
-            /** @description Admin access required. */
-            403: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Contact not found. */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    ContactAdminController_reorderContacts: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["ReorderBody"];
-            };
-        };
-        responses: {
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        success?: boolean;
-                    };
-                };
-            };
-            /** @description Admin access required. */
-            403: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    CommentController_getComments: {
-        parameters: {
-            query?: {
-                /** @description Page number (1-based) */
-                page?: number;
-                /** @description Items per page */
-                per_page?: number;
-                locale?: "ru" | "en";
-            };
-            header?: never;
-            path: {
-                slug: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["CommentsDto"];
-                };
-            };
-        };
-    };
-    CommentController_createComment: {
-        parameters: {
-            query?: {
-                locale?: "ru" | "en";
-            };
-            header?: never;
-            path: {
-                slug: string;
-            };
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["CreateCommentBody"];
-            };
-        };
-        responses: {
-            201: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["CommentDto"];
-                };
-            };
-        };
-    };
-    CommentAdminController_getComments: {
-        parameters: {
-            query?: {
-                /** @description Page number (1-based) */
-                page?: number;
-                /** @description Items per page */
-                per_page?: number;
-                /** @description Defaults to PENDING (the moderation queue) */
-                status?: "PENDING" | "APPROVED" | "REJECTED" | "SPAM";
-            };
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["CommentsAdminDto"];
-                };
-            };
-        };
-    };
-    CommentAdminController_getComment: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                id: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["CommentAdminDto"];
-                };
-            };
-            /** @description Comment not found. */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    CommentAdminController_deleteComment: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                id: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        success?: boolean;
-                    };
-                };
-            };
-            /** @description Admin access required. */
-            403: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Comment not found. */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    CommentAdminController_updateStatus: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                id: string;
-            };
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["UpdateCommentStatusBody"];
-            };
-        };
-        responses: {
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["CommentAdminDto"];
-                };
-            };
-            /** @description Admin access required. */
-            403: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Comment not found. */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
+  AuthController_me: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['UserDto'];
+        };
+      };
+      /** @description Not authenticated. */
+      401: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  AuthController_login: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['LoginBody'];
+      };
+    };
+    responses: {
+      /** @description Authenticated successfully. Tokens may also be set as httpOnly cookies depending on auth mode. */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['AuthResponseDto'];
+        };
+      };
+      /** @description Validation error in request body. */
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description Invalid credentials or account not verified. After repeated failures response may include requiresCaptcha=true. */
+      401: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description Account is temporarily locked or blocked. */
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  AuthController_refreshTokens: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['RefreshTokenBody'];
+      };
+    };
+    responses: {
+      /** @description New token pair issued. */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['AccessTokenResponseDto'];
+        };
+      };
+      /** @description Refresh token missing, expired, or revoked. */
+      401: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  AuthController_logout: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['RefreshTokenBody'];
+      };
+    };
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['LogoutResponseDto'];
+        };
+      };
+    };
+  };
+  AuthController_forgotPassword: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['ForgotPasswordBody'];
+      };
+    };
+    responses: {
+      /** @description Reset email sent if the account exists. */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['SuccessResponseDto'];
+        };
+      };
+      /** @description Invalid email format. */
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  AuthController_resetPassword: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['ResetPasswordBody'];
+      };
+    };
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['SuccessResponseDto'];
+        };
+      };
+      /** @description Token expired, already used, or password too weak. */
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  AuthController_changePassword: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['ChangePasswordBody'];
+      };
+    };
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['SuccessResponseDto'];
+        };
+      };
+      /** @description Current password incorrect or new password too weak. */
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  UserController_users: {
+    parameters: {
+      query?: {
+        /** @description Page number (1-based) */
+        page?: number;
+        /** @description Items per page */
+        per_page?: number;
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['UsersDto'];
+        };
+      };
+      /** @description Insufficient permissions. */
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  UserController_userCreate: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['CreateUserBody'];
+      };
+    };
+    responses: {
+      201: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['UserDto'];
+        };
+      };
+      /** @description Validation error or email already in use. */
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description Insufficient permissions. */
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  UserController_userGetById: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        id: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['UserDto'];
+        };
+      };
+      /** @description Insufficient permissions. */
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description User not found. */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  UserController_userDelete: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        id: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': {
+            success?: boolean;
+          };
+        };
+      };
+      /** @description Insufficient permissions. */
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description User not found. */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  UserController_userUpdate: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        id: string;
+      };
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['UpdateUserBody'];
+      };
+    };
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['UserDto'];
+        };
+      };
+      /** @description Insufficient permissions. */
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description User not found. */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  UserController_userUpdateTheme: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['UpdateThemeBody'];
+      };
+    };
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['UserDto'];
+        };
+      };
+    };
+  };
+  UserController_userUnlock: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        id: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['SuccessResponseDto'];
+        };
+      };
+      /** @description Insufficient permissions. */
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description User not found. */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  UserController_adminResetPassword: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        id: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['SuccessResponseDto'];
+        };
+      };
+      /** @description Insufficient permissions. */
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description User not found. */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  UserController_getNotificationPreferences: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['NotificationPreferencesDto'];
+        };
+      };
+    };
+  };
+  UserController_updateNotificationPreferences: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['UpdateNotificationPreferencesBody'];
+      };
+    };
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['NotificationPreferencesDto'];
+        };
+      };
+    };
+  };
+  UserRoleController_userRoles: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['UserRolesDto'];
+        };
+      };
+    };
+  };
+  UserRoleController_userRoleCreate: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['CreateUserRoleBody'];
+      };
+    };
+    responses: {
+      201: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['UserRoleDto'];
+        };
+      };
+      /** @description Validation error or role name already exists. */
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description Insufficient permissions. */
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  UserRoleController_userRoleGetById: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        id: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['UserRoleDto'];
+        };
+      };
+      /** @description Role not found. */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  UserRoleController_userRoleDelete: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        id: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': {
+            success?: boolean;
+          };
+        };
+      };
+      /** @description Insufficient permissions. */
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description Role not found. */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  UserRoleController_userRoleUpdate: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        id: string;
+      };
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['UpdateUserRoleBody'];
+      };
+    };
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['UserRoleDto'];
+        };
+      };
+      /** @description Insufficient permissions. */
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description Role not found. */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  FileController_getPublicFilesByExternalId: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        externalId: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['FileDto'][];
+        };
+      };
+    };
+  };
+  FileController_uploadCurrentUserFiles: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'multipart/form-data': {
+          /**
+           * Format: binary
+           * @description File to upload. Repeat the field to upload many files.
+           */
+          file: string;
+          /** @description Optional display name. Defaults to original filename. */
+          name?: string;
+          /** @description Optional file description. */
+          description?: string;
+          /**
+           * @default USER_FILE
+           * @enum {string}
+           */
+          type?: 'USER_FILE' | 'IMAGE' | 'VIDEO' | 'DOCUMENT' | 'OTHER';
+        };
+      };
+    };
+    responses: {
+      201: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  FileController_downloadPublic: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        fileId: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  FileController_downloadPublicVersion: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        fileId: string;
+        versionId: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  FileController_download: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        fileId: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  FileController_downloadVersion: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        fileId: string;
+        versionId: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  FileAdminController_getFiles: {
+    parameters: {
+      query: {
+        /** @description Module/context to look up files for */
+        module: 'USER' | 'PUBLIC';
+        /** @description UUID of the entity to look up files for */
+        externalId: string;
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['FileDto'][];
+        };
+      };
+    };
+  };
+  FileAdminController_uploadFile: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'multipart/form-data': {
+          /** Format: binary */
+          file: string;
+          /** @enum {string} */
+          module: 'USER' | 'PUBLIC';
+          /** Format: uuid */
+          externalId: string;
+          /** @enum {string} */
+          type: 'USER_FILE' | 'IMAGE' | 'VIDEO' | 'DOCUMENT' | 'OTHER';
+          /** @description Fixed slot name for single-file fields (e.g. "cover"); omit for gallery uploads. */
+          name?: string;
+          description?: string;
+          isCover?: boolean;
+        };
+      };
+    };
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['FileDto'];
+        };
+      };
+      /** @description Admin access required. */
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  FileAdminController_reorderFiles: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['ReorderBody'];
+      };
+    };
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': {
+            success?: boolean;
+          };
+        };
+      };
+    };
+  };
+  FileAdminController_setCover: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        id: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': {
+            success?: boolean;
+          };
+        };
+      };
+    };
+  };
+  FileAdminController_deleteFile: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        id: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': {
+            success?: boolean;
+          };
+        };
+      };
+    };
+  };
+  NotificationController_list: {
+    parameters: {
+      query?: {
+        /** @description Filter by read/unread status */
+        isRead?: boolean;
+        /** @description Filter by notification category */
+        type?: 'SYSTEM' | 'INFO' | 'WARNING' | 'SUCCESS' | 'ERROR';
+        /** @description Page number (1-based) */
+        page?: number;
+        /** @description Items per page */
+        per_page?: number;
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['NotificationsDto'];
+        };
+      };
+      /** @description Insufficient permissions. */
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  NotificationController_unreadCount: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': {
+            /** @description Number of unread notifications */
+            count?: number;
+          };
+        };
+      };
+      /** @description Insufficient permissions. */
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  NotificationController_markRead: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        id: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': {
+            message?: boolean;
+          };
+        };
+      };
+      /** @description Insufficient permissions. */
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description Notification not found. */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  NotificationController_markAllRead: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': {
+            /** @description Number of notifications marked as read */
+            count?: number;
+          };
+        };
+      };
+      /** @description Insufficient permissions. */
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  NotificationController_delete: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        id: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': {
+            message?: boolean;
+          };
+        };
+      };
+      /** @description Insufficient permissions. */
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description Notification not found. */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  HealthController_check: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description The Health Check is successful */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': {
+            /** @example ok */
+            status?: string;
+            /**
+             * @example {
+             *       "database": {
+             *         "status": "up"
+             *       }
+             *     }
+             */
+            info?: {
+              [key: string]: {
+                status: string;
+              } & {
+                [key: string]: unknown;
+              };
+            } | null;
+            /** @example {} */
+            error?: {
+              [key: string]: {
+                status: string;
+              } & {
+                [key: string]: unknown;
+              };
+            } | null;
+            /**
+             * @example {
+             *       "database": {
+             *         "status": "up"
+             *       }
+             *     }
+             */
+            details?: {
+              [key: string]: {
+                status: string;
+              } & {
+                [key: string]: unknown;
+              };
+            };
+          };
+        };
+      };
+      /** @description The Health Check is not successful */
+      503: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': {
+            /** @example error */
+            status?: string;
+            /**
+             * @example {
+             *       "database": {
+             *         "status": "up"
+             *       }
+             *     }
+             */
+            info?: {
+              [key: string]: {
+                status: string;
+              } & {
+                [key: string]: unknown;
+              };
+            } | null;
+            /**
+             * @example {
+             *       "redis": {
+             *         "status": "down",
+             *         "message": "Could not connect"
+             *       }
+             *     }
+             */
+            error?: {
+              [key: string]: {
+                status: string;
+              } & {
+                [key: string]: unknown;
+              };
+            } | null;
+            /**
+             * @example {
+             *       "database": {
+             *         "status": "up"
+             *       },
+             *       "redis": {
+             *         "status": "down",
+             *         "message": "Could not connect"
+             *       }
+             *     }
+             */
+            details?: {
+              [key: string]: {
+                status: string;
+              } & {
+                [key: string]: unknown;
+              };
+            };
+          };
+        };
+      };
+    };
+  };
+  HealthController_ready: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description The Health Check is successful */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': {
+            /** @example ok */
+            status?: string;
+            /**
+             * @example {
+             *       "database": {
+             *         "status": "up"
+             *       }
+             *     }
+             */
+            info?: {
+              [key: string]: {
+                status: string;
+              } & {
+                [key: string]: unknown;
+              };
+            } | null;
+            /** @example {} */
+            error?: {
+              [key: string]: {
+                status: string;
+              } & {
+                [key: string]: unknown;
+              };
+            } | null;
+            /**
+             * @example {
+             *       "database": {
+             *         "status": "up"
+             *       }
+             *     }
+             */
+            details?: {
+              [key: string]: {
+                status: string;
+              } & {
+                [key: string]: unknown;
+              };
+            };
+          };
+        };
+      };
+      /** @description The Health Check is not successful */
+      503: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': {
+            /** @example error */
+            status?: string;
+            /**
+             * @example {
+             *       "database": {
+             *         "status": "up"
+             *       }
+             *     }
+             */
+            info?: {
+              [key: string]: {
+                status: string;
+              } & {
+                [key: string]: unknown;
+              };
+            } | null;
+            /**
+             * @example {
+             *       "redis": {
+             *         "status": "down",
+             *         "message": "Could not connect"
+             *       }
+             *     }
+             */
+            error?: {
+              [key: string]: {
+                status: string;
+              } & {
+                [key: string]: unknown;
+              };
+            } | null;
+            /**
+             * @example {
+             *       "database": {
+             *         "status": "up"
+             *       },
+             *       "redis": {
+             *         "status": "down",
+             *         "message": "Could not connect"
+             *       }
+             *     }
+             */
+            details?: {
+              [key: string]: {
+                status: string;
+              } & {
+                [key: string]: unknown;
+              };
+            };
+          };
+        };
+      };
+    };
+  };
+  HealthController_alive: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  AdminController_dashboard: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['DashboardDto'];
+        };
+      };
+      /** @description Admin access required. */
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  AdminController_accessLogs: {
+    parameters: {
+      query?: {
+        /** @description Filter by action name (partial match) */
+        action?: string;
+        /** @description Page number (1-based) */
+        page?: number;
+        /** @description Items per page */
+        per_page?: number;
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['AccessLogsDto'];
+        };
+      };
+      /** @description Admin access required. */
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  AdminController_getSettings: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['SystemSettingDto'][];
+        };
+      };
+      /** @description Admin access required. */
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  AdminController_updateSetting: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['UpdateSystemSettingBody'];
+      };
+    };
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['SystemSettingDto'];
+        };
+      };
+      /** @description Validation error in request body. */
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description Admin access required. */
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  CaptchaController_create: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['CreateCaptchaChallengeBody'];
+      };
+    };
+    responses: {
+      201: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['CaptchaChallengeDto'];
+        };
+      };
+    };
+  };
+  CaptchaController_image: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        id: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  CaptchaController_verify: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        id: string;
+      };
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['VerifyCaptchaChallengeBody'];
+      };
+    };
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['CaptchaVerifyDto'];
+        };
+      };
+    };
+  };
+  AdminCaptchaController_templates: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Captcha templates. */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description Admin access required. */
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  AdminCaptchaController_createTemplate: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['CreateCaptchaTemplateBody'];
+      };
+    };
+    responses: {
+      /** @description Captcha template created. */
+      201: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  AdminCaptchaController_configs: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        id: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  AdminCaptchaController_createConfig: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        id: string;
+      };
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['CreateCaptchaConfigBody'];
+      };
+    };
+    responses: {
+      201: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  AdminCaptchaController_activate: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        id: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      201: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  AdminCaptchaController_preview: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        id: string;
+      };
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['GenerateCaptchaPreviewBody'];
+      };
+    };
+    responses: {
+      201: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  AdminCaptchaController_generateBatch: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        id: string;
+      };
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['EnqueueCaptchaGenerationBatchBody'];
+      };
+    };
+    responses: {
+      201: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  AdminCaptchaController_pools: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  AdminCaptchaController_metrics: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  HeroController_getHero: {
+    parameters: {
+      query?: {
+        locale?: 'ru' | 'en';
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['HeroDto'];
+        };
+      };
+    };
+  };
+  HeroAdminController_getHero: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['HeroAdminDto'];
+        };
+      };
+      /** @description Admin access required. */
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  HeroAdminController_updateHero: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['UpdateHeroBody'];
+      };
+    };
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['HeroAdminDto'];
+        };
+      };
+      /** @description Admin access required. */
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  AboutController_getAbout: {
+    parameters: {
+      query?: {
+        locale?: 'ru' | 'en';
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['AboutDto'];
+        };
+      };
+    };
+  };
+  AboutAdminController_getAbout: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['AboutAdminDto'];
+        };
+      };
+      /** @description Admin access required. */
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  AboutAdminController_updateAbout: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['UpdateAboutBody'];
+      };
+    };
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['AboutAdminDto'];
+        };
+      };
+      /** @description Admin access required. */
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  SiteSettingController_getSiteSetting: {
+    parameters: {
+      query?: {
+        locale?: 'ru' | 'en';
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['SiteSettingDto'];
+        };
+      };
+    };
+  };
+  SiteSettingAdminController_getSiteSetting: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['SiteSettingAdminDto'];
+        };
+      };
+      /** @description Admin access required. */
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  SiteSettingAdminController_updateSiteSetting: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['UpdateSiteSettingBody'];
+      };
+    };
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['SiteSettingAdminDto'];
+        };
+      };
+      /** @description Admin access required. */
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  TechnologyController_getTechnologies: {
+    parameters: {
+      query?: {
+        /** @description Page number (1-based) */
+        page?: number;
+        /** @description Items per page */
+        per_page?: number;
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['TechnologiesDto'];
+        };
+      };
+    };
+  };
+  TechnologyAdminController_getTechnologies: {
+    parameters: {
+      query?: {
+        /** @description Page number (1-based) */
+        page?: number;
+        /** @description Items per page */
+        per_page?: number;
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['TechnologiesDto'];
+        };
+      };
+    };
+  };
+  TechnologyAdminController_createTechnology: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['CreateTechnologyBody'];
+      };
+    };
+    responses: {
+      201: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['TechnologyDto'];
+        };
+      };
+      /** @description Admin access required. */
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  TechnologyAdminController_getTechnology: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        id: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['TechnologyDto'];
+        };
+      };
+      /** @description Technology not found. */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  TechnologyAdminController_deleteTechnology: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        id: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': {
+            success?: boolean;
+          };
+        };
+      };
+      /** @description Admin access required. */
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description Technology not found. */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  TechnologyAdminController_updateTechnology: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        id: string;
+      };
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['UpdateTechnologyBody'];
+      };
+    };
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['TechnologyDto'];
+        };
+      };
+      /** @description Admin access required. */
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description Technology not found. */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  TechnologyAdminController_reorderTechnologies: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['ReorderBody'];
+      };
+    };
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': {
+            success?: boolean;
+          };
+        };
+      };
+      /** @description Admin access required. */
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  NavigationItemController_getNavigation: {
+    parameters: {
+      query?: {
+        locale?: 'ru' | 'en';
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['NavigationItemDto'][];
+        };
+      };
+    };
+  };
+  NavigationItemAdminController_getNavigationItems: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['NavigationItemAdminDto'][];
+        };
+      };
+    };
+  };
+  NavigationItemAdminController_createNavigationItem: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['CreateNavigationItemBody'];
+      };
+    };
+    responses: {
+      201: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['NavigationItemAdminDto'];
+        };
+      };
+      /** @description Admin access required. */
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  NavigationItemAdminController_getNavigationItem: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        id: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['NavigationItemAdminDto'];
+        };
+      };
+      /** @description Navigation item not found. */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  NavigationItemAdminController_deleteNavigationItem: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        id: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': {
+            success?: boolean;
+          };
+        };
+      };
+      /** @description Admin access required. */
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description Navigation item not found. */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  NavigationItemAdminController_updateNavigationItem: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        id: string;
+      };
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['UpdateNavigationItemBody'];
+      };
+    };
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['NavigationItemAdminDto'];
+        };
+      };
+      /** @description Admin access required. */
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description Navigation item not found. */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  NavigationItemAdminController_reorderNavigationItems: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['ReorderBody'];
+      };
+    };
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': {
+            success?: boolean;
+          };
+        };
+      };
+      /** @description Admin access required. */
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  CaseController_getCases: {
+    parameters: {
+      query?: {
+        /** @description Page number (1-based) */
+        page?: number;
+        /** @description Items per page */
+        per_page?: number;
+        locale?: 'ru' | 'en';
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['CasesDto'];
+        };
+      };
+    };
+  };
+  CaseController_getCase: {
+    parameters: {
+      query?: {
+        locale?: 'ru' | 'en';
+      };
+      header?: never;
+      path: {
+        slug: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['CaseDto'];
+        };
+      };
+    };
+  };
+  CaseController_recordView: {
+    parameters: {
+      query?: {
+        locale?: 'ru' | 'en';
+      };
+      header?: never;
+      path: {
+        slug: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      204: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  CaseAdminController_getCases: {
+    parameters: {
+      query?: {
+        /** @description Page number (1-based) */
+        page?: number;
+        /** @description Items per page */
+        per_page?: number;
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['CasesAdminDto'];
+        };
+      };
+    };
+  };
+  CaseAdminController_createCase: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['CreateCaseBody'];
+      };
+    };
+    responses: {
+      201: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['CaseAdminDto'];
+        };
+      };
+      /** @description Admin access required. */
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  CaseAdminController_previewCase: {
+    parameters: {
+      query?: {
+        locale?: 'ru' | 'en';
+      };
+      header?: never;
+      path: {
+        slug: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['CaseDto'];
+        };
+      };
+      /** @description Case not found. */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  CaseAdminController_getCase: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        id: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['CaseAdminDto'];
+        };
+      };
+      /** @description Case not found. */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  CaseAdminController_deleteCase: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        id: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': {
+            success?: boolean;
+          };
+        };
+      };
+      /** @description Admin access required. */
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description Case not found. */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  CaseAdminController_updateCase: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        id: string;
+      };
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['UpdateCaseBody'];
+      };
+    };
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['CaseAdminDto'];
+        };
+      };
+      /** @description Admin access required. */
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description Case not found. */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  CaseAdminController_reorderCases: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['ReorderBody'];
+      };
+    };
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': {
+            success?: boolean;
+          };
+        };
+      };
+      /** @description Admin access required. */
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  PostController_getPosts: {
+    parameters: {
+      query?: {
+        /** @description Page number (1-based) */
+        page?: number;
+        /** @description Items per page */
+        per_page?: number;
+        locale?: 'ru' | 'en';
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['PostsDto'];
+        };
+      };
+    };
+  };
+  PostController_getPost: {
+    parameters: {
+      query?: {
+        locale?: 'ru' | 'en';
+      };
+      header?: never;
+      path: {
+        slug: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['PostDto'];
+        };
+      };
+    };
+  };
+  PostController_recordView: {
+    parameters: {
+      query?: {
+        locale?: 'ru' | 'en';
+      };
+      header?: never;
+      path: {
+        slug: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      204: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  PostAdminController_getPosts: {
+    parameters: {
+      query?: {
+        /** @description Page number (1-based) */
+        page?: number;
+        /** @description Items per page */
+        per_page?: number;
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['PostsAdminDto'];
+        };
+      };
+    };
+  };
+  PostAdminController_createPost: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['CreatePostBody'];
+      };
+    };
+    responses: {
+      201: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['PostAdminDto'];
+        };
+      };
+      /** @description Admin access required. */
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  PostAdminController_previewPost: {
+    parameters: {
+      query?: {
+        locale?: 'ru' | 'en';
+      };
+      header?: never;
+      path: {
+        slug: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['PostDto'];
+        };
+      };
+      /** @description Post not found. */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  PostAdminController_getPost: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        id: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['PostAdminDto'];
+        };
+      };
+      /** @description Post not found. */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  PostAdminController_deletePost: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        id: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': {
+            success?: boolean;
+          };
+        };
+      };
+      /** @description Admin access required. */
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description Post not found. */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  PostAdminController_updatePost: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        id: string;
+      };
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['UpdatePostBody'];
+      };
+    };
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['PostAdminDto'];
+        };
+      };
+      /** @description Admin access required. */
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description Post not found. */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  ContactController_getContacts: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ContactDto'][];
+        };
+      };
+    };
+  };
+  ContactAdminController_getContacts: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ContactAdminDto'][];
+        };
+      };
+    };
+  };
+  ContactAdminController_createContact: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['CreateContactBody'];
+      };
+    };
+    responses: {
+      201: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ContactAdminDto'];
+        };
+      };
+      /** @description Admin access required. */
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  ContactAdminController_getContact: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        id: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ContactAdminDto'];
+        };
+      };
+      /** @description Contact not found. */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  ContactAdminController_deleteContact: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        id: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': {
+            success?: boolean;
+          };
+        };
+      };
+      /** @description Admin access required. */
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description Contact not found. */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  ContactAdminController_updateContact: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        id: string;
+      };
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['UpdateContactBody'];
+      };
+    };
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ContactAdminDto'];
+        };
+      };
+      /** @description Admin access required. */
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description Contact not found. */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  ContactAdminController_reorderContacts: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['ReorderBody'];
+      };
+    };
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': {
+            success?: boolean;
+          };
+        };
+      };
+      /** @description Admin access required. */
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  CommentController_getComments: {
+    parameters: {
+      query?: {
+        /** @description Page number (1-based) */
+        page?: number;
+        /** @description Items per page */
+        per_page?: number;
+        locale?: 'ru' | 'en';
+      };
+      header?: never;
+      path: {
+        slug: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['CommentsDto'];
+        };
+      };
+    };
+  };
+  CommentController_createComment: {
+    parameters: {
+      query?: {
+        locale?: 'ru' | 'en';
+      };
+      header?: never;
+      path: {
+        slug: string;
+      };
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['CreateCommentBody'];
+      };
+    };
+    responses: {
+      201: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['CommentDto'];
+        };
+      };
+    };
+  };
+  CommentAdminController_getComments: {
+    parameters: {
+      query?: {
+        /** @description Page number (1-based) */
+        page?: number;
+        /** @description Items per page */
+        per_page?: number;
+        /** @description Defaults to PENDING (the moderation queue) */
+        status?: 'PENDING' | 'APPROVED' | 'REJECTED' | 'SPAM';
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['CommentsAdminDto'];
+        };
+      };
+    };
+  };
+  CommentAdminController_getComment: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        id: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['CommentAdminDto'];
+        };
+      };
+      /** @description Comment not found. */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  CommentAdminController_deleteComment: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        id: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': {
+            success?: boolean;
+          };
+        };
+      };
+      /** @description Admin access required. */
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description Comment not found. */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  CommentAdminController_updateStatus: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        id: string;
+      };
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['UpdateCommentStatusBody'];
+      };
+    };
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['CommentAdminDto'];
+        };
+      };
+      /** @description Admin access required. */
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description Comment not found. */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
 }

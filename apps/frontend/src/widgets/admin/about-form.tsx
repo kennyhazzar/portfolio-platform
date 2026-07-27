@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { TranslationTabs } from "@/shared/ui/translation-tabs";
 import { updateAboutAction } from "@/entities/about/actions";
 import { FileUploadField } from "./file-upload-field";
@@ -34,6 +35,7 @@ export function AboutForm({
   initialPhoto?: FileDto | null;
   initialResume?: FileDto | null;
 }) {
+  const router = useRouter();
   const findTranslation = (locale: "ru" | "en") =>
     initial.translations.find((t) => t.locale === locale) ?? { bio: "" };
 
@@ -50,6 +52,7 @@ export function AboutForm({
     setStatus("saving");
     try {
       await updateAboutAction({ ru, en });
+      router.refresh();
       setStatus("success");
     } catch {
       setStatus("error");
@@ -65,7 +68,7 @@ export function AboutForm({
         name="photo"
         isCover
         accept="image/*"
-        label="Фото"
+        label="Cover"
         initial={initialPhoto}
       />
       <FileUploadField

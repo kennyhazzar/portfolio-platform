@@ -12,4 +12,5 @@ export async function updateHeroAction(body: components["schemas"]["UpdateHeroBo
 
   revalidatePath("/ru");
   revalidatePath("/en");
+  revalidatePath("/admin/hero");
 }

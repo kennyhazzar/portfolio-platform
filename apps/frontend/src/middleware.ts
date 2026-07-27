@@ -58,6 +58,7 @@ async function handleAdminGate(request: NextRequest): Promise<NextResponse> {
 
   const loginUrl = request.nextUrl.clone();
   loginUrl.pathname = "/admin/login";
+  loginUrl.searchParams.set("reason", refreshToken ? "session-invalid" : "session-expired");
   const response = NextResponse.redirect(loginUrl);
   response.cookies.delete(ACCESS_TOKEN_COOKIE);
   response.cookies.delete(REFRESH_TOKEN_COOKIE);

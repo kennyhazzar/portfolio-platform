@@ -10,6 +10,7 @@ type CommentStatus = components["schemas"]["UpdateCommentStatusBody"]["status"];
 function revalidatePublic() {
   revalidatePath("/ru/posts/[slug]", "page");
   revalidatePath("/en/posts/[slug]", "page");
+  revalidatePath("/admin/comments");
 }
 
 export async function updateCommentStatusAction(id: string, status: CommentStatus) {

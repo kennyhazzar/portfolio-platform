@@ -3,6 +3,16 @@ import { ACCESS_TOKEN_COOKIE, REFRESH_TOKEN_COOKIE, accessTokenCookieOptions, re
 
 const INTERNAL_API_BASE_URL = process.env.INTERNAL_API_BASE_URL ?? "http://localhost:3000";
 
+function loginErrorCode(status: number, payload: unknown) {
+  const message = typeof (payload as { message?: unknown })?.message === "string" ? (payload as { message: string }).message : "";
+  if (status === 429) return "rate-limited";
+  if (status === 403) return "forbidden";
+  if (message.includes("blocked") || message.includes("locked")) return "forbidden";
+  if (message.includes("captcha")) return "captcha-required";
+  if (status === 401) return "invalid-credentials";
+  return "login-failed";
+}
+
 /**
  * Forwards credentials to the backend server-to-server, then mints the frontend's own
  * httpOnly cookies from the response body (HYBRID auth mode returns tokens in JSON as well as
@@ -27,7 +37,13 @@ export async function POST(request: NextRequest) {
 
   const payload = await upstream.json().catch(() => null);
   if (!upstream.ok) {
-    return NextResponse.json(payload ?? { error: "Login failed" }, { status: upstream.status });
+    const response = NextResponse.json(
+      { error: loginErrorCode(upstream.status, payload), upstream: payload ?? null },
+      { status: upstream.status },
+    );
+    response.cookies.delete(ACCESS_TOKEN_COOKIE);
+    response.cookies.delete(REFRESH_TOKEN_COOKIE);
+    return response;
   }
 
   const data = payload?.data;

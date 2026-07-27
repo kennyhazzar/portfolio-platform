@@ -2,17 +2,14 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import type { Dictionary } from "@/shared/i18n/dictionary";
-import type { SupportedLocale } from "@/middleware";
 
-export function MobileNav({ locale, dict }: { locale: SupportedLocale; dict: Dictionary }) {
+interface NavigationLink {
+  href: string;
+  label: string;
+}
+
+export function MobileNav({ links }: { links: NavigationLink[] }) {
   const [open, setOpen] = useState(false);
-
-  const links = [
-    { href: `/${locale}/cases`, label: dict.nav.cases },
-    { href: `/${locale}/posts`, label: dict.nav.posts },
-    { href: `/${locale}/about`, label: dict.nav.about },
-  ];
 
   return (
     <div className="sm:hidden">

@@ -10,6 +10,7 @@ import { PostRepository } from '../../domain/repositories/post.repository';
 import {
   PostCreateCommand,
   PostDeleteCommand,
+  PostsImportCommand,
   PostRecordViewCommand,
   PostUpdateCommand,
 } from '../commands/post.commands';
@@ -125,6 +126,15 @@ export class PostRecordViewHandler implements ICommandHandler<PostRecordViewComm
   }
 }
 
+@CommandHandler(PostsImportCommand)
+export class PostsImportHandler implements ICommandHandler<PostsImportCommand> {
+  constructor(private readonly postRepository: PostRepository) {}
+
+  execute({ authorUserId, items }: PostsImportCommand) {
+    return this.postRepository.importMany(authorUserId, items);
+  }
+}
+
 export const PostQueryHandlers = [
   PostsGetPublishedHandler,
   PostGetPublishedBySlugHandler,
@@ -132,4 +142,10 @@ export const PostQueryHandlers = [
   PostsGetAdminHandler,
   PostGetByIdHandler,
 ];
-export const PostCommandHandlers = [PostCreateHandler, PostUpdateHandler, PostDeleteHandler, PostRecordViewHandler];
+export const PostCommandHandlers = [
+  PostCreateHandler,
+  PostUpdateHandler,
+  PostDeleteHandler,
+  PostRecordViewHandler,
+  PostsImportHandler,
+];

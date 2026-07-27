@@ -7,6 +7,7 @@ import { TechnologyRepository } from '../../domain/repositories/technology.repos
 import {
   TechnologyCreateCommand,
   TechnologyDeleteCommand,
+  TechnologiesImportCommand,
   TechnologyReorderCommand,
   TechnologyUpdateCommand,
 } from '../commands/technology.commands';
@@ -68,10 +69,20 @@ export class TechnologyReorderHandler implements ICommandHandler<TechnologyReord
   }
 }
 
+@CommandHandler(TechnologiesImportCommand)
+export class TechnologiesImportHandler implements ICommandHandler<TechnologiesImportCommand> {
+  constructor(private readonly technologyRepository: TechnologyRepository) {}
+
+  execute({ items }: TechnologiesImportCommand) {
+    return this.technologyRepository.importMany(items);
+  }
+}
+
 export const TechnologyQueryHandlers = [TechnologiesGetHandler, TechnologyGetByIdHandler];
 export const TechnologyCommandHandlers = [
   TechnologyCreateHandler,
   TechnologyUpdateHandler,
   TechnologyDeleteHandler,
   TechnologyReorderHandler,
+  TechnologiesImportHandler,
 ];

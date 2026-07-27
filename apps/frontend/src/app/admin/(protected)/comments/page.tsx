@@ -44,7 +44,7 @@ export default async function AdminCommentsPage({
         ))}
       </div>
 
-      <CommentModerationQueue initial={comments} postsById={postsById} />
+      <CommentModerationQueue key={status} initial={comments} postsById={postsById} />
     </div>
   );
 }

@@ -63,11 +63,13 @@ function EditRow({
   siblings,
   onCancel,
   onSave,
+  saving = false,
 }: {
   item: NavigationItemAdminDto;
   siblings: NavigationItemAdminDto[];
   onCancel: () => void;
   onSave: (body: components["schemas"]["UpdateNavigationItemBody"]) => void;
+  saving?: boolean;
 }) {
   const [url, setUrl] = useState(item.url);
   const [parentId, setParentId] = useState(item.parentId ?? "");
@@ -100,10 +102,11 @@ function EditRow({
         </label>
         <button
           type="button"
+          disabled={saving}
           onClick={() => onSave({ url, parentId: parentId || undefined, isVisible, ru, en })}
-          className="rounded-full bg-primary px-3 py-1 text-xs font-semibold text-primary-foreground"
+          className="rounded-full bg-primary px-3 py-1 text-xs font-semibold text-primary-foreground disabled:opacity-50"
         >
-          Сохранить
+          {saving ? "..." : "Сохранить"}
         </button>
         <button type="button" onClick={onCancel} className="text-xs text-muted-foreground hover:text-foreground">
           Отмена
@@ -120,36 +123,59 @@ export function NavigationList({ initial }: { initial: NavigationItemAdminDto[] 
   const [newLabelRu, setNewLabelRu] = useState("");
   const [newLabelEn, setNewLabelEn] = useState("");
   const [newUrl, setNewUrl] = useState("");
+  const [busy, setBusy] = useState<string | null>(null);
 
   async function handleReorder(newItems: NavigationItemAdminDto[]) {
+    setBusy("reorder");
     setItems(newItems);
-    await reorderNavigationItemsAction(newItems.map((item, index) => ({ id: item.id, position: index })));
+    try {
+      await reorderNavigationItemsAction(newItems.map((item, index) => ({ id: item.id, position: index })));
+      router.refresh();
+    } finally {
+      setBusy(null);
+    }
   }
 
   async function handleSave(id: string, body: components["schemas"]["UpdateNavigationItemBody"]) {
+    setBusy(id);
     setEditingId(null);
-    await updateNavigationItemAction(id, body);
-    router.refresh();
+    try {
+      await updateNavigationItemAction(id, body);
+      router.refresh();
+    } finally {
+      setBusy(null);
+    }
   }
 
   async function handleDelete(id: string) {
+    setBusy(id);
     setItems((prev) => prev.filter((i) => i.id !== id));
-    await deleteNavigationItemAction(id);
+    try {
+      await deleteNavigationItemAction(id);
+      router.refresh();
+    } finally {
+      setBusy(null);
+    }
   }
 
   async function handleCreate(e: React.FormEvent) {
     e.preventDefault();
     if (!newLabelRu.trim() || !newUrl.trim()) return;
-    await createNavigationItemAction({
-      url: newUrl,
-      isVisible: true,
-      ru: { label: newLabelRu },
-      en: { label: newLabelEn || newLabelRu },
-    });
-    setNewLabelRu("");
-    setNewLabelEn("");
-    setNewUrl("");
-    router.refresh();
+    setBusy("create");
+    try {
+      await createNavigationItemAction({
+        url: newUrl,
+        isVisible: true,
+        ru: { label: newLabelRu },
+        en: { label: newLabelEn || newLabelRu },
+      });
+      setNewLabelRu("");
+      setNewLabelEn("");
+      setNewUrl("");
+      router.refresh();
+    } finally {
+      setBusy(null);
+    }
   }
 
   return (
@@ -164,6 +190,7 @@ export function NavigationList({ initial }: { initial: NavigationItemAdminDto[] 
               <EditRow
                 item={item}
                 siblings={items}
+                saving={busy === item.id}
                 onCancel={() => setEditingId(null)}
                 onSave={(body) => handleSave(item.id, body)}
               />
@@ -181,17 +208,19 @@ export function NavigationList({ initial }: { initial: NavigationItemAdminDto[] 
                 </div>
                 <button
                   type="button"
+                  disabled={!!busy}
                   onClick={() => setEditingId(item.id)}
-                  className="text-xs text-muted-foreground hover:text-foreground"
+                  className="text-xs text-muted-foreground hover:text-foreground disabled:opacity-50"
                 >
                   Изменить
                 </button>
                 <button
                   type="button"
+                  disabled={!!busy}
                   onClick={() => handleDelete(item.id)}
-                  className="text-xs text-destructive hover:opacity-80"
+                  className="text-xs text-destructive hover:opacity-80 disabled:opacity-50"
                 >
-                  Удалить
+                  {busy === item.id ? "..." : "Удалить"}
                 </button>
               </>
             )}
@@ -218,8 +247,12 @@ export function NavigationList({ initial }: { initial: NavigationItemAdminDto[] 
           placeholder="URL"
           className={`w-full sm:w-[160px] ${fieldClass()}`}
         />
-        <button type="submit" className="rounded-full bg-primary px-4 py-1.5 text-xs font-semibold text-primary-foreground">
-          Добавить
+        <button
+          type="submit"
+          disabled={!!busy}
+          className="rounded-full bg-primary px-4 py-1.5 text-xs font-semibold text-primary-foreground disabled:opacity-50"
+        >
+          {busy === "create" ? "..." : "Добавить"}
         </button>
       </form>
     </div>

@@ -7,6 +7,11 @@ import { getAdminAuthHeaders } from "@/shared/server/admin-api";
 function revalidatePublic() {
   revalidatePath("/ru");
   revalidatePath("/en");
+  revalidatePath("/admin/about");
+  revalidatePath("/admin/hero");
+  revalidatePath("/admin/site-settings");
+  revalidatePath("/admin/posts");
+  revalidatePath("/admin/cases");
 }
 
 export async function deleteFileAction(id: string) {

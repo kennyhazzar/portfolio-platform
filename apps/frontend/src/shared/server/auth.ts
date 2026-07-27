@@ -2,6 +2,14 @@ import "server-only";
 
 const INTERNAL_API_BASE_URL = process.env.INTERNAL_API_BASE_URL ?? "http://localhost:3000";
 const isProd = process.env.NODE_ENV === "production";
+const cookieSecure = process.env.COOKIE_SECURE ? process.env.COOKIE_SECURE === "true" : isProd;
+type CookieSameSite = "strict" | "lax" | "none";
+const cookieSameSite =
+  process.env.COOKIE_SAME_SITE === "strict" || process.env.COOKIE_SAME_SITE === "none" || process.env.COOKIE_SAME_SITE === "lax"
+    ? (process.env.COOKIE_SAME_SITE as CookieSameSite)
+    : isProd
+      ? "strict"
+      : "lax";
 
 export const ACCESS_TOKEN_COOKIE = "accessToken";
 export const REFRESH_TOKEN_COOKIE = "refreshToken";
@@ -14,8 +22,8 @@ export const REFRESH_TOKEN_COOKIE = "refreshToken";
 export function accessTokenCookieOptions() {
   return {
     httpOnly: true,
-    secure: isProd,
-    sameSite: isProd ? ("strict" as const) : ("lax" as const),
+    secure: cookieSecure,
+    sameSite: cookieSameSite,
     maxAge: 900, // 15 minutes, in seconds (Next cookie API), matches the backend's 900000ms
     path: "/",
   };
@@ -24,8 +32,8 @@ export function accessTokenCookieOptions() {
 export function refreshTokenCookieOptions() {
   return {
     httpOnly: true,
-    secure: isProd,
-    sameSite: isProd ? ("strict" as const) : ("lax" as const),
+    secure: cookieSecure,
+    sameSite: cookieSameSite,
     maxAge: 604800, // 7 days, matches the backend's 604800000ms
     path: "/",
   };
@@ -71,7 +79,7 @@ const inFlightRefresh = new Map<string, Promise<AuthTokens | null>>();
  * which the backend treats as theft and revokes every session for the user. Confirmed this gap
  * is real by firing concurrent requests against a live server before adding the grace period.
  */
-const REFRESH_GRACE_PERIOD_MS = 5_000;
+const REFRESH_GRACE_PERIOD_MS = 30_000;
 
 export function refreshOnce(refreshToken: string): Promise<AuthTokens | null> {
   const existing = inFlightRefresh.get(refreshToken);

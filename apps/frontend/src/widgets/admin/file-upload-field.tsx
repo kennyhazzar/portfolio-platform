@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, useState } from "react";
+import { useRouter } from "next/navigation";
 import { deleteFileAction } from "@/entities/file/actions";
 import { uploadFile, type UploadFileInput } from "@/entities/file/upload-client";
 import type { components } from "@/lib/api/generated/schema";
@@ -32,6 +33,7 @@ export function FileUploadField({
   accept?: string;
   initial?: FileDto | null;
 }) {
+  const router = useRouter();
   const [file, setFile] = useState<FileDto | null>(initial);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -47,6 +49,7 @@ export function FileUploadField({
     try {
       const uploaded = await uploadFile({ module, externalId, type, name, isCover, file: picked });
       setFile(uploaded);
+      router.refresh();
     } catch {
       setError("Не удалось загрузить файл.");
     } finally {
@@ -61,6 +64,7 @@ export function FileUploadField({
     try {
       await deleteFileAction(file.id);
       setFile(null);
+      router.refresh();
     } catch {
       setError("Не удалось удалить файл.");
     } finally {

@@ -13,4 +13,5 @@ export async function updateSiteSettingAction(body: components["schemas"]["Updat
   // Site settings feed every page's metadata (title/description fallback), so invalidate the
   // whole locale subtree rather than a single route.
   revalidatePath("/[locale]", "layout");
+  revalidatePath("/admin/site-settings");
 }

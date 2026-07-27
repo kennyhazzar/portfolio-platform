@@ -14,4 +14,5 @@ export async function updateAboutAction(body: components["schemas"]["UpdateAbout
   revalidatePath("/en");
   revalidatePath("/ru/about");
   revalidatePath("/en/about");
+  revalidatePath("/admin/about");
 }
