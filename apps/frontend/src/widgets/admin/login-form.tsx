@@ -17,6 +17,8 @@ function messageForReason(reason?: string) {
       return "Сработала защита от частых попыток входа. Нужно добавить captcha-flow для админского входа.";
     case "login-failed":
       return "Не удалось войти. Проверьте доступность backend и попробуйте снова.";
+    case "session-refresh-failed":
+      return "Не удалось обновить сессию из-за временной ошибки. Попробуйте войти снова.";
     case "invalid-credentials":
     default:
       return reason ? "Неверный email или пароль." : null;
@@ -39,7 +41,13 @@ export function LoginForm({ reason }: { reason?: string }) {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email, password }),
-    });
+    }).catch(() => null);
+
+    if (!res) {
+      setSubmitting(false);
+      setError("Не удалось связаться с frontend auth route. Попробуйте еще раз.");
+      return;
+    }
 
     if (!res.ok) {
       const payload = await res.json().catch(() => null);

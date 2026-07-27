@@ -5,7 +5,7 @@ import {
   accessTokenCookieOptions,
   refreshTokenCookieOptions,
   fetchCurrentUser,
-  refreshOnce,
+  refreshOnceDetailed,
 } from "@/shared/server/auth";
 
 // Node.js runtime (not Edge) so the single-flight refresh guard's in-memory Map is shared with
@@ -47,11 +47,20 @@ async function handleAdminGate(request: NextRequest): Promise<NextResponse> {
 
   const refreshToken = request.cookies.get(REFRESH_TOKEN_COOKIE)?.value;
   if (refreshToken) {
-    const refreshed = await refreshOnce(refreshToken);
-    if (refreshed) {
-      const response = NextResponse.next();
+    const refreshed = await refreshOnceDetailed(refreshToken);
+    if (refreshed.ok) {
+      const response = NextResponse.redirect(request.nextUrl);
       response.cookies.set(ACCESS_TOKEN_COOKIE, refreshed.accessToken, accessTokenCookieOptions());
       response.cookies.set(REFRESH_TOKEN_COOKIE, refreshed.refreshToken, refreshTokenCookieOptions());
+      return response;
+    }
+
+    if (refreshed.reason !== "invalid") {
+      const loginUrl = request.nextUrl.clone();
+      loginUrl.pathname = "/admin/login";
+      loginUrl.searchParams.set("reason", refreshed.reason === "rate-limited" ? "rate-limited" : "session-refresh-failed");
+      const response = NextResponse.redirect(loginUrl);
+      response.cookies.delete(ACCESS_TOKEN_COOKIE);
       return response;
     }
   }

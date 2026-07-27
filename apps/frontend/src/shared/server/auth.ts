@@ -52,18 +52,30 @@ interface AuthTokens {
   refreshToken: string;
 }
 
+interface RefreshFailure {
+  ok: false;
+  reason: "invalid" | "rate-limited" | "unavailable";
+  status?: number;
+}
+
+export type RefreshResult = ({ ok: true } & AuthTokens) | RefreshFailure;
+
 /** GET /auth/me — the source of truth for session validity (no local JWT verification, see §4). */
 export async function fetchCurrentUser(accessToken: string): Promise<UserProfile | null> {
-  const res = await fetch(`${INTERNAL_API_BASE_URL}/api/v1/auth/me`, {
-    headers: { Authorization: `Bearer ${accessToken}` },
-    cache: "no-store",
-  });
+  const res = await fetchCurrentUserResponse(accessToken);
   if (!res.ok) return null;
   const payload = await res.json().catch(() => null);
   return payload?.data ?? null;
 }
 
-const inFlightRefresh = new Map<string, Promise<AuthTokens | null>>();
+export async function fetchCurrentUserResponse(accessToken: string): Promise<Response> {
+  return fetch(`${INTERNAL_API_BASE_URL}/api/v1/auth/me`, {
+    headers: { Authorization: `Bearer ${accessToken}` },
+    cache: "no-store",
+  });
+}
+
+const inFlightRefresh = new Map<string, Promise<RefreshResult>>();
 
 /**
  * Single-flight guard around POST /auth/refresh, keyed by the refresh token value — concurrent
@@ -81,7 +93,7 @@ const inFlightRefresh = new Map<string, Promise<AuthTokens | null>>();
  */
 const REFRESH_GRACE_PERIOD_MS = 30_000;
 
-export function refreshOnce(refreshToken: string): Promise<AuthTokens | null> {
+export function refreshOnceDetailed(refreshToken: string): Promise<RefreshResult> {
   const existing = inFlightRefresh.get(refreshToken);
   if (existing) return existing;
 
@@ -93,16 +105,28 @@ export function refreshOnce(refreshToken: string): Promise<AuthTokens | null> {
   return promise;
 }
 
-async function doRefresh(refreshToken: string): Promise<AuthTokens | null> {
+export async function refreshOnce(refreshToken: string): Promise<AuthTokens | null> {
+  const result = await refreshOnceDetailed(refreshToken);
+  return result.ok ? { accessToken: result.accessToken, refreshToken: result.refreshToken } : null;
+}
+
+async function doRefresh(refreshToken: string): Promise<RefreshResult> {
   const res = await fetch(`${INTERNAL_API_BASE_URL}/api/v1/auth/refresh`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ refreshToken }),
     cache: "no-store",
-  });
-  if (!res.ok) return null;
+  }).catch(() => null);
+
+  if (!res) return { ok: false, reason: "unavailable" };
+  if (!res.ok) {
+    if (res.status === 429) return { ok: false, reason: "rate-limited", status: res.status };
+    if (res.status >= 500) return { ok: false, reason: "unavailable", status: res.status };
+    return { ok: false, reason: "invalid", status: res.status };
+  }
+
   const payload = await res.json().catch(() => null);
   const data = payload?.data;
-  if (!data?.accessToken || !data?.refreshToken) return null;
-  return { accessToken: data.accessToken, refreshToken: data.refreshToken };
+  if (!data?.accessToken || !data?.refreshToken) return { ok: false, reason: "unavailable", status: res.status };
+  return { ok: true, accessToken: data.accessToken, refreshToken: data.refreshToken };
 }

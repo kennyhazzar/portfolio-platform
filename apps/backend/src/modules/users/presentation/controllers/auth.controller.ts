@@ -11,7 +11,7 @@ import {
 } from '@nestjs/swagger';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { FastifyReply, FastifyRequest } from 'fastify';
-import { Throttle } from '@nestjs/throttler';
+import { SkipThrottle, Throttle } from '@nestjs/throttler';
 
 import { JwtAuthGuard } from '@/guards/jwt-auth.guard';
 import { CurrentUserId } from '@/decorators/current-user-id.decorator';
@@ -48,6 +48,7 @@ export class AuthController {
   ) {}
 
   @Get('me')
+  @SkipThrottle()
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
   @ApiOperation({ summary: 'Get current authenticated user' })
@@ -58,7 +59,7 @@ export class AuthController {
   }
 
   @Post('login')
-  @Throttle({ default: { ttl: 60_000, limit: 10 } })
+  @SkipThrottle()
   @ApiOperation({ summary: 'Login with email and password' })
   @ApiOkResponse({
     type: AuthResponseDto,
@@ -79,6 +80,7 @@ export class AuthController {
   }
 
   @Post('refresh')
+  @SkipThrottle()
   @ApiOperation({ summary: 'Refresh access token' })
   @ApiCookieAuth('refreshToken')
   @ApiOkResponse({ type: AccessTokenResponseDto, description: 'New token pair issued.' })
