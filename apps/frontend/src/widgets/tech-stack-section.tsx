@@ -1,4 +1,5 @@
 import type { Dictionary } from '@/shared/i18n/dictionary';
+import { TechIcon } from '@/widgets/tech-icon';
 
 interface TechnologyItem {
   id: string;
@@ -57,10 +58,7 @@ export function TechStackSection({ technologies, dict }: { technologies: Technol
                       key={item.id}
                       className="inline-flex items-center gap-1.5 rounded-full border border-border bg-card px-2.5 py-1 text-[13px] text-muted-foreground"
                     >
-                      {src && (
-                        // eslint-disable-next-line @next/next/no-img-element
-                        <img src={src} alt="" className="size-3.5 object-contain" />
-                      )}
+                      {src && <TechIcon src={src} />}
                       {item.name}
                     </span>
                   );
