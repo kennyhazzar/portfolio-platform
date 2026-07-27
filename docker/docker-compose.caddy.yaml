@@ -14,7 +14,7 @@ services:
     image: caddy:2-alpine
     restart: unless-stopped
     environment:
-      DOMAIN: ${DOMAIN:?DOMAIN is required, e.g. blog.2vault.site}
+      DOMAIN: ${DOMAIN:?DOMAIN is required, e.g. kennyhazzar.pro}
       CADDY_ACME_EMAIL: ${CADDY_ACME_EMAIL:?CADDY_ACME_EMAIL is required for Let's Encrypt}
     ports:
       - '80:80'

@@ -14,7 +14,7 @@ admin:
 host:
   hostname: 0.0.0.0
   port: 3000
-  origin: https://yourdomain.com
+  origin: https://kennyhazzar.pro
   environment: production
 
 swagger:
@@ -137,7 +137,7 @@ s3:
 
 # Graylog logging (optional)
 # graylog:
-#   host: graylog.yourdomain.com
+#   host: graylog.kennyhazzar.pro
 #   port: 12201
 #   protocol: tcp
 #   facility: backend-production
