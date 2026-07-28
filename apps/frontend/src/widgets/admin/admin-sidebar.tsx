@@ -17,6 +17,19 @@ const NAV_ITEMS = [
   { href: "/admin/comments", label: "Комментарии" },
 ];
 
+function PublicSiteLink({ onClick }: { onClick?: () => void }) {
+  return (
+    <Link
+      href="/ru"
+      onClick={onClick}
+      target="_blank"
+      className="rounded-[8px] border border-border px-3 py-2 text-sm font-medium text-foreground transition-colors hover:bg-accent"
+    >
+      Открыть сайт
+    </Link>
+  );
+}
+
 function Logo() {
   return (
     <Link href="/admin" className="flex items-center gap-2 font-mono text-sm font-semibold">
@@ -62,6 +75,7 @@ export function AdminSidebar({ userLabel }: { userLabel: string }) {
       {open && (
         <nav className="fixed inset-x-0 top-14 z-20 flex max-h-[calc(100vh-3.5rem)] flex-col overflow-y-auto border-b border-border bg-background px-5 py-4 lg:hidden">
           <div className="flex flex-col gap-1">
+            <PublicSiteLink onClick={() => setOpen(false)} />
             {NAV_ITEMS.map((item) => (
               <Link
                 key={item.href}
@@ -84,6 +98,7 @@ export function AdminSidebar({ userLabel }: { userLabel: string }) {
       <aside className="hidden w-[220px] shrink-0 flex-col justify-between border-r border-border p-5 lg:flex">
         <div className="flex flex-col gap-6">
           <Logo />
+          <PublicSiteLink />
           <nav className="flex flex-col gap-1">
             {NAV_ITEMS.map((item) => (
               <Link
