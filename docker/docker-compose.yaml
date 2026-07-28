@@ -231,6 +231,7 @@ services:
       # Server-to-server only — the browser never calls the backend directly,
       # see docs/planning/04-frontend-architecture.md §3.
       INTERNAL_API_BASE_URL: http://backend:3000
+      NEXT_PUBLIC_SITE_URL: ${NEXT_PUBLIC_SITE_URL:-http://localhost:3001}
       COOKIE_SECURE: ${COOKIE_SECURE:-false}
       COOKIE_SAME_SITE: ${COOKIE_SAME_SITE:-lax}
       GOOGLE_SITE_VERIFICATION: ${GOOGLE_SITE_VERIFICATION:-}
