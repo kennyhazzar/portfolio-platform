@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <rect width="1200" height="630" fill="#070b12"/>
+  <rect x="72" y="72" width="72" height="72" rx="18" fill="#f8fafc"/>
+  <text x="108" y="118" text-anchor="middle" font-family="Arial, sans-serif" font-size="26" font-weight="700" fill="#070b12">KH</text>
+  <text x="168" y="120" font-family="Arial, sans-serif" font-size="34" font-weight="700" fill="#f8fafc">kennyhazzar.pro</text>
+  <text x="72" y="325" font-family="Arial, sans-serif" font-size="76" font-weight="800" fill="#f8fafc">
+    <tspan x="72" dy="0">Backend systems,</tspan>
+    <tspan x="72" dy="86">architecture and delivery.</tspan>
+  </text>
+  <text x="72" y="515" font-family="Arial, sans-serif" font-size="30" fill="#9ca3af">
+    TypeScript, NestJS, DDD, CQRS and practical fullstack engineering.
+  </text>
+  <rect x="72" y="570" width="256" height="6" rx="3" fill="#3b82f6"/>
+</svg>

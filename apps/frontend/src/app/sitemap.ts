@@ -1,18 +1,22 @@
-import type { MetadataRoute } from "next";
-import { SITE_URL } from "@/shared/seo/metadata";
-import { getCases } from "@/entities/case/api";
-import { getPosts } from "@/entities/post/api";
-import { SUPPORTED_LOCALES, type SupportedLocale } from "@/middleware";
+import type { MetadataRoute } from 'next';
+import { SITE_URL } from '@/shared/seo/metadata';
+import { getCases } from '@/entities/case/api';
+import { getPosts } from '@/entities/post/api';
+import { SUPPORTED_LOCALES, type SupportedLocale } from '@/middleware';
 
 // Without this, Next.js treats the route as static and caches it after the first request,
 // so newly published cases/posts wouldn't appear until a rebuild.
-export const dynamic = "force-dynamic";
+export const dynamic = 'force-dynamic';
 
 // The backend caps per_page at 100 (common/Paginated.ts), so a large site needs multiple requests.
 const MAX_PER_PAGE = 100;
 
 async function fetchAll<T>(
-  fetchPage: (locale: SupportedLocale, page: number, perPage: number) => Promise<{ items: T[]; meta: { pages: number } | null }>,
+  fetchPage: (
+    locale: SupportedLocale,
+    page: number,
+    perPage: number,
+  ) => Promise<{ items: T[]; meta: { pages: number } | null }>,
   locale: SupportedLocale,
 ): Promise<T[]> {
   const first = await fetchPage(locale, 1, MAX_PER_PAGE);
@@ -25,14 +29,40 @@ async function fetchAll<T>(
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const entries: MetadataRoute.Sitemap = [];
+  const now = new Date();
+
+  entries.push({
+    url: `${SITE_URL}/`,
+    lastModified: now,
+    changeFrequency: 'weekly',
+    priority: 0.9,
+    alternates: {
+      languages: {
+        ru: `${SITE_URL}/ru`,
+        en: `${SITE_URL}/en`,
+        'x-default': `${SITE_URL}/ru`,
+      },
+    },
+  });
+
+  const staticRoutes = ['', '/about', '/cases', '/posts'] as const;
 
   for (const locale of SUPPORTED_LOCALES) {
-    entries.push(
-      { url: `${SITE_URL}/${locale}`, changeFrequency: "weekly", priority: 1 },
-      { url: `${SITE_URL}/${locale}/about`, changeFrequency: "monthly", priority: 0.5 },
-      { url: `${SITE_URL}/${locale}/cases`, changeFrequency: "weekly", priority: 0.8 },
-      { url: `${SITE_URL}/${locale}/posts`, changeFrequency: "weekly", priority: 0.8 },
-    );
+    for (const route of staticRoutes) {
+      entries.push({
+        url: `${SITE_URL}/${locale}${route}`,
+        lastModified: now,
+        changeFrequency: route === '/about' ? 'monthly' : 'weekly',
+        priority: route === '' ? 1 : route === '/about' ? 0.5 : 0.8,
+        alternates: {
+          languages: {
+            ru: `${SITE_URL}/ru${route}`,
+            en: `${SITE_URL}/en${route}`,
+            'x-default': `${SITE_URL}/ru${route}`,
+          },
+        },
+      });
+    }
 
     const [cases, posts] = await Promise.all([fetchAll(getCases, locale), fetchAll(getPosts, locale)]);
 
@@ -40,7 +70,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       entries.push({
         url: `${SITE_URL}/${locale}/cases/${c.slug}`,
         lastModified: c.publishedAt,
-        changeFrequency: "monthly",
+        changeFrequency: 'monthly',
         priority: 0.7,
       });
     }
@@ -49,7 +79,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       entries.push({
         url: `${SITE_URL}/${locale}/posts/${p.slug}`,
         lastModified: p.publishedAt,
-        changeFrequency: "monthly",
+        changeFrequency: 'monthly',
         priority: 0.6,
       });
     }

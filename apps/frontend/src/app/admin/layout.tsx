@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { ThemeProvider } from "@/shared/ui/theme-provider";
 import { sansFont, monoFont } from "@/shared/ui/fonts";
+import { SITE_URL } from "@/shared/seo/metadata";
 import "../globals.css";
 
 // Admin is a single-operator tool, not localized content, so it isn't nested under [locale]
@@ -8,6 +9,7 @@ import "../globals.css";
 // body/mono fonts but skips the display font (Unbounded), reserved for the public site's
 // headline moments.
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
   title: "Admin — Портфолио",
   robots: { index: false, follow: false },
 };

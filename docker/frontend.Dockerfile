@@ -12,7 +12,9 @@ COPY apps/frontend ./apps/frontend
 # NEXT_PUBLIC_* vars are inlined into the build output at build time, not read at container
 # runtime — must be a build arg, not just an environment: entry in docker-compose.yaml.
 ARG NEXT_PUBLIC_SITE_URL
+ARG GOOGLE_SITE_VERIFICATION
 ENV NEXT_PUBLIC_SITE_URL=$NEXT_PUBLIC_SITE_URL
+ENV GOOGLE_SITE_VERIFICATION=$GOOGLE_SITE_VERIFICATION
 
 RUN pnpm --filter @portfolio/frontend build
 
