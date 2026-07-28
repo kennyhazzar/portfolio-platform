@@ -2,10 +2,12 @@ import { PaginatedResult } from '@/common/Paginated';
 import { CommentStatus } from '@/enums/comment-status.enum';
 import { Locale } from '@/interfaces/locale.type';
 import { Comment } from '../entities/comment.entity';
+import { CommentTargetType } from '../comment-target.type';
 import { CreateCommentBody } from '../../presentation/dtos/comment.dto';
 
 export abstract class CommentRepository {
-  abstract findApprovedByPostSlug(
+  abstract findApprovedBySlug(
+    targetType: CommentTargetType,
     locale: Locale,
     slug: string,
     page: number,
@@ -18,6 +20,7 @@ export abstract class CommentRepository {
   ): Promise<PaginatedResult<Comment>>;
   abstract findById(id: string): Promise<Comment | null>;
   abstract createForSlug(
+    targetType: CommentTargetType,
     locale: Locale,
     slug: string,
     body: CreateCommentBody,

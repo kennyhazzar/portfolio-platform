@@ -1,4 +1,6 @@
-import { pgTable, uuid, varchar, text, timestamp, pgEnum, index } from 'drizzle-orm/pg-core';
+import { sql } from 'drizzle-orm';
+import { pgTable, uuid, varchar, text, timestamp, pgEnum, index, check } from 'drizzle-orm/pg-core';
+import { caseEntity } from './case.schema';
 import { post } from './post.schema';
 import { localeEnum } from './shared.schema';
 
@@ -11,9 +13,8 @@ export const comment = pgTable(
   'comment',
   {
     id: uuid('id').primaryKey().defaultRandom(),
-    postId: uuid('postId')
-      .notNull()
-      .references(() => post.id, { onDelete: 'cascade' }),
+    postId: uuid('postId').references(() => post.id, { onDelete: 'cascade' }),
+    caseId: uuid('caseId').references(() => caseEntity.id, { onDelete: 'cascade' }),
     parentCommentId: uuid('parentCommentId').references((): any => comment.id, { onDelete: 'cascade' }),
     authorName: varchar('authorName', { length: 100 }).notNull(),
     // Moderation contact only, never rendered publicly.
@@ -28,5 +29,10 @@ export const comment = pgTable(
     updatedAt: timestamp('updatedAt', { withTimezone: true }).defaultNow().notNull(),
     deletedAt: timestamp('deletedAt', { withTimezone: true }),
   },
-  (t) => [index('IDX_comment_postId').on(t.postId), index('IDX_comment_status').on(t.status)],
+  (t) => [
+    index('IDX_comment_postId').on(t.postId),
+    index('IDX_comment_caseId').on(t.caseId),
+    index('IDX_comment_status').on(t.status),
+    check('CHK_comment_exactly_one_target', sql`(("postId" IS NOT NULL)::int + ("caseId" IS NOT NULL)::int) = 1`),
+  ],
 );

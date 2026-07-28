@@ -47,8 +47,11 @@ export class CommentAdminDto extends CommentDto {
   @ApiProperty({ enum: CommentStatus })
   status!: CommentStatus;
 
-  @ApiProperty({ format: 'uuid' })
-  postId!: string;
+  @ApiPropertyOptional({ format: 'uuid' })
+  postId?: string;
+
+  @ApiPropertyOptional({ format: 'uuid' })
+  caseId?: string;
 }
 
 export class CommentsAdminDto extends Paginated(CommentAdminDto) {}

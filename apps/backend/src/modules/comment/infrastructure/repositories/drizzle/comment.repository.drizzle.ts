@@ -4,11 +4,17 @@ import { NodePgDatabase } from 'drizzle-orm/node-postgres';
 
 import { DRIZZLE_CONNECTION } from '@/common/drizzle/drizzle.provider';
 import * as schema from '@/common/drizzle/schema';
-import { comment as commentTable, post as postTable } from '@/common/drizzle/schema';
+import {
+  caseEntity as caseTable,
+  caseTranslation as caseTranslationTable,
+  comment as commentTable,
+  post as postTable,
+} from '@/common/drizzle/schema';
 import { buildPaginated, PaginatedResult, toSqlPagination } from '@/common/Paginated';
 import { CommentStatus } from '@/enums/comment-status.enum';
 import { ContentStatus } from '@/enums/content-status.enum';
 import { Locale } from '@/interfaces/locale.type';
+import { CommentTargetType } from '../../../domain/comment-target.type';
 import { Comment } from '../../../domain/entities/comment.entity';
 import { CommentRepository } from '../../../domain/repositories/comment.repository';
 import { CreateCommentBody } from '../../../presentation/dtos/comment.dto';
@@ -24,17 +30,19 @@ export class CommentRepositoryDrizzle extends CommentRepository {
     super();
   }
 
-  async findApprovedByPostSlug(
+  async findApprovedBySlug(
+    targetType: CommentTargetType,
     locale: Locale,
     slug: string,
     page: number,
     perPage: number,
   ): Promise<PaginatedResult<Comment>> {
-    const postId = await this.resolvePublishedPostId(locale, slug);
-    if (!postId) return buildPaginated([], 0, page, perPage);
+    const targetId = await this.resolvePublishedTargetId(targetType, locale, slug);
+    if (!targetId) return buildPaginated([], 0, page, perPage);
+    const targetColumn = targetType === 'post' ? commentTable.postId : commentTable.caseId;
 
     const condition = and(
-      eq(commentTable.postId, postId),
+      eq(targetColumn, targetId),
       eq(commentTable.status, CommentStatus.APPROVED),
       isNull(commentTable.deletedAt),
     );
@@ -94,19 +102,20 @@ export class CommentRepositoryDrizzle extends CommentRepository {
   }
 
   async createForSlug(
+    targetType: CommentTargetType,
     locale: Locale,
     slug: string,
     body: CreateCommentBody,
     ipAddressHash?: string,
     initialStatus?: CommentStatus,
   ): Promise<Comment> {
-    const postId = await this.resolvePublishedPostId(locale, slug);
-    if (!postId) throw new NotFoundException(`Post ${slug} not found.`);
+    const targetId = await this.resolvePublishedTargetId(targetType, locale, slug);
+    if (!targetId) throw new NotFoundException(`${targetType === 'post' ? 'Post' : 'Case'} ${slug} not found.`);
 
     const [row] = await this.db
       .insert(commentTable)
       .values({
-        postId,
+        ...(targetType === 'post' ? { postId: targetId } : { caseId: targetId }),
         parentCommentId: body.parentCommentId,
         authorName: body.authorName,
         authorEmail: body.authorEmail,
@@ -139,6 +148,15 @@ export class CommentRepositoryDrizzle extends CommentRepository {
     if (!rows.length) throw new NotFoundException(`Comment ${id} not found.`);
   }
 
+  private async resolvePublishedTargetId(
+    targetType: CommentTargetType,
+    locale: Locale,
+    slug: string,
+  ): Promise<string | null> {
+    if (targetType === 'case') return this.resolvePublishedCaseId(locale, slug);
+    return this.resolvePublishedPostId(locale, slug);
+  }
+
   private async resolvePublishedPostId(locale: Locale, slug: string): Promise<string | null> {
     const [row] = await this.db
       .select({ id: postTable.id })
@@ -155,10 +173,28 @@ export class CommentRepositoryDrizzle extends CommentRepository {
     return row?.id ?? null;
   }
 
+  private async resolvePublishedCaseId(locale: Locale, slug: string): Promise<string | null> {
+    const [row] = await this.db
+      .select({ id: caseTable.id })
+      .from(caseTable)
+      .innerJoin(caseTranslationTable, eq(caseTranslationTable.caseId, caseTable.id))
+      .where(
+        and(
+          eq(caseTranslationTable.locale, locale),
+          eq(caseTranslationTable.slug, slug),
+          eq(caseTable.status, ContentStatus.PUBLISHED),
+          isNull(caseTable.deletedAt),
+        ),
+      )
+      .limit(1);
+    return row?.id ?? null;
+  }
+
   private toDomain(row: CommentRow): Comment {
     return new Comment({
       id: row.id,
-      postId: row.postId,
+      postId: row.postId ?? undefined,
+      caseId: row.caseId ?? undefined,
       parentCommentId: row.parentCommentId ?? undefined,
       authorName: row.authorName,
       authorEmail: row.authorEmail ?? undefined,

@@ -9,18 +9,20 @@ import { VerifyCaptchaChallengeCommand } from '@/modules/captcha/application/com
 import { Comment } from '../../domain/entities/comment.entity';
 import { CommentRepository } from '../../domain/repositories/comment.repository';
 import { CommentCreateCommand, CommentDeleteCommand, CommentUpdateStatusCommand } from '../commands/comment.commands';
-import {
-  CommentGetByIdQuery,
-  CommentsGetAdminQuery,
-  CommentsGetApprovedByPostSlugQuery,
-} from '../queries/comment.queries';
+import { CommentGetByIdQuery, CommentsGetAdminQuery, CommentsGetApprovedBySlugQuery } from '../queries/comment.queries';
 
-@QueryHandler(CommentsGetApprovedByPostSlugQuery)
-export class CommentsGetApprovedByPostSlugHandler implements IQueryHandler<CommentsGetApprovedByPostSlugQuery> {
+@QueryHandler(CommentsGetApprovedBySlugQuery)
+export class CommentsGetApprovedBySlugHandler implements IQueryHandler<CommentsGetApprovedBySlugQuery> {
   constructor(private readonly commentRepository: CommentRepository) {}
 
-  execute({ locale, slug, page, perPage }: CommentsGetApprovedByPostSlugQuery): Promise<PaginatedResult<Comment>> {
-    return this.commentRepository.findApprovedByPostSlug(locale, slug, page, perPage);
+  execute({
+    targetType,
+    locale,
+    slug,
+    page,
+    perPage,
+  }: CommentsGetApprovedBySlugQuery): Promise<PaginatedResult<Comment>> {
+    return this.commentRepository.findApprovedBySlug(targetType, locale, slug, page, perPage);
   }
 }
 
@@ -57,7 +59,7 @@ export class CommentCreateHandler implements ICommandHandler<CommentCreateComman
     private readonly configService: ConfigService,
   ) {}
 
-  async execute({ locale, slug, payload, meta }: CommentCreateCommand): Promise<Comment> {
+  async execute({ targetType, locale, slug, payload, meta }: CommentCreateCommand): Promise<Comment> {
     const verification = await this.commandBus.execute(
       new VerifyCaptchaChallengeCommand(payload.captchaChallengeId, payload.captchaAnswer, meta),
     );
@@ -70,7 +72,7 @@ export class CommentCreateHandler implements ICommandHandler<CommentCreateComman
     // Local/staging convenience only — see comments.autoApprove in config, defaults to false.
     const autoApprove = this.configService.get<boolean>('comments.autoApprove', false);
     const initialStatus = autoApprove ? CommentStatus.APPROVED : undefined;
-    return this.commentRepository.createForSlug(locale, slug, payload, ipAddressHash, initialStatus);
+    return this.commentRepository.createForSlug(targetType, locale, slug, payload, ipAddressHash, initialStatus);
   }
 
   // Local, self-contained hash — deliberately not reusing the captcha module's hashing
@@ -98,9 +100,5 @@ export class CommentDeleteHandler implements ICommandHandler<CommentDeleteComman
   }
 }
 
-export const CommentQueryHandlers = [
-  CommentsGetApprovedByPostSlugHandler,
-  CommentsGetAdminHandler,
-  CommentGetByIdHandler,
-];
+export const CommentQueryHandlers = [CommentsGetApprovedBySlugHandler, CommentsGetAdminHandler, CommentGetByIdHandler];
 export const CommentCommandHandlers = [CommentCreateHandler, CommentUpdateStatusHandler, CommentDeleteHandler];

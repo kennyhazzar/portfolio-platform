@@ -1,32 +1,28 @@
-import type { Metadata } from "next";
-import { draftMode } from "next/headers";
-import { notFound } from "next/navigation";
-import { getPostBySlug } from "@/entities/post/api";
-import { getPostPreviewBySlug } from "@/entities/post/admin-api";
-import { getComments } from "@/entities/comment/api";
-import { getPublicCover } from "@/entities/file/api";
-import { getSiteSetting } from "@/entities/site-setting/api";
-import { getDictionary } from "@/shared/i18n/dictionary";
-import { buildMetadata } from "@/shared/seo/metadata";
-import { formatDate } from "@/shared/lib/format-date";
-import { MarkdownContent } from "@/shared/ui/markdown-content";
-import { ViewBeacon } from "@/shared/ui/view-beacon";
-import { SiteHeader } from "@/widgets/site-header";
-import { SiteFooter } from "@/widgets/site-footer";
-import { CommentSection } from "@/widgets/comment-section";
-import { ExitPreviewBanner } from "@/widgets/exit-preview-banner";
-import type { SupportedLocale } from "@/middleware";
+import type { Metadata } from 'next';
+import { draftMode } from 'next/headers';
+import { notFound } from 'next/navigation';
+import { getPostBySlug } from '@/entities/post/api';
+import { getPostPreviewBySlug } from '@/entities/post/admin-api';
+import { getComments } from '@/entities/comment/api';
+import { getPublicCover } from '@/entities/file/api';
+import { getSiteSetting } from '@/entities/site-setting/api';
+import { getDictionary } from '@/shared/i18n/dictionary';
+import { buildMetadata } from '@/shared/seo/metadata';
+import { formatDate } from '@/shared/lib/format-date';
+import { MarkdownContent } from '@/shared/ui/markdown-content';
+import { ViewBeacon } from '@/shared/ui/view-beacon';
+import { SiteHeader } from '@/widgets/site-header';
+import { SiteFooter } from '@/widgets/site-footer';
+import { CommentSection } from '@/widgets/comment-section';
+import { ExitPreviewBanner } from '@/widgets/exit-preview-banner';
+import type { SupportedLocale } from '@/middleware';
 
 interface RouteParams {
   locale: string;
   slug: string;
 }
 
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<RouteParams>;
-}): Promise<Metadata> {
+export async function generateMetadata({ params }: { params: Promise<RouteParams> }): Promise<Metadata> {
   const { locale, slug } = (await params) as { locale: SupportedLocale; slug: string };
   const { isEnabled: isPreview } = await draftMode();
   const [post, siteSetting] = await Promise.all([
@@ -44,11 +40,7 @@ export async function generateMetadata({
   });
 }
 
-export default async function PostDetailPage({
-  params,
-}: {
-  params: Promise<RouteParams>;
-}) {
+export default async function PostDetailPage({ params }: { params: Promise<RouteParams> }) {
   const { locale, slug } = (await params) as { locale: SupportedLocale; slug: string };
   const dict = getDictionary(locale);
   const { isEnabled: isPreview } = await draftMode();
@@ -86,7 +78,7 @@ export default async function PostDetailPage({
           </div>
         </article>
 
-        <CommentSection postSlug={slug} locale={locale} dict={dict} initialComments={comments} />
+        <CommentSection slug={slug} targetType="post" locale={locale} dict={dict} initialComments={comments} />
       </main>
       <SiteFooter dict={dict} />
     </div>

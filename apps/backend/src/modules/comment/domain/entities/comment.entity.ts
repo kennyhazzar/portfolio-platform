@@ -4,7 +4,8 @@ import { CommentStatus } from '@/enums/comment-status.enum';
 
 export class Comment {
   id!: IdType;
-  postId!: IdType;
+  postId?: IdType;
+  caseId?: IdType;
   parentCommentId?: IdType;
   authorName!: string;
   authorEmail?: string;

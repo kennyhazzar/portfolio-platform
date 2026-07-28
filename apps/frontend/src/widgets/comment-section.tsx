@@ -1,9 +1,10 @@
-"use client";
+'use client';
 
-import { useCallback, useEffect, useState } from "react";
-import type { Dictionary } from "@/shared/i18n/dictionary";
-import type { SupportedLocale } from "@/middleware";
-import { formatDate } from "@/shared/lib/format-date";
+import { useCallback, useEffect, useState } from 'react';
+import type { Dictionary } from '@/shared/i18n/dictionary';
+import type { SupportedLocale } from '@/middleware';
+import { formatDate } from '@/shared/lib/format-date';
+import type { CommentTargetType } from '@/entities/comment/api';
 
 interface CommentItem {
   id: string;
@@ -14,7 +15,7 @@ interface CommentItem {
 }
 
 interface CreateCommentResponse extends CommentItem {
-  status: "PENDING" | "APPROVED" | "REJECTED" | "SPAM";
+  status: 'PENDING' | 'APPROVED' | 'REJECTED' | 'SPAM';
 }
 
 interface Challenge {
@@ -23,32 +24,34 @@ interface Challenge {
 }
 
 export function CommentSection({
-  postSlug,
+  slug,
+  targetType = 'post',
   locale,
   dict,
   initialComments,
 }: {
-  postSlug: string;
+  slug: string;
+  targetType?: CommentTargetType;
   locale: SupportedLocale;
   dict: Dictionary;
   initialComments: CommentItem[];
 }) {
   const [comments, setComments] = useState(initialComments);
   const [challenge, setChallenge] = useState<Challenge | null>(null);
-  const [authorName, setAuthorName] = useState("");
-  const [authorEmail, setAuthorEmail] = useState("");
-  const [body, setBody] = useState("");
-  const [captchaAnswer, setCaptchaAnswer] = useState("");
-  const [website, setWebsite] = useState("");
-  const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
+  const [authorName, setAuthorName] = useState('');
+  const [authorEmail, setAuthorEmail] = useState('');
+  const [body, setBody] = useState('');
+  const [captchaAnswer, setCaptchaAnswer] = useState('');
+  const [website, setWebsite] = useState('');
+  const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
   const [pendingModalOpen, setPendingModalOpen] = useState(false);
 
   const fetchChallenge = useCallback(async () => {
-    const res = await fetch("/api/captcha", { method: "POST" });
+    const res = await fetch('/api/captcha', { method: 'POST' });
     if (!res.ok) return;
     const data = (await res.json()) as Challenge;
     setChallenge(data);
-    setCaptchaAnswer("");
+    setCaptchaAnswer('');
   }, []);
 
   useEffect(() => {
@@ -61,13 +64,14 @@ export function CommentSection({
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     if (!challenge) return;
-    setStatus("submitting");
+    setStatus('submitting');
 
-    const res = await fetch("/api/comments", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
+    const res = await fetch('/api/comments', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        slug: postSlug,
+        slug,
+        targetType,
         locale,
         authorName,
         authorEmail: authorEmail || undefined,
@@ -79,22 +83,22 @@ export function CommentSection({
     });
 
     if (!res.ok) {
-      setStatus("error");
+      setStatus('error');
       await fetchChallenge();
       return;
     }
 
     const created = (await res.json()) as CreateCommentResponse;
-    setAuthorName("");
-    setAuthorEmail("");
-    setBody("");
+    setAuthorName('');
+    setAuthorEmail('');
+    setBody('');
     await fetchChallenge();
 
-    if (created.status === "APPROVED") {
-      setStatus("success");
+    if (created.status === 'APPROVED') {
+      setStatus('success');
       setComments((prev) => [...prev, created]);
     } else {
-      setStatus("idle");
+      setStatus('idle');
       setPendingModalOpen(true);
     }
   }
@@ -113,7 +117,12 @@ export function CommentSection({
                 <div className="mb-1.5 flex items-baseline gap-3">
                   <span className="text-sm font-semibold">
                     {c.authorUrl ? (
-                      <a href={c.authorUrl} target="_blank" rel="noopener noreferrer nofollow" className="hover:text-primary">
+                      <a
+                        href={c.authorUrl}
+                        target="_blank"
+                        rel="noopener noreferrer nofollow"
+                        className="hover:text-primary"
+                      >
                         {c.authorName}
                       </a>
                     ) : (
@@ -202,15 +211,15 @@ export function CommentSection({
             </label>
           </div>
 
-          {status === "success" && <p className="text-sm text-primary">{dict.comments.published}</p>}
-          {status === "error" && <p className="text-sm text-destructive">{dict.comments.genericError}</p>}
+          {status === 'success' && <p className="text-sm text-primary">{dict.comments.published}</p>}
+          {status === 'error' && <p className="text-sm text-destructive">{dict.comments.genericError}</p>}
 
           <button
             type="submit"
-            disabled={status === "submitting"}
+            disabled={status === 'submitting'}
             className="w-fit rounded-full bg-primary px-6 py-2.5 text-sm font-semibold text-primary-foreground transition-opacity hover:opacity-90 disabled:opacity-50"
           >
-            {status === "submitting" ? dict.comments.submitting : dict.comments.submit}
+            {status === 'submitting' ? dict.comments.submitting : dict.comments.submit}
           </button>
         </form>
       </div>

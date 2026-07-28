@@ -1,30 +1,28 @@
-import type { Metadata } from "next";
-import { draftMode } from "next/headers";
-import { notFound } from "next/navigation";
-import { getCaseBySlug } from "@/entities/case/api";
-import { getCasePreviewBySlug } from "@/entities/case/admin-api";
-import { getSiteSetting } from "@/entities/site-setting/api";
-import { getPublicFiles } from "@/entities/file/api";
-import { getDictionary } from "@/shared/i18n/dictionary";
-import { buildMetadata } from "@/shared/seo/metadata";
-import { formatDate } from "@/shared/lib/format-date";
-import { MarkdownContent } from "@/shared/ui/markdown-content";
-import { ViewBeacon } from "@/shared/ui/view-beacon";
-import { SiteHeader } from "@/widgets/site-header";
-import { SiteFooter } from "@/widgets/site-footer";
-import { ExitPreviewBanner } from "@/widgets/exit-preview-banner";
-import type { SupportedLocale } from "@/middleware";
+import type { Metadata } from 'next';
+import { draftMode } from 'next/headers';
+import { notFound } from 'next/navigation';
+import { getCaseBySlug } from '@/entities/case/api';
+import { getCasePreviewBySlug } from '@/entities/case/admin-api';
+import { getComments } from '@/entities/comment/api';
+import { getSiteSetting } from '@/entities/site-setting/api';
+import { getPublicFiles } from '@/entities/file/api';
+import { getDictionary } from '@/shared/i18n/dictionary';
+import { buildMetadata } from '@/shared/seo/metadata';
+import { formatDate } from '@/shared/lib/format-date';
+import { MarkdownContent } from '@/shared/ui/markdown-content';
+import { ViewBeacon } from '@/shared/ui/view-beacon';
+import { SiteHeader } from '@/widgets/site-header';
+import { SiteFooter } from '@/widgets/site-footer';
+import { CommentSection } from '@/widgets/comment-section';
+import { ExitPreviewBanner } from '@/widgets/exit-preview-banner';
+import type { SupportedLocale } from '@/middleware';
 
 interface RouteParams {
   locale: string;
   slug: string;
 }
 
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<RouteParams>;
-}): Promise<Metadata> {
+export async function generateMetadata({ params }: { params: Promise<RouteParams> }): Promise<Metadata> {
   const { locale, slug } = (await params) as { locale: SupportedLocale; slug: string };
   const { isEnabled: isPreview } = await draftMode();
   const [kase, siteSetting] = await Promise.all([
@@ -47,17 +45,13 @@ export async function generateMetadata({
   });
 }
 
-export default async function CaseDetailPage({
-  params,
-}: {
-  params: Promise<RouteParams>;
-}) {
+export default async function CaseDetailPage({ params }: { params: Promise<RouteParams> }) {
   const { locale, slug } = (await params) as { locale: SupportedLocale; slug: string };
   const dict = getDictionary(locale);
   const { isEnabled: isPreview } = await draftMode();
   const kase = isPreview ? await getCasePreviewBySlug(slug, locale) : await getCaseBySlug(slug, locale);
   if (!kase) notFound();
-  const files = await getPublicFiles(kase.id);
+  const [comments, files] = await Promise.all([getComments(slug, locale, 'case'), getPublicFiles(kase.id)]);
   const cover = files.find((f) => f.isCover) ?? null;
   const gallery = files.filter((f) => !f.isCover);
 
@@ -109,7 +103,7 @@ export default async function CaseDetailPage({
                     rel="noopener noreferrer"
                     className="rounded-full bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground transition-opacity hover:opacity-90"
                   >
-                    {locale === "ru" ? "Открыть проект →" : "View live →"}
+                    {locale === 'ru' ? 'Открыть проект →' : 'View live →'}
                   </a>
                 )}
                 {kase.repoUrl && (
@@ -119,7 +113,7 @@ export default async function CaseDetailPage({
                     rel="noopener noreferrer"
                     className="rounded-full border border-[var(--brand-border-strong)] px-5 py-2.5 text-sm font-semibold transition-colors hover:bg-accent"
                   >
-                    {locale === "ru" ? "Исходный код →" : "Source code →"}
+                    {locale === 'ru' ? 'Исходный код →' : 'Source code →'}
                   </a>
                 )}
               </div>
@@ -142,6 +136,8 @@ export default async function CaseDetailPage({
             )}
           </div>
         </article>
+
+        <CommentSection slug={slug} targetType="case" locale={locale} dict={dict} initialComments={comments} />
       </main>
       <SiteFooter dict={dict} />
     </div>

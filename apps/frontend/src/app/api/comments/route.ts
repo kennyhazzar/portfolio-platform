@@ -1,6 +1,6 @@
-import { NextResponse, type NextRequest } from "next/server";
+import { NextResponse, type NextRequest } from 'next/server';
 
-const INTERNAL_API_BASE_URL = process.env.INTERNAL_API_BASE_URL ?? "http://localhost:3000";
+const INTERNAL_API_BASE_URL = process.env.INTERNAL_API_BASE_URL ?? 'http://localhost:3000';
 
 /**
  * Proxies comment submission so the browser never talks to the backend directly, and forwards
@@ -9,23 +9,29 @@ const INTERNAL_API_BASE_URL = process.env.INTERNAL_API_BASE_URL ?? "http://local
  */
 export async function POST(request: NextRequest) {
   const body = await request.json().catch(() => null);
-  const { slug, locale, ...commentBody } = body ?? {};
+  const { slug, locale, targetType = 'post', ...commentBody } = body ?? {};
 
-  if (typeof slug !== "string" || !slug || (locale !== "ru" && locale !== "en")) {
-    return NextResponse.json({ error: "Invalid payload" }, { status: 400 });
+  if (
+    typeof slug !== 'string' ||
+    !slug ||
+    (locale !== 'ru' && locale !== 'en') ||
+    (targetType !== 'post' && targetType !== 'case')
+  ) {
+    return NextResponse.json({ error: 'Invalid payload' }, { status: 400 });
   }
 
-  const forwardedFor = request.headers.get("x-forwarded-for") ?? "";
-  const userAgent = request.headers.get("user-agent") ?? "";
+  const forwardedFor = request.headers.get('x-forwarded-for') ?? '';
+  const userAgent = request.headers.get('user-agent') ?? '';
 
+  const resource = targetType === 'case' ? 'cases' : 'posts';
   const upstream = await fetch(
-    `${INTERNAL_API_BASE_URL}/api/v1/posts/${encodeURIComponent(slug)}/comments?locale=${locale}`,
+    `${INTERNAL_API_BASE_URL}/api/v1/${resource}/${encodeURIComponent(slug)}/comments?locale=${locale}`,
     {
-      method: "POST",
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json",
-        ...(forwardedFor && { "x-forwarded-for": forwardedFor }),
-        ...(userAgent && { "user-agent": userAgent }),
+        'Content-Type': 'application/json',
+        ...(forwardedFor && { 'x-forwarded-for': forwardedFor }),
+        ...(userAgent && { 'user-agent': userAgent }),
       },
       body: JSON.stringify(commentBody),
     },

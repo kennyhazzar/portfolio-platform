@@ -1,20 +1,23 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";
-import { updateCommentStatusAction, deleteCommentAction } from "@/entities/comment/actions";
-import { formatDate } from "@/shared/lib/format-date";
-import type { components } from "@/lib/api/generated/schema";
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { updateCommentStatusAction, deleteCommentAction } from '@/entities/comment/actions';
+import { formatDate } from '@/shared/lib/format-date';
+import type { components } from '@/lib/api/generated/schema';
 
-type CommentAdminDto = components["schemas"]["CommentAdminDto"];
-type Status = CommentAdminDto["status"];
+type CommentAdminDto = components['schemas']['CommentAdminDto'];
+type CommentAdminItem = Omit<CommentAdminDto, 'postId'> & { postId?: string; caseId?: string };
+type Status = CommentAdminDto['status'];
 
 export function CommentModerationQueue({
   initial,
   postsById,
+  casesById,
 }: {
-  initial: CommentAdminDto[];
+  initial: CommentAdminItem[];
   postsById: Record<string, { title: string; slug: string }>;
+  casesById: Record<string, { title: string; slug: string }>;
 }) {
   const router = useRouter();
   const [items, setItems] = useState(initial);
@@ -32,7 +35,7 @@ export function CommentModerationQueue({
   }
 
   async function handleDelete(id: string) {
-    if (!confirm("Удалить комментарий без возможности восстановления?")) return;
+    if (!confirm('Удалить комментарий без возможности восстановления?')) return;
     setBusyId(id);
     try {
       setItems((prev) => prev.filter((i) => i.id !== id));
@@ -50,15 +53,29 @@ export function CommentModerationQueue({
   return (
     <div className="flex flex-col gap-3">
       {items.map((comment) => {
-        const post = postsById[comment.postId];
+        const post = comment.postId ? postsById[comment.postId] : null;
+        const kase = comment.caseId ? casesById[comment.caseId] : null;
+        const target = post
+          ? { href: `/ru/posts/${post.slug}`, label: post.title, type: 'Статья' }
+          : kase
+            ? { href: `/ru/cases/${kase.slug}`, label: kase.title, type: 'Кейс' }
+            : null;
         const isBusy = busyId === comment.id;
         return (
-          <div key={comment.id} className={`flex flex-col gap-3 rounded-[10px] border border-border bg-card p-4 ${isBusy ? "opacity-60" : ""}`}>
+          <div
+            key={comment.id}
+            className={`flex flex-col gap-3 rounded-[10px] border border-border bg-card p-4 ${isBusy ? 'opacity-60' : ''}`}
+          >
             <div className="flex flex-wrap items-baseline justify-between gap-2">
               <div className="flex flex-wrap items-baseline gap-2">
                 <span className="text-sm font-semibold">
                   {comment.authorUrl ? (
-                    <a href={comment.authorUrl} target="_blank" rel="noopener noreferrer nofollow" className="hover:text-primary">
+                    <a
+                      href={comment.authorUrl}
+                      target="_blank"
+                      rel="noopener noreferrer nofollow"
+                      className="hover:text-primary"
+                    >
                       {comment.authorName}
                     </a>
                   ) : (
@@ -73,49 +90,49 @@ export function CommentModerationQueue({
                 </span>
               </div>
               <span className="font-mono text-xs text-[var(--brand-text-faint)] tabular-nums">
-                {formatDate(comment.createdAt, "ru")}
+                {formatDate(comment.createdAt, 'ru')}
               </span>
             </div>
 
             <p className="text-sm text-muted-foreground">{comment.body}</p>
 
-            {post && (
+            {target && (
               <a
-                href={`/ru/posts/${post.slug}`}
+                href={target.href}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-fit font-mono text-xs text-primary hover:underline"
               >
-                → {post.title}
+                → {target.type}: {target.label}
               </a>
             )}
 
             <div className="flex flex-wrap gap-2 border-t border-border pt-3">
-              {comment.status !== "APPROVED" && (
+              {comment.status !== 'APPROVED' && (
                 <button
                   type="button"
                   disabled={!!busyId}
-                  onClick={() => handleStatusChange(comment.id, "APPROVED")}
+                  onClick={() => handleStatusChange(comment.id, 'APPROVED')}
                   className="rounded-full bg-primary px-3 py-1 text-xs font-semibold text-primary-foreground disabled:opacity-50"
                 >
-                  {isBusy ? "..." : "Одобрить"}
+                  {isBusy ? '...' : 'Одобрить'}
                 </button>
               )}
-              {comment.status !== "REJECTED" && (
+              {comment.status !== 'REJECTED' && (
                 <button
                   type="button"
                   disabled={!!busyId}
-                  onClick={() => handleStatusChange(comment.id, "REJECTED")}
+                  onClick={() => handleStatusChange(comment.id, 'REJECTED')}
                   className="rounded-full border border-border px-3 py-1 text-xs text-muted-foreground hover:bg-accent disabled:opacity-50"
                 >
                   Отклонить
                 </button>
               )}
-              {comment.status !== "SPAM" && (
+              {comment.status !== 'SPAM' && (
                 <button
                   type="button"
                   disabled={!!busyId}
-                  onClick={() => handleStatusChange(comment.id, "SPAM")}
+                  onClick={() => handleStatusChange(comment.id, 'SPAM')}
                   className="rounded-full border border-border px-3 py-1 text-xs text-muted-foreground hover:bg-accent disabled:opacity-50"
                 >
                   Спам

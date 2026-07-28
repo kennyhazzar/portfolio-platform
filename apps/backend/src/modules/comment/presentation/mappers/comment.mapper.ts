@@ -24,6 +24,7 @@ export class CommentMapper {
       authorEmail: entity.authorEmail,
       status: entity.status,
       postId: entity.postId,
+      caseId: entity.caseId,
     };
   }
 }

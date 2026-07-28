@@ -2,6 +2,7 @@ import { Command } from '@nestjs/cqrs';
 
 import { CommentStatus } from '@/enums/comment-status.enum';
 import { Locale } from '@/interfaces/locale.type';
+import { CommentTargetType } from '../../domain/comment-target.type';
 import { Comment } from '../../domain/entities/comment.entity';
 import { CreateCommentBody } from '../../presentation/dtos/comment.dto';
 
@@ -12,6 +13,7 @@ export interface CommentSubmitMeta {
 
 export class CommentCreateCommand extends Command<Comment> {
   constructor(
+    public readonly targetType: CommentTargetType,
     public readonly locale: Locale,
     public readonly slug: string,
     public readonly payload: CreateCommentBody,

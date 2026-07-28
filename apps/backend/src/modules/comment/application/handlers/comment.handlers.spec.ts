@@ -28,7 +28,7 @@ describe('Comment handlers', () => {
 
   function mockRepository(): jest.Mocked<CommentRepository> {
     return {
-      findApprovedByPostSlug: jest.fn(),
+      findApprovedBySlug: jest.fn(),
       findAllAdmin: jest.fn(),
       findById: jest.fn(),
       createForSlug: jest.fn(),
@@ -51,12 +51,15 @@ describe('Comment handlers', () => {
     const commandBus = mockCommandBus({ success: true, attemptsLeft: 0 });
     const handler = new CommentCreateHandler(repository, commandBus, mockConfigService());
 
-    const result = await handler.execute(new CommentCreateCommand('ru', 'moi-post', payload, { ip: '1.2.3.4' }));
+    const result = await handler.execute(
+      new CommentCreateCommand('post', 'ru', 'moi-post', payload, { ip: '1.2.3.4' }),
+    );
 
     expect(commandBus.execute).toHaveBeenCalledWith(
       expect.objectContaining({ challengeId: 'challenge-id', answer: '1234' }),
     );
     expect(repository.createForSlug).toHaveBeenCalledWith(
+      'post',
       'ru',
       'moi-post',
       payload,
@@ -72,9 +75,10 @@ describe('Comment handlers', () => {
     const commandBus = mockCommandBus({ success: true, attemptsLeft: 0 });
     const handler = new CommentCreateHandler(repository, commandBus, mockConfigService(true));
 
-    await handler.execute(new CommentCreateCommand('ru', 'moi-post', payload, { ip: '1.2.3.4' }));
+    await handler.execute(new CommentCreateCommand('post', 'ru', 'moi-post', payload, { ip: '1.2.3.4' }));
 
     expect(repository.createForSlug).toHaveBeenCalledWith(
+      'post',
       'ru',
       'moi-post',
       payload,
@@ -88,9 +92,9 @@ describe('Comment handlers', () => {
     const commandBus = mockCommandBus({ success: false, attemptsLeft: 1 });
     const handler = new CommentCreateHandler(repository, commandBus, mockConfigService());
 
-    await expect(handler.execute(new CommentCreateCommand('ru', 'moi-post', payload, {}))).rejects.toBeInstanceOf(
-      BadRequestException,
-    );
+    await expect(
+      handler.execute(new CommentCreateCommand('post', 'ru', 'moi-post', payload, {})),
+    ).rejects.toBeInstanceOf(BadRequestException);
     expect(repository.createForSlug).not.toHaveBeenCalled();
   });
 

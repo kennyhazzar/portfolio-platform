@@ -20,10 +20,11 @@ describe('CommentMapper', () => {
     expect(dto.authorName).toBe('Reader');
   });
 
-  it('toAdminDto includes authorEmail, status, and postId for moderation', () => {
+  it('toAdminDto includes authorEmail, status, postId, and caseId for moderation', () => {
     const dto = CommentMapper.toAdminDto(entity);
     expect(dto.authorEmail).toBe('reader@example.com');
     expect(dto.status).toBe(CommentStatus.PENDING);
     expect(dto.postId).toBe('post-id');
+    expect(dto.caseId).toBeUndefined();
   });
 });
