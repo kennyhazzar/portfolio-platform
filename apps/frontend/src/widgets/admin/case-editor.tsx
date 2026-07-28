@@ -1,24 +1,31 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";
-import { TranslationTabs } from "@/shared/ui/translation-tabs";
-import { MarkdownEditor } from "./markdown-editor";
-import { StatusControl } from "./status-control";
-import { createCaseAction, updateCaseAction } from "@/entities/case/actions";
-import { MediaGalleryField } from "./media-gallery-field";
-import type { components } from "@/lib/api/generated/schema";
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { TranslationTabs } from '@/shared/ui/translation-tabs';
+import { MarkdownEditor } from './markdown-editor';
+import { StatusControl } from './status-control';
+import { createCaseAction, updateCaseAction } from '@/entities/case/actions';
+import { MediaGalleryField } from './media-gallery-field';
+import type { components } from '@/lib/api/generated/schema';
 
-type CaseAdminDto = components["schemas"]["CaseAdminDto"];
-type CaseTranslationBody = components["schemas"]["CaseTranslationBody"];
-type TechnologyDto = components["schemas"]["TechnologyDto"];
-type FileDto = components["schemas"]["FileDto"];
-type Status = CaseAdminDto["status"];
+type CaseAdminDto = components['schemas']['CaseAdminDto'];
+type CaseTranslationBody = components['schemas']['CaseTranslationBody'];
+type TechnologyDto = components['schemas']['TechnologyDto'];
+type FileDto = components['schemas']['FileDto'];
+type Status = CaseAdminDto['status'];
 
-const emptyTranslation: CaseTranslationBody = { title: "", slug: "", summary: "", body: "", seoTitle: "", seoDescription: "" };
+const emptyTranslation: CaseTranslationBody = {
+  title: '',
+  slug: '',
+  summary: '',
+  body: '',
+  seoTitle: '',
+  seoDescription: '',
+};
 
 function fieldClass() {
-  return "rounded-[10px] border border-border bg-background px-3.5 py-2.5 text-sm outline-none focus:border-primary";
+  return 'rounded-[10px] border border-border bg-background px-3.5 py-2.5 text-sm outline-none focus:border-primary';
 }
 
 function LocaleFields({
@@ -32,11 +39,23 @@ function LocaleFields({
     <div className="flex flex-col gap-4">
       <label className="flex flex-col gap-1.5">
         <span className="text-xs font-semibold text-muted-foreground">Заголовок</span>
-        <input required value={value.title} onChange={(e) => onChange({ ...value, title: e.target.value })} className={fieldClass()} />
+        <input
+          required
+          maxLength={255}
+          value={value.title}
+          onChange={(e) => onChange({ ...value, title: e.target.value })}
+          className={fieldClass()}
+        />
       </label>
       <label className="flex flex-col gap-1.5">
         <span className="text-xs font-semibold text-muted-foreground">Slug</span>
-        <input required value={value.slug} onChange={(e) => onChange({ ...value, slug: e.target.value })} className={`font-mono ${fieldClass()}`} />
+        <input
+          required
+          maxLength={255}
+          value={value.slug}
+          onChange={(e) => onChange({ ...value, slug: e.target.value })}
+          className={`font-mono ${fieldClass()}`}
+        />
       </label>
       <label className="flex flex-col gap-1.5">
         <span className="text-xs font-semibold text-muted-foreground">Краткое описание</span>
@@ -52,7 +71,8 @@ function LocaleFields({
       <label className="flex flex-col gap-1.5">
         <span className="text-xs font-semibold text-muted-foreground">SEO title</span>
         <input
-          value={value.seoTitle ?? ""}
+          maxLength={255}
+          value={value.seoTitle ?? ''}
           onChange={(e) => onChange({ ...value, seoTitle: e.target.value })}
           className={fieldClass()}
         />
@@ -60,8 +80,9 @@ function LocaleFields({
       <label className="flex flex-col gap-1.5">
         <span className="text-xs font-semibold text-muted-foreground">SEO description</span>
         <textarea
+          maxLength={500}
           rows={2}
-          value={value.seoDescription ?? ""}
+          value={value.seoDescription ?? ''}
           onChange={(e) => onChange({ ...value, seoDescription: e.target.value })}
           className={`resize-none ${fieldClass()}`}
         />
@@ -82,14 +103,14 @@ export function CaseEditor({
   const router = useRouter();
   const isEdit = !!initial;
 
-  const findTranslation = (locale: "ru" | "en") =>
+  const findTranslation = (locale: 'ru' | 'en') =>
     initial?.translations.find((t) => t.locale === locale) ?? emptyTranslation;
 
-  const [ru, setRu] = useState<CaseTranslationBody>(findTranslation("ru"));
-  const [en, setEn] = useState<CaseTranslationBody>(findTranslation("en"));
-  const [status, setStatus] = useState<Status>(initial?.status ?? "DRAFT");
-  const [repoUrl, setRepoUrl] = useState(initial?.repoUrl ?? "");
-  const [liveUrl, setLiveUrl] = useState(initial?.liveUrl ?? "");
+  const [ru, setRu] = useState<CaseTranslationBody>(findTranslation('ru'));
+  const [en, setEn] = useState<CaseTranslationBody>(findTranslation('en'));
+  const [status, setStatus] = useState<Status>(initial?.status ?? 'DRAFT');
+  const [repoUrl, setRepoUrl] = useState(initial?.repoUrl ?? '');
+  const [liveUrl, setLiveUrl] = useState(initial?.liveUrl ?? '');
   const [technologyIds, setTechnologyIds] = useState<string[]>(initial?.technologyIds ?? []);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -98,9 +119,9 @@ export function CaseEditor({
     setTechnologyIds((prev) => (prev.includes(id) ? prev.filter((t) => t !== id) : [...prev, id]));
   }
 
-  function findMissingLocaleFields(): "ru" | "en" | null {
-    if (!ru.title.trim() || !ru.slug.trim() || !ru.summary.trim() || !ru.body.trim()) return "ru";
-    if (!en.title.trim() || !en.slug.trim() || !en.summary.trim() || !en.body.trim()) return "en";
+  function findMissingLocaleFields(): 'ru' | 'en' | null {
+    if (!ru.title.trim() || !ru.slug.trim() || !ru.summary.trim() || !ru.body.trim()) return 'ru';
+    if (!en.title.trim() || !en.slug.trim() || !en.summary.trim() || !en.body.trim()) return 'en';
     return null;
   }
 
@@ -137,8 +158,8 @@ export function CaseEditor({
         router.push(`/admin/cases/${created.id}`);
         return;
       }
-    } catch {
-      setError("Не удалось сохранить кейс.");
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Не удалось сохранить кейс.');
     } finally {
       setSaving(false);
     }
@@ -182,20 +203,28 @@ export function CaseEditor({
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         <label className="flex flex-col gap-1.5">
           <span className="text-xs font-semibold text-muted-foreground">Ссылка на репозиторий</span>
-          <input value={repoUrl} onChange={(e) => setRepoUrl(e.target.value)} className={fieldClass()} />
+          <input
+            maxLength={500}
+            value={repoUrl}
+            onChange={(e) => setRepoUrl(e.target.value)}
+            className={fieldClass()}
+          />
         </label>
         <label className="flex flex-col gap-1.5">
           <span className="text-xs font-semibold text-muted-foreground">Ссылка на продакшн</span>
-          <input value={liveUrl} onChange={(e) => setLiveUrl(e.target.value)} className={fieldClass()} />
+          <input
+            maxLength={500}
+            value={liveUrl}
+            onChange={(e) => setLiveUrl(e.target.value)}
+            className={fieldClass()}
+          />
         </label>
       </div>
 
       <div>
         <span className="mb-2 block text-xs font-semibold text-muted-foreground">Технологии</span>
         {technologies.length === 0 ? (
-          <p className="text-sm text-muted-foreground">
-            Список технологий пуст — добавьте их в разделе «Технологии».
-          </p>
+          <p className="text-sm text-muted-foreground">Список технологий пуст — добавьте их в разделе «Технологии».</p>
         ) : (
           <div className="flex flex-wrap gap-2">
             {technologies.map((tech) => (
@@ -203,8 +232,8 @@ export function CaseEditor({
                 key={tech.id}
                 className={`cursor-pointer rounded-full border px-3 py-1.5 text-xs transition-colors ${
                   technologyIds.includes(tech.id)
-                    ? "border-primary bg-primary/10 text-primary"
-                    : "border-border text-muted-foreground hover:text-foreground"
+                    ? 'border-primary bg-primary/10 text-primary'
+                    : 'border-border text-muted-foreground hover:text-foreground'
                 }`}
               >
                 <input
@@ -220,7 +249,10 @@ export function CaseEditor({
         )}
       </div>
 
-      <TranslationTabs ru={<LocaleFields value={ru} onChange={setRu} />} en={<LocaleFields value={en} onChange={setEn} />} />
+      <TranslationTabs
+        ru={<LocaleFields value={ru} onChange={setRu} />}
+        en={<LocaleFields value={en} onChange={setEn} />}
+      />
 
       {error && <p className="text-sm text-destructive">{error}</p>}
 
@@ -229,7 +261,7 @@ export function CaseEditor({
         disabled={saving}
         className="w-fit rounded-full bg-primary px-6 py-2.5 text-sm font-semibold text-primary-foreground transition-opacity hover:opacity-90 disabled:opacity-50"
       >
-        {saving ? "Сохранение…" : isEdit ? "Сохранить" : "Создать"}
+        {saving ? 'Сохранение…' : isEdit ? 'Сохранить' : 'Создать'}
       </button>
     </form>
   );

@@ -1,6 +1,17 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
-import { IsArray, IsEnum, IsIn, IsInt, IsOptional, IsString, IsUUID, Min, ValidateNested } from 'class-validator';
+import {
+  IsArray,
+  IsEnum,
+  IsIn,
+  IsInt,
+  IsOptional,
+  IsString,
+  IsUUID,
+  MaxLength,
+  Min,
+  ValidateNested,
+} from 'class-validator';
 
 import { ContentStatus } from '@/enums/content-status.enum';
 import { TechnologyCategory } from '@/enums/technology-category.enum';
@@ -127,13 +138,19 @@ export class CaseAdminDto {
 
 export class CasesAdminDto extends Paginated(CaseAdminDto) {}
 
+const CASE_SHORT_TEXT_MAX_LENGTH = 255;
+const CASE_URL_MAX_LENGTH = 500;
+const CASE_SEO_DESCRIPTION_MAX_LENGTH = 500;
+
 export class CaseTranslationBody {
-  @ApiProperty()
+  @ApiProperty({ maxLength: CASE_SHORT_TEXT_MAX_LENGTH })
   @IsString()
+  @MaxLength(CASE_SHORT_TEXT_MAX_LENGTH)
   title!: string;
 
-  @ApiProperty()
+  @ApiProperty({ maxLength: CASE_SHORT_TEXT_MAX_LENGTH })
   @IsString()
+  @MaxLength(CASE_SHORT_TEXT_MAX_LENGTH)
   slug!: string;
 
   @ApiProperty()
@@ -144,26 +161,30 @@ export class CaseTranslationBody {
   @IsString()
   body!: string;
 
-  @ApiPropertyOptional()
+  @ApiPropertyOptional({ maxLength: CASE_SHORT_TEXT_MAX_LENGTH })
   @IsOptional()
   @IsString()
+  @MaxLength(CASE_SHORT_TEXT_MAX_LENGTH)
   seoTitle?: string;
 
-  @ApiPropertyOptional()
+  @ApiPropertyOptional({ maxLength: CASE_SEO_DESCRIPTION_MAX_LENGTH })
   @IsOptional()
   @IsString()
+  @MaxLength(CASE_SEO_DESCRIPTION_MAX_LENGTH)
   seoDescription?: string;
 }
 
 export class CreateCaseBody {
-  @ApiPropertyOptional()
+  @ApiPropertyOptional({ maxLength: CASE_URL_MAX_LENGTH })
   @IsOptional()
   @IsString()
+  @MaxLength(CASE_URL_MAX_LENGTH)
   repoUrl?: string;
 
-  @ApiPropertyOptional()
+  @ApiPropertyOptional({ maxLength: CASE_URL_MAX_LENGTH })
   @IsOptional()
   @IsString()
+  @MaxLength(CASE_URL_MAX_LENGTH)
   liveUrl?: string;
 
   @ApiPropertyOptional({ minimum: 0 })
@@ -195,14 +216,16 @@ export class UpdateCaseBody {
   @IsEnum(ContentStatus)
   status?: ContentStatus;
 
-  @ApiPropertyOptional()
+  @ApiPropertyOptional({ maxLength: CASE_URL_MAX_LENGTH })
   @IsOptional()
   @IsString()
+  @MaxLength(CASE_URL_MAX_LENGTH)
   repoUrl?: string;
 
-  @ApiPropertyOptional()
+  @ApiPropertyOptional({ maxLength: CASE_URL_MAX_LENGTH })
   @IsOptional()
   @IsString()
+  @MaxLength(CASE_URL_MAX_LENGTH)
   liveUrl?: string;
 
   @ApiPropertyOptional({ type: [String] })
