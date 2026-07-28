@@ -1,4 +1,4 @@
-name: nest-rest-backend-template-caddy
+name: nest-rest-backend-template
 
 networks:
   backend:
