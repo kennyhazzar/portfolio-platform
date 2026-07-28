@@ -42,7 +42,7 @@ function contactHref(platform: string, value: string): string {
 
 export function ContactsSection({ contacts, dict }: { contacts: ContactItem[]; dict: Dictionary }) {
   return (
-    <section className="py-16">
+    <section id="contacts" className="scroll-mt-24 py-16">
       <div className="mx-auto max-w-[1120px] px-7">
         <h2 className="mb-7 font-heading text-2xl font-bold tracking-tight">{dict.contacts.title}</h2>
         {contacts.length === 0 ? (

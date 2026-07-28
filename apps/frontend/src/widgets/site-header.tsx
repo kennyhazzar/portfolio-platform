@@ -10,6 +10,8 @@ import type { SupportedLocale } from "@/middleware";
 
 /** Site brand shown here is admin-managed: avatar from Hero's photo, label from Site Settings' brandName (falls back to title). */
 function localizeNavigationUrl(url: string, locale: SupportedLocale) {
+  if (url.startsWith("#")) return `/${locale}${url}`;
+  if (url.startsWith("/#")) return `/${locale}${url.slice(1)}`;
   if (!url.startsWith("/")) return url;
   if (url === "/") return `/${locale}`;
   if (url.startsWith("/ru/") || url === "/ru" || url.startsWith("/en/") || url === "/en") return url;
